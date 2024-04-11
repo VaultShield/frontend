@@ -1,6 +1,5 @@
-import React from 'react';
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
-import InputBase from './InputBase';
+import InputBase from '../InputBase';
 
 const Signup = () => {
   return (
