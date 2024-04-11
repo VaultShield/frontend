@@ -1,17 +1,18 @@
 import api from './api';
 import ws from 'utils/warningSelf';
 
-interface User {
+export interface User {
   id?: number;
   username: string;
-  name?: string;
   last_name?: string;
+  name?: string;
   email: string;
-  active?: boolean;
-  master_pass_id?: string;
+  password: string;
+  keyword?: string;
+  organization?: string;
 }
 
-const register = async (credentials: User[]) => {
+const register = async (credentials: User) => {
   try {
     const response = await api.post('/api/register', credentials);
     return response.data;
