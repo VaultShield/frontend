@@ -3,7 +3,7 @@ import ws from 'utils/warningSelf';
 
 export interface User {
   id?: number;
-  username: string;
+  username?: string;
   last_name?: string;
   name?: string;
   email: string;
@@ -18,7 +18,7 @@ const register = async (credentials: User) => {
     return response.data;
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.log(
+      console.info(
         `%cError: ${ws.faceScreaming} %c${err}`,
         ws.style1,
         ws.style2
@@ -34,7 +34,7 @@ const login = async (credentials: User[]) => {
     return response.data;
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.log(
+      console.info(
         `%cError: ${ws.faceScreaming} %c${err}`,
         ws.style1,
         ws.style2
