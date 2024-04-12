@@ -3,13 +3,19 @@ import { useTheme } from 'hooks/useTheme';
 
 const Welcome = () => {
   const { theme } = useTheme();
-  const svgSettings = document.getElementById('svg-settings');
 
-  if (theme) {
-    svgSettings?.classList.add('text-white');
-  } else {
-    svgSettings?.classList.add('text-black');
-  }
+  /**
+   * Change color svg
+   */
+  const svgSettings = document.querySelectorAll('.fill-current');
+  svgSettings.forEach(function (element) {
+    if (theme) {
+      element?.classList.add('text-white');
+    } else {
+      element?.classList.add('text-black');
+    }
+  });
+
   return (
     <div
       className="w-full h-[90%] border rounded-md my-4 mx-6 shadow-xl dark:bg-zinc-900 
@@ -28,7 +34,6 @@ const Welcome = () => {
               to="/settings"
             >
               <svg
-                id="svg-settings"
                 height="20px"
                 width="20px"
                 viewBox="0 0 24 24"
