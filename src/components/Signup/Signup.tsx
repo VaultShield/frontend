@@ -1,4 +1,6 @@
 import { useContext, useState, MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
+
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
@@ -74,7 +76,12 @@ const Signup = () => {
         {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
         <div>
           <span>Already have an account?</span>
-          <span className="ml-2">sign in</span>
+          <Link
+            className="ml-2 hover:underline hover:text-cinder-500"
+            to="/Login"
+          >
+            Login
+          </Link>
         </div>
       </div>
     </div>
