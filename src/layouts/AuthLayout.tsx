@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import 'layouts/authLayout.css';
+
 
 const AuthLayout = () => {
   return (
-    <div className="authLayout">
+    <div className="flex justify-center items-center h-full">
+
       <Outlet />
     </div>
   );

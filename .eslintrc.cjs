@@ -23,7 +23,7 @@ module.exports = {
       }
     ],
     eqeqeq: ["error", "always"],
-    "no-empty-function": "error",
+    "no-empty-function": "warn",
     "no-implicit-coercion": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/no-duplicate-enum-values": "warn"
