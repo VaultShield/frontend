@@ -1,10 +1,8 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
-import style from 'layouts/authLayout.module.css';
 
 const AuthLayout = () => {
   return (
-    <div className={style.authLayout}>
+    <div className="flex justify-center items-center h-full">
       <Outlet />
     </div>
   );
