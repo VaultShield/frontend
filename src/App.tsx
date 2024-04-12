@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Signup from 'components/Signup';
-import AuthLayout from 'layouts/AuthLayout';
+import HomeLayout from 'layouts/HomeLayout';
 import { useEffect } from 'react';
 import { Login } from 'components/login';
+import { Home } from 'pages/Home';
 
 const App = () => {
   /**
@@ -26,10 +27,13 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<AuthLayout />}>
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<Home />} />
+        </Route>
+        <Route path="/signup" element={<HomeLayout />}>
           <Route index element={<Signup />} />
         </Route>
-        <Route path="/login" element={<AuthLayout />}>
+        <Route path="/login" element={<HomeLayout />}>
           <Route index element={<Login />} />
         </Route>
       </Routes>
