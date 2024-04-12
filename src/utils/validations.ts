@@ -14,7 +14,7 @@ export const validateEmail = (email: string, required = true): string => {
     return 'Please enter an email address';
   }
 
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
   if (!emailRegex.test(email)) {
     return 'Please enter a valid email address';
   }

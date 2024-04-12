@@ -1,16 +1,14 @@
-
-
 import { useContext, useState, MouseEventHandler } from 'react';
-import bcrypt from 'bcryptjs';
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
-import {
-  validateEmail,
-  validatePassword,
-  validateForm
-} from 'utils/validations';
+import { validateForm } from 'utils/validations';
 
+interface ErrorsForm {
+  email?: string;
+  password?: string;
+  error?: string;
+}
 
 const Signup = () => {
   //context
@@ -19,7 +17,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   //validation error;
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<ErrorsForm>({});
 
   const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
     event
@@ -27,23 +25,22 @@ const Signup = () => {
     try {
       event.preventDefault();
 
-      const errorsForm = validateForm([
+      const errorsForm: ErrorsForm = validateForm([
         { name: 'email', value: email, required: true },
         { name: 'password', value: password, required: true, minLength: 8 }
       ]);
 
-      setErrors((errors) => errorsForm);
+      setErrors(errorsForm);
 
-      if (Object.keys(errorsForm).length === 0) {
-        const passwordHash = bcrypt.hashSync(password, 10);
+      if (!errorsForm.email && !errorsForm.password) {
         const newUser = {
           email,
-          password: passwordHash
+          password
         };
         await addUser(newUser);
       }
-    } catch (e) {
-      setErrors('An error occurred');
+    } catch (err) {
+      if (err instanceof Error) setErrors({ error: err.message });
     }
   };
 
@@ -74,6 +71,7 @@ const Signup = () => {
         <button className={btnDefault} onClick={handleRegister}>
           Create Account
         </button>
+        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
         <div>
           <span>Already have an account?</span>
           <span className="ml-2">sign in</span>

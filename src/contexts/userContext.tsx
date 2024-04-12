@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext, Dispatch } from 'react';
+import React, { createContext, useReducer, Dispatch } from 'react';
 import userService, { User } from 'services/userApi';
 
 // Interfaces
@@ -44,12 +44,16 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
 
   // add user
   const addUser = async (newUser: User): Promise<void> => {
-    try {
-      await userService.register(newUser);
+    const response = await userService.register(newUser);
+    const statusCode = response.status;
+    //check status
+    if (statusCode === 201) {
       userDispatch({ type: 'ADD_USER', user: newUser });
-    } catch (error) {
-      // Handle error
+    } else {
+      throw new Error(`Registration error. Status Code: ${statusCode}`);
     }
+
+    return Promise.resolve();
   };
 
   const contextValue: UserContextType = {
@@ -66,10 +70,5 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
     </UserContext.Provider>
   );
 }; //UserContextProvider
-
-export const useUser = (): User | null => {
-  const { userState } = useContext(UserContext);
-  return userState.user;
-};
 
 export default UserContext;

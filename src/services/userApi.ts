@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs';
+
 import api from './api';
 import ws from 'utils/warningSelf';
 
@@ -12,19 +14,20 @@ export interface User {
   organization?: string;
 }
 
-const register = async (credentials: User) => {
+const register = async (payload: User) => {
   try {
-    const response = await api.post('/api/register', credentials);
-    return response.data;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.info(
-        `%cError: ${ws.faceScreaming} %c${err}`,
-        ws.style1,
-        ws.style2
-      );
-      throw new Error(err.message);
-    }
+    //encrypt password
+    const passwordHash = bcrypt.hashSync(payload.password, 10);
+    //create a new user with password hashed
+    const newUser = {
+      email: payload.email,
+      password: passwordHash
+    };
+    const response = await api.post('/api/register', newUser);
+    return response;
+  } catch (err) {
+    console.info(`%cError: ${ws.faceScreaming} %c${err}`, ws.style1, ws.style2);
+    throw new Error('Registration failed');
   }
 };
 
