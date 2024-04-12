@@ -3,6 +3,7 @@ import './App.css';
 import Signup from 'components/Signup';
 import AuthLayout from 'layouts/AuthLayout';
 import { useEffect } from 'react';
+import { Login } from 'components/login';
 
 const App = () => {
   /**
@@ -27,6 +28,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AuthLayout />}>
           <Route index element={<Signup />} />
+        </Route>
+        <Route path="/login" element={<AuthLayout />}>
+          <Route index element={<Login />} />
         </Route>
       </Routes>
     </>

@@ -1,3 +1,5 @@
+
+
 import { useContext, useState, MouseEventHandler } from 'react';
 import bcrypt from 'bcryptjs';
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
@@ -8,6 +10,7 @@ import {
   validatePassword,
   validateForm
 } from 'utils/validations';
+
 
 const Signup = () => {
   //context
