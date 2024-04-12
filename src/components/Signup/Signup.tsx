@@ -77,7 +77,7 @@ const Signup = () => {
         <div>
           <span>Already have an account?</span>
           <Link
-            className="ml-2 hover:underline hover:text-cinder-500"
+            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
             to="/Login"
           >
             Login
