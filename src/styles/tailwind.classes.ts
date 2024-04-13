@@ -31,3 +31,5 @@ self-center rounded-lg text-center bg-cinder-500 w-36 hover:bg-cinder-600 my-4 p
 export const dashboardMainCard = `w-full h-[90%] border rounded-md my-4 mx-6 shadow-xl dark:bg-zinc-900 
 dark:border-zinc-800 
 dark:text-white`;
+
+export const badgeMenuDashboard = ` border my-4 rounded-md  dark:bg-zinc-700 bg-cinder-100 border-cinder-400 dark:border-zinc-800`;

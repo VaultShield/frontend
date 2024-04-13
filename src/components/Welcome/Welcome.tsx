@@ -5,7 +5,8 @@ import { SvgGear } from 'assets/SvgGear';
 import { SvgExit } from 'assets/SvgExit';
 import { ThemeContext } from 'contexts/themeContext';
 import ButtonSwitch from 'components/ButtonSwitch';
-import { dashboardMainCard } from 'styles/tailwind.classes';
+import Table from 'components/Table';
+import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
 
 const Welcome = () => {
   const { theme } = useTheme();
@@ -45,11 +46,9 @@ const Welcome = () => {
     <div className={dashboardMainCard}>
       <div className="grid sm:grid-cols-5 h-full grid-cols-1">
         <div className="sm:col-span-1 h-full sm:flex flex-col justify-around items-center px-2  hidden   ">
-          <div className=" border my-4 rounded-md  dark:bg-zinc-700 bg-cinder-100 border-cinder-400 dark:border-zinc-800 w-full ">
-            Vault Shield
-          </div>
-          <div className=" border rounded-md bg-cinder-100 border-cinder-400 dark:bg-zinc-700 dark:border-zinc-800 w-full h-full "></div>
-          <div className=" border my-4 rounded-md bg-cinder-100 border-cinder-400 dark:bg-zinc-700 dark:border-zinc-800 w-full  ">
+          <div className={`${badgeMenuDashboard} w-full`}>Vault Shield</div>
+          <div className={`${badgeMenuDashboard} h-full w-full`}></div>
+          <div className={`${badgeMenuDashboard} w-full`}>
             <Link
               className="flex justify-start items-center my-1 pl-4"
               to="/settings"
@@ -69,8 +68,13 @@ const Welcome = () => {
         </div>
 
         <div className="col-span-4 flex flex-col">
-          <div className="flex justify-end mr-4 my-4">
+          <div className="flex justify-end mr-2 my-4">
             <ButtonSwitch handleClick={changeTheme} />
+          </div>
+          <div
+            className={`${badgeMenuDashboard} flex justify-center h-full mr-2`}
+          >
+            <Table />
           </div>
         </div>
       </div>
