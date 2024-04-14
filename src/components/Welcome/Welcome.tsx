@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from 'hooks/useTheme';
-import { SvgGear } from 'assets/SvgGear';
-import { SvgExit } from 'assets/SvgExit';
+import { SvgGear } from 'components/svg/SvgGear';
+import { SvgExit } from 'components/svg/SvgExit';
 import { ThemeContext } from 'contexts/themeContext';
 import ButtonSwitch from 'components/ButtonSwitch';
 import Table from 'components/Table';

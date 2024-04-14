@@ -2,11 +2,12 @@ import { Route, Routes } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 
-import AuthLayout from 'layouts/AuthLayout';
 import DashboardLayout from 'layouts/DashboardLayout';
+import HomeLayout from 'layouts/HomeLayout';
 
 import Home from 'pages/Home';
 import Dashboard from 'pages/Dashboard';
+
 import { Login } from 'components/login';
 import Signup from 'components/Signup';
 import { ThemeContext } from 'contexts/themeContext';
@@ -15,7 +16,7 @@ const App = () => {
   const { updateTheme } = useContext(ThemeContext);
   //temporary use, for development purposes only
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLogged, _setIsLogged] = useState(false);
+  const [isLogged, _setIsLogged] = useState(true);
 
   /**
    *Check the user's color theme preferences.
@@ -51,7 +52,7 @@ const App = () => {
   } else {
     routes = null;
     routes = (
-      <Route path="/" element={<AuthLayout />}>
+      <Route path="/" element={<HomeLayout />}>
         <Route index element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { SvgDarkIcon } from 'assets/SvgDarkIcon';
-import { SvgLightIcon } from 'assets/SvgLightIcon';
+import { SvgDarkIcon } from 'components/svg/SvgDarkIcon';
+import { SvgLightIcon } from 'components/svg/SvgLightIcon';
 
 import { useTheme } from 'hooks/useTheme';
 const ButtonSwitch = ({ handleClick }) => {

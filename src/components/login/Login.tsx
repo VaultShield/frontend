@@ -20,6 +20,7 @@ export function Login() {
     password: ''
   });
   const { loginUser } = useContext(UserContext);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [errors, setErrors] = useState<ErrorsForm>({});
   /*
   const sendData = (infoUser: InfoUser) => {
@@ -92,7 +93,7 @@ export function Login() {
           Login
         </button>
         <div>
-          <span>You don't have an account??</span>
+          <span>You don't have an account?</span>
 
           <Link
             className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"

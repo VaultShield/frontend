@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-const AuthLayout = () => {
+const HomeLayout = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <Outlet />
@@ -8,4 +8,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default HomeLayout;
