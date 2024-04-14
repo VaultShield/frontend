@@ -9,6 +9,7 @@ import { validateForm } from 'utils/validations';
 interface ErrorsForm {
   email?: string;
   password?: string;
+  username?: string;
   error?: string;
 }
 
@@ -18,6 +19,7 @@ const Signup = () => {
   //user variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   //validation error;
   const [errors, setErrors] = useState<ErrorsForm>({});
 
@@ -29,15 +31,17 @@ const Signup = () => {
 
       const errorsForm: ErrorsForm = validateForm([
         { name: 'email', value: email, required: true },
-        { name: 'password', value: password, required: true, minLength: 8 }
+        { name: 'password', value: password, required: true, minLength: 8 },
+        { name: 'username', value: username, required: true }
       ]);
 
       setErrors(errorsForm);
 
-      if (!errorsForm.email && !errorsForm.password) {
+      if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
         const newUser = {
           email,
-          password
+          password,
+          username
         };
         await addUser(newUser);
       }
@@ -55,6 +59,14 @@ const Signup = () => {
           </h2>
           <p className="dark:text-gray-100"> one account for everything!</p>
         </div>
+        <InputBase
+          label="Username"
+          type="text"
+          placeholder="what do you want to call yourself?"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></InputBase>
+        {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
         <InputBase
           label="Email"
           type="email"

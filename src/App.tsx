@@ -16,7 +16,7 @@ const App = () => {
   const { updateTheme } = useContext(ThemeContext);
   //temporary use, for development purposes only
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLogged, _setIsLogged] = useState(true);
+  const [isLogged, _setIsLogged] = useState(false);
 
   /**
    *Check the user's color theme preferences.

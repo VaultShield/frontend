@@ -38,6 +38,12 @@ export const validatePassword = (
   return '';
 };
 
+export const validateUsername = (username: string, required = true): string => {
+  if (required && !username) {
+    return 'Please enter a username';
+  }
+};
+
 export const validateForm = (fields: Field[]): Errors => {
   const errors: Errors = {};
 
@@ -50,6 +56,10 @@ export const validateForm = (fields: Field[]): Errors => {
 
     if (name === 'password') {
       errors.password = validatePassword(value, required, minLength);
+    }
+
+    if (name === 'username') {
+      errors.username = validateUsername(value, required);
     }
   }
 
