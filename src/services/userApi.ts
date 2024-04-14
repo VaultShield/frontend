@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 
 import api from './api';
 import ws from 'utils/warningSelf';
@@ -16,8 +16,9 @@ export interface User {
 
 const register = async (payload: User) => {
   try {
-    const hashedPassword = await bcrypt.hash(payload.password, 10);
-    const response = await api.post('/api/register', {
+    //const hashedPassword = await bcrypt.hash(payload.password, 10);
+    const hashedPassword = CryptoJS.SHA256(payload.password).toString();
+    const response = await api.post('/api/auth/register', {
       ...payload,
       password: hashedPassword
     });
@@ -30,8 +31,8 @@ const register = async (payload: User) => {
 
 const login = async (credentials: User) => {
   try {
-    const hashedPassword = await bcrypt.hash(credentials.password, 10);
-    const response = await api.post('/api/login', {
+    const hashedPassword = CryptoJS.SHA256(credentials.password).toString();
+    const response = await api.post('/api/auth/login', {
       ...credentials,
       password: hashedPassword
     });
