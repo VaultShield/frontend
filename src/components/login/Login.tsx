@@ -1,6 +1,14 @@
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
 import InputBase from '../InputBase';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from 'contexts/userContext';
+import { validateForm } from 'utils/validations';
+import { Link } from 'react-router-dom';
+interface ErrorsForm {
+  email?: string;
+  password?: string;
+  error?: string;
+}
 
 export function Login() {
   type InfoUser = {
@@ -11,7 +19,9 @@ export function Login() {
     email: '',
     password: ''
   });
-
+  const { loginUser } = useContext(UserContext);
+  const [errors, setErrors] = useState<ErrorsForm>({});
+  /*
   const sendData = (infoUser: InfoUser) => {
     console.log(infoUser);
     fetch('url', {
@@ -26,7 +36,28 @@ export function Login() {
         const value = JSON.parse(data);
         console.log(value);
       });
+  };*/
+  const sendData = async (infoUser: InfoUser) => {
+    try {
+      const errorsForm: ErrorsForm = validateForm([
+        { name: 'email', value: infoUser.email, required: true },
+        {
+          name: 'password',
+          value: infoUser.password,
+          required: true,
+          minLength: 8
+        }
+      ]);
+
+      setErrors(errorsForm);
+      if (!errorsForm.email && !errorsForm.password) {
+        await loginUser(infoUser);
+      }
+    } catch (err) {
+      if (err instanceof Error) setErrors({ error: err.message });
+    }
   };
+
   return (
     <div className={card}>
       <form className={insideCard}>
@@ -62,7 +93,13 @@ export function Login() {
         </button>
         <div>
           <span>You don't have an account??</span>
-          <a className="ml-2 cursor-pointer hover:underline">Sign up</a>
+
+          <Link
+            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
+            to="/signup"
+          >
+            signup
+          </Link>
         </div>
       </form>
     </div>
