@@ -14,7 +14,7 @@ export const validateEmail = (email: string, required = true): string => {
     return 'Please enter an email address';
   }
 
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const emailRegex = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/;
   if (!emailRegex.test(email)) {
     return 'Please enter a valid email address';
   }
@@ -38,6 +38,12 @@ export const validatePassword = (
   return '';
 };
 
+export const validateUsername = (username: string, required = true): string => {
+  if (required && !username) {
+    return 'Please enter a username';
+  }
+};
+
 export const validateForm = (fields: Field[]): Errors => {
   const errors: Errors = {};
 
@@ -50,6 +56,10 @@ export const validateForm = (fields: Field[]): Errors => {
 
     if (name === 'password') {
       errors.password = validatePassword(value, required, minLength);
+    }
+
+    if (name === 'username') {
+      errors.username = validateUsername(value, required);
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext, Dispatch } from 'react';
+import React, { createContext, useReducer, Dispatch } from 'react';
 import userService, { User } from 'services/userApi';
 
 // Interfaces
@@ -15,6 +15,7 @@ interface UserContextType {
   userState: UserState;
   userDispatch: Dispatch<UserAction>;
   addUser: (newUser: User) => Promise<void>;
+  loginUser: (credentials: User) => Promise<void>;
 }
 
 //initial state
@@ -28,13 +29,14 @@ const userReducer = (state: UserState, action: UserAction) => {
       return { ...state, user: action.user };
     default:
       return state;
-  } //swtich
-}; //useReducer
+  }
+};
 
 export const UserContext = createContext<UserContextType>({
   userState: initialUserState,
   userDispatch: () => {},
-  addUser: async () => {}
+  addUser: async () => {},
+  loginUser: async () => {}
 });
 
 export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
@@ -44,20 +46,35 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
 
   // add user
   const addUser = async (newUser: User): Promise<void> => {
-    try {
-      await userService.register(newUser);
+    const response = await userService.register(newUser);
+    const statusCode = response.status;
+    if (statusCode === 201) {
       userDispatch({ type: 'ADD_USER', user: newUser });
-    } catch (error) {
-      // Handle error
+    } else {
+      throw new Error(`Registration error. Status Code: ${statusCode}`);
+    }
+
+    return Promise.resolve();
+  };
+
+  const loginUser = async (credentials: User): Promise<void> => {
+    const response = await userService.login(credentials);
+    const statusCode = response.status;
+    if (statusCode === 200) {
+      const data = response.data as { token: string };
+      const token = data.token;
+
+      localStorage.setItem('token', token);
+    } else {
+      throw new Error(`Login error. Status code: ${statusCode}`);
     }
   };
 
   const contextValue: UserContextType = {
     userState,
     userDispatch,
-    addUser
-    //clearUser,
-    //loginUser
+    addUser,
+    loginUser
   };
 
   return (
@@ -66,10 +83,5 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
     </UserContext.Provider>
   );
 }; //UserContextProvider
-
-export const useUser = (): User | null => {
-  const { userState } = useContext(UserContext);
-  return userState.user;
-};
 
 export default UserContext;
