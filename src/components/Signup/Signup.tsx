@@ -1,16 +1,17 @@
-
-
 import { useContext, useState, MouseEventHandler } from 'react';
-import bcrypt from 'bcryptjs';
+import { Link } from 'react-router-dom';
+
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
-import {
-  validateEmail,
-  validatePassword,
-  validateForm
-} from 'utils/validations';
+import { validateForm } from 'utils/validations';
 
+interface ErrorsForm {
+  email?: string;
+  password?: string;
+  username?: string;
+  error?: string;
+}
 
 const Signup = () => {
   //context
@@ -18,8 +19,9 @@ const Signup = () => {
   //user variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   //validation error;
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<ErrorsForm>({});
 
   const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
     event
@@ -27,23 +29,24 @@ const Signup = () => {
     try {
       event.preventDefault();
 
-      const errorsForm = validateForm([
+      const errorsForm: ErrorsForm = validateForm([
         { name: 'email', value: email, required: true },
-        { name: 'password', value: password, required: true, minLength: 8 }
+        { name: 'password', value: password, required: true, minLength: 8 },
+        { name: 'username', value: username, required: true }
       ]);
 
-      setErrors((errors) => errorsForm);
+      setErrors(errorsForm);
 
-      if (Object.keys(errorsForm).length === 0) {
-        const passwordHash = bcrypt.hashSync(password, 10);
+      if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
         const newUser = {
           email,
-          password: passwordHash
+          password,
+          username
         };
         await addUser(newUser);
       }
-    } catch (e) {
-      setErrors('An error occurred');
+    } catch (err) {
+      if (err instanceof Error) setErrors({ error: err.message });
     }
   };
 
@@ -56,6 +59,14 @@ const Signup = () => {
           </h2>
           <p className="dark:text-gray-100"> one account for everything!</p>
         </div>
+        <InputBase
+          label="Username"
+          type="text"
+          placeholder="what do you want to call yourself?"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></InputBase>
+        {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
         <InputBase
           label="Email"
           type="email"
@@ -74,9 +85,15 @@ const Signup = () => {
         <button className={btnDefault} onClick={handleRegister}>
           Create Account
         </button>
+        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
         <div>
           <span>Already have an account?</span>
-          <span className="ml-2">sign in</span>
+          <Link
+            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
+            to="/Login"
+          >
+            Login
+          </Link>
         </div>
       </div>
     </div>
