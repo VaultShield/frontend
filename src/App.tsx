@@ -10,6 +10,7 @@ import Dashboard from 'pages/Dashboard';
 
 import { Login } from 'components/login';
 import Signup from 'components/Signup';
+import Notification from 'components/Notification';
 import { ThemeContext } from 'contexts/themeContext';
 import { UserContext } from 'contexts/userContext';
 import { useUser } from 'hooks/useUser';
@@ -80,6 +81,7 @@ const App = () => {
 
   return (
     <>
+      <Notification />
       <Routes>{routes}</Routes>
     </>
   );

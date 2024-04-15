@@ -56,9 +56,6 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
 
     const statusCode = response.status;
     if (statusCode === 201) {
-      //userDispatch({ type: 'ADD_USER', user: newUser });// use when call to user api/user
-      //const token = response.data.token;// if the backend send api , use this
-      //localStorage.setItem('token', token);
       window.history.replaceState({}, document.title, '/login');
       window.location.reload();
     } else {

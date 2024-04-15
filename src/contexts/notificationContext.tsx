@@ -9,14 +9,14 @@ import {
 interface NotificationState {
   message?: string;
   duration?: number; //default 5 seconds
-  variant?: string; // error, info... etc.
+  variant?: 'danger' | 'info' | 'success' | 'warning'; // error, info... etc.
 }
 
 interface NotificationAction {
   type: 'SET_MESSAGE';
   message: string;
   duration: number;
-  variant: string;
+  variant: 'danger' | 'info' | 'success' | 'warning';
 }
 
 interface NotificationContextType {
@@ -36,7 +36,12 @@ const notificationReduce = (
 ) => {
   switch (action.type) {
     case 'SET_MESSAGE':
-      return { ...state, message: action.message };
+      return {
+        ...state,
+        message: action.message,
+        duration: action.duration,
+        variant: action.variant
+      };
     default:
       return state;
   }
