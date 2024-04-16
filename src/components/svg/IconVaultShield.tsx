@@ -6,7 +6,7 @@ export function IconVaultShield() {
       height="48"
       fill="none"
       viewBox="0 0 221 48"
-      className="fill-violet-100 w-32"
+      className="fill-cinder-50 w-32"
     >
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%" />
