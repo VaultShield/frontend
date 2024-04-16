@@ -10,13 +10,24 @@ import Dashboard from 'pages/Dashboard';
 
 import { Login } from 'components/login';
 import Signup from 'components/Signup';
+import Notification from 'components/Notification';
 import { ThemeContext } from 'contexts/themeContext';
+import { UserContext } from 'contexts/userContext';
+import { useUser } from 'hooks/useUser';
 
 const App = () => {
   const { updateTheme } = useContext(ThemeContext);
-  //temporary use, for development purposes only
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLogged, _setIsLogged] = useState(false);
+  const { logged } = useContext(UserContext);
+  const { isLogged } = useUser();
+  const [isLoading, setIsLoading] = useState(true);
+  const token = localStorage.getItem('token'); //check token in localStorage
+
+  useEffect(() => {
+    console.log(isLogged);
+    if (isLogged !== undefined) {
+      setIsLoading(false);
+    }
+  }, [isLogged]);
 
   /**
    *Check the user's color theme preferences.
@@ -41,6 +52,14 @@ const App = () => {
     asignTheme();
   }, []);
 
+  if (token) {
+    logged();
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   let routes;
   if (isLogged) {
     routes = null;
@@ -62,6 +81,7 @@ const App = () => {
 
   return (
     <>
+      <Notification />
       <Routes>{routes}</Routes>
     </>
   );

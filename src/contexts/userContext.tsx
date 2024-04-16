@@ -4,10 +4,11 @@ import userService, { User } from 'services/userApi';
 // Interfaces
 interface UserState {
   user: User | null;
+  isLogged: boolean;
 }
 
 interface UserAction {
-  type: 'ADD_USER';
+  type: 'ADD_USER' | 'LOGGED';
   user: User;
 }
 
@@ -16,17 +17,21 @@ interface UserContextType {
   userDispatch: Dispatch<UserAction>;
   addUser: (newUser: User) => Promise<void>;
   loginUser: (credentials: User) => Promise<void>;
+  logged: () => void;
 }
 
 //initial state
 const initialUserState = {
-  user: null
+  user: null,
+  isLogged: false
 };
 
 const userReducer = (state: UserState, action: UserAction) => {
   switch (action.type) {
     case 'ADD_USER':
       return { ...state, user: action.user };
+    case 'LOGGED':
+      return { ...state, isLogged: true };
     default:
       return state;
   }
@@ -36,7 +41,8 @@ export const UserContext = createContext<UserContextType>({
   userState: initialUserState,
   userDispatch: () => {},
   addUser: async () => {},
-  loginUser: async () => {}
+  loginUser: async () => {},
+  logged: () => {}
 });
 
 export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
@@ -47,9 +53,11 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
   // add user
   const addUser = async (newUser: User): Promise<void> => {
     const response = await userService.register(newUser);
+
     const statusCode = response.status;
     if (statusCode === 201) {
-      userDispatch({ type: 'ADD_USER', user: newUser });
+      window.history.replaceState({}, document.title, '/login');
+      window.location.reload();
     } else {
       throw new Error(`Registration error. Status Code: ${statusCode}`);
     }
@@ -61,20 +69,23 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
     const response = await userService.login(credentials);
     const statusCode = response.status;
     if (statusCode === 200) {
-      const data = response.data as { token: string };
-      const token = data.token;
-
+      const token = response.data.token;
       localStorage.setItem('token', token);
     } else {
       throw new Error(`Login error. Status code: ${statusCode}`);
     }
   };
 
+  const logged = () => {
+    userDispatch({ type: 'LOGGED' });
+  };
+
   const contextValue: UserContextType = {
     userState,
     userDispatch,
     addUser,
-    loginUser
+    loginUser,
+    logged
   };
 
   return (
