@@ -10,5 +10,11 @@ export default defineConfig({
     input: {
       include: ['**/*.html']
     }
-  }
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './testSetup.js'
+  },
+  testTimeout: 10000
 });

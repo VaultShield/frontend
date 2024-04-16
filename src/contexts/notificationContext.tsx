@@ -8,15 +8,15 @@ import {
 
 interface NotificationState {
   message?: string;
-  duration?: number; //default 5 seconds
-  variant?: 'danger' | 'info' | 'success' | 'warning'; // error, info... etc.
+  duration?: number;
+  variant?: 'danger' | 'info' | 'success' | 'warning';
 }
 
 interface NotificationAction {
   type: 'SET_MESSAGE';
   message: string;
-  duration: number;
-  variant: 'danger' | 'info' | 'success' | 'warning';
+  duration?: number;
+  variant?: 'danger' | 'info' | 'success' | 'warning';
 }
 
 interface NotificationContextType {
@@ -27,10 +27,10 @@ interface NotificationContextType {
 const initialNotificationState = {
   message: '',
   duration: 5000,
-  variant: 'success'
+  variant: 'success' as const
 };
 
-const notificationReduce = (
+const notificationReducer = (
   state: NotificationState,
   action: NotificationAction
 ) => {
@@ -39,8 +39,8 @@ const notificationReduce = (
       return {
         ...state,
         message: action.message,
-        duration: action.duration,
-        variant: action.variant
+        duration: action.duration || state.duration,
+        variant: action.variant || state.variant
       };
     default:
       return state;
@@ -57,7 +57,7 @@ export const NotificationContextProvider: React.FC<{
   children: ReactNode;
 }> = (props) => {
   const [notificationState, notificationDispatch] = useReducer(
-    notificationReduce,
+    notificationReducer,
     initialNotificationState
   );
 
@@ -66,21 +66,22 @@ export const NotificationContextProvider: React.FC<{
     if (notificationState.message) {
       timer = setTimeout(() => {
         notificationDispatch({ type: 'SET_MESSAGE', message: '' });
-      }, notificationState.duration ?? 5000);
+      }, notificationState.duration || 5000);
     }
     return () => {
       if (timer) {
         clearTimeout(timer);
       }
     };
-  }, [notificationState]);
+  }, [notificationState, notificationDispatch]);
 
   const showNotification = (options?: Partial<NotificationState>) => {
+    console.log(options?.duration);
     notificationDispatch({
       type: 'SET_MESSAGE',
       message: options?.message || '',
       duration: options?.duration,
-      variant: options?.variant
+      variant: options?.variant ?? 'success'
     });
   };
 
