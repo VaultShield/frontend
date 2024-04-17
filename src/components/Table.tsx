@@ -1,4 +1,5 @@
-import React from 'react';
+import { CardPassword } from './CardPassword';
+
 /**
  * example table
  * @returns
@@ -6,35 +7,37 @@ import React from 'react';
 const Table = () => {
   return (
     <table className="w-full">
-      <thead>
-        <tr>
-          <th className="py-2 px-4 dark:bg-zinc-900 bg-cinder-500 text-cinder-100 rounded-tl-md">
-            campo1
+      <thead className="border-cinder-500 border-opacity-20 ">
+        <tr className="border-b-[1.2px] border-cinder-500 border-opacity-20 dark:bg-cinder-900 dark:bg-opacity-30 bg-cinder-700">
+          <th className="py-2 pl-4   text-cinder-200 text-sm font-light rounded-tl-md">
+            name
           </th>
-          <th className="py-2 px-4 dark:bg-zinc-900 bg-cinder-500 text-cinder-100">
-            campo2
+          <th className="py-2 px-4  text-cinder-200 text-sm font-light ">
+            name user
           </th>
-          <th className="py-2 px-4 dark:bg-zinc-900 bg-cinder-500 text-cinder-100 rounded-tr-md">
-            campo3
+          <th className="py-2 px-4  text-cinder-200 text-sm font-light rounded-tr-md">
+            password
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td className="py-2 px-4">Juan Pérez</td>
-          <td className="py-2 px-4">25</td>
-          <td className="py-2 px-4">juan@example.com</td>
-        </tr>
-        <tr>
-          <td className="py-2 px-4">María López</td>
-          <td className="py-2 px-4">30</td>
-          <td className="py-2 px-4">maria@example.com</td>
-        </tr>
-        <tr>
-          <td className="py-2 px-4">Pedro Gómez</td>
-          <td className="py-2 px-4">28</td>
-          <td className="py-2 px-4">pedro@example.com</td>
-        </tr>
+      <tbody className="">
+        <CardPassword
+          name="Google"
+          nameUser="example@...."
+          password="12345678"
+        />
+        <CardPassword
+          name="Facebook"
+          nameUser="example@...."
+          password="*****"
+        />
+        <CardPassword
+          name="Instagram"
+          nameUser="example@...."
+          password="*****"
+        />
+        <CardPassword name="GitHub" nameUser="example@...." password="*****" />
+        <CardPassword name="Discord" nameUser="example@...." password="*****" />
       </tbody>
     </table>
   );
