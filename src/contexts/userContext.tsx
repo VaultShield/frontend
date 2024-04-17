@@ -1,18 +1,26 @@
-import { createContext, useReducer } from 'react';
-import userService from 'services/userApi';
+import { createContext, useReducer, Dispatch } from 'react';
+import userService, { User } from 'services/userApi';
 
 /**
  * @typedef {Object} UserState - Represents the state of the user.
  * @property {User | null} user - The current user object or null if no user is logged in.
  * @property {boolean} isLogged - Indicates whether a user is logged in or not.
  */
+// Interfaces
+interface UserState {
+  user: User | null;
+  isLogged: boolean;
+}
 
 /**
  * @typedef {Object} UserAction - Represents different types of user actions.
  * @property {'ADD_USER' | 'LOGGED'} type - The type of user action.
  * @property {User} user - The user object related to the action.
  */
-
+interface UserAction {
+  type: 'ADD_USER' | 'LOGGED';
+  user: User;
+}
 /**
  * @typedef {Object} UserContextType - Represents the user context.
  * @property {UserState} userState - The current user state.
@@ -22,12 +30,18 @@ import userService from 'services/userApi';
  * @property {() => void} logged - A function to indicate that a user is logged in.
  */
 
-// Initial state
+interface UserContextType {
+  userState: UserState;
+  userDispatch: Dispatch<UserAction>;
+  addUser: (newUser: User) => Promise<void>;
+  loginUser: (credentials: User) => Promise<void>;
+  logged: () => void;
+}
 /**
  * Represents the initial user state.
  * @type {UserState}
  */
-const initialUserState = {
+const initialUserState: UserState = {
   user: null,
   isLogged: false
 };
@@ -39,7 +53,7 @@ const initialUserState = {
  * @param {UserAction} action - The user action to be performed.
  * @returns {UserState} The updated user state.
  */
-const userReducer = (state, action) => {
+const userReducer = (state: UserState, action: UserAction): UserState => {
   switch (action.type) {
     case 'ADD_USER':
       return { ...state, user: action.user };
@@ -55,7 +69,7 @@ const userReducer = (state, action) => {
  * The user context.
  * @type {React.Context<UserContextType>}
  */
-export const UserContext = createContext({
+export const UserContext: React.Context<UserContextType> = createContext({
   userState: initialUserState,
   userDispatch: () => {},
   addUser: async () => {},
@@ -68,7 +82,9 @@ export const UserContext = createContext({
  * The provider component for the user context.
  * @type {React.FC<{ children: React.ReactNode }>}
  */
-export const UserContextProvider = (props) => {
+export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
+  props
+) => {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
 
   // Function to add a new user
@@ -77,7 +93,7 @@ export const UserContextProvider = (props) => {
    * @param {User} newUser - The new user to be added.
    * @returns {Promise<void>} A promise that resolves when the user is added.
    */
-  const addUser = async (newUser) => {
+  const addUser = async (newUser: User): Promise<void> => {
     const response = await userService.register(newUser);
     const statusCode = response.status;
     if (statusCode === 201) {
@@ -97,7 +113,7 @@ export const UserContextProvider = (props) => {
    * @param {User} credentials - The user credentials for logging in.
    * @returns {Promise<void>} A promise that resolves when the user is logged in.
    */
-  const loginUser = async (credentials) => {
+  const loginUser = async (credentials: User): Promise<void> => {
     const response = await userService.login(credentials);
     const statusCode = response.status;
     if (statusCode === 200) {
@@ -122,7 +138,7 @@ export const UserContextProvider = (props) => {
    * The context value for the user context.
    * @type {UserContextType}
    */
-  const contextValue = {
+  const contextValue: UserContextType = {
     userState,
     userDispatch,
     addUser,
