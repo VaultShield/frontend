@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, Dispatch } from 'react';
-import userService, { User } from 'services/userApi';
+import { createContext, useReducer } from 'react';
+import userService from 'services/userApi';
 
 /**
  * @typedef {Object} UserState - Represents the state of the user.
