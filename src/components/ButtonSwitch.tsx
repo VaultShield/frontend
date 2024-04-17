@@ -17,7 +17,7 @@ const ButtonSwitch = ({ handleClick }) => {
 
   const switchToggleClass = isDark
     ? 'bg-cinder-700 translate-x-full'
-    : 'bg-yellow-500 -translate-x-2';
+    : 'bg-yellow-300 -translate-x-2';
 
   return (
     <button
@@ -26,7 +26,7 @@ const ButtonSwitch = ({ handleClick }) => {
     >
       <div
         id="switch-toggle"
-        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 text-white`}
+        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 dark:text-yellow-900 text-yellow-100 border-[0.6px]`}
       >
         {isDark ? <SvgDarkIcon /> : <SvgLightIcon />}
       </div>
