@@ -24,8 +24,12 @@ const register = async (payload: User) => {
     });
     return response;
   } catch (err) {
-    console.info(`%cError: ${ws.faceScreaming} %c${err}`, ws.style1, ws.style2);
-    throw new Error('Registration failed');
+    console.info(
+      `%cError: ${ws.faceScreaming} %c${err.response.data.error}`,
+      ws.style1,
+      ws.style2
+    );
+    throw new Error(err.response.data.error);
   }
 };
 
@@ -38,8 +42,12 @@ const login = async (credentials: User) => {
     });
     return response;
   } catch (err) {
-    console.info(`%cError: ${ws.faceScreaming} %c${err}`, ws.style1, ws.style2);
-    throw new Error('login failed');
+    console.info(
+      `%cError: ${ws.faceScreaming} %c${err.response.data.error}`,
+      ws.style1,
+      ws.style2
+    );
+    throw new Error(err.response.data.error);
   }
 };
 

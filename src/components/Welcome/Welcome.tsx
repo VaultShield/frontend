@@ -36,7 +36,6 @@ const Welcome = () => {
       document.body.style.backgroundColor = '#FFFFFF';
       document.body.classList.remove('dark');
     }
-    console.info(theme);
   }, [theme]);
 
   const changeTheme = async () => {

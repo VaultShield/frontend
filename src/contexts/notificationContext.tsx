@@ -76,7 +76,6 @@ export const NotificationContextProvider: React.FC<{
   }, [notificationState, notificationDispatch]);
 
   const showNotification = (options?: Partial<NotificationState>) => {
-    console.log(options?.duration);
     notificationDispatch({
       type: 'SET_MESSAGE',
       message: options?.message || '',

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 
@@ -18,14 +18,17 @@ import { useUser } from 'hooks/useUser';
 const App = () => {
   const { updateTheme } = useContext(ThemeContext);
   const { logged } = useContext(UserContext);
+  const navigate = useNavigate();
   const { isLogged } = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem('token'); //check token in localStorage
 
   useEffect(() => {
-    console.log(isLogged);
     if (isLogged !== undefined) {
       setIsLoading(false);
+    }
+    if (isLogged) {
+      navigate('/');
     }
   }, [isLogged]);
 
@@ -52,9 +55,11 @@ const App = () => {
     asignTheme();
   }, []);
 
-  if (token) {
-    logged();
-  }
+  useEffect(() => {
+    if (token) {
+      logged();
+    }
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -82,6 +87,7 @@ const App = () => {
   return (
     <>
       <Notification />
+
       <Routes>{routes}</Routes>
     </>
   );
