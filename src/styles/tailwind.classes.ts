@@ -32,4 +32,4 @@ export const dashboardMainCard = `w-full h-[90%] border rounded-md my-4 mx-6 sha
 dark:border-zinc-800 
 dark:text-white`;
 
-export const badgeMenuDashboard = ` border my-4 rounded-md  dark:bg-zinc-700 bg-cinder-100 border-cinder-400 dark:border-zinc-800`;
+export const badgeMenuDashboard = ` border my-4 rounded-md  dark:bg-opacity-0 bg-cinder-100 border-cinder-400 dark:border-zinc-800`;
