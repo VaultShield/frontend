@@ -7,6 +7,9 @@ import { ThemeContext } from 'contexts/themeContext';
 import ButtonSwitch from 'components/ButtonSwitch';
 import Table from 'components/Table';
 import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
+import { IconVaultShield } from 'components/svg/IconVaultShield';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { CardPassword } from 'components/CardPassword';
 
 const Welcome = () => {
   const { theme } = useTheme();
@@ -44,11 +47,26 @@ const Welcome = () => {
   };
   return (
     <div className={dashboardMainCard}>
-      <div className="grid sm:grid-cols-5 h-full grid-cols-1">
+      <div className="grid sm:grid-cols-5 h-full grid-cols-1 ">
         <div className="sm:col-span-1 h-full sm:flex flex-col justify-around items-center px-2  hidden   ">
-          <div className={`${badgeMenuDashboard} w-full`}>Vault Shield</div>
-          <div className={`${badgeMenuDashboard} h-full w-full`}></div>
+          {/*  <div
+            className={`${badgeMenuDashboard} flex justify-center w-full`}
+          ></div> */}
+          <div
+            className={`${badgeMenuDashboard} h-full w-full flex flex-col items-center`}
+          >
+            <div className="flex items-center justify-center py-8">
+              <IconVaultShield />
+            </div>
+
+            <div className="w-full dark:bg-cinder-800 dark:bg-opacity-55 bg-cinder-700 bg-opacity-25 py-2 border-r-cinder-700 border-r-2">
+              My acounts
+            </div>
+          </div>
           <div className={`${badgeMenuDashboard} w-full`}>
+            <div className="flex pl-6  my-2">
+              <ButtonSwitch handleClick={changeTheme} />
+            </div>
             <Link
               className="flex justify-start items-center my-1 pl-4"
               to="/settings"
@@ -67,14 +85,16 @@ const Welcome = () => {
           </div>
         </div>
 
-        <div className="col-span-4 flex flex-col">
-          <div className="flex justify-end mr-2 my-4">
-            <ButtonSwitch handleClick={changeTheme} />
-          </div>
+        <div className="col-span-4 flex flex-col pt-14">
+          <header className="w-full text-start bg-opacity-55 py-2 text-xl">
+            <div className="pl-20">My acounts</div>
+          </header>
           <div
-            className={`${badgeMenuDashboard} flex justify-center h-full mr-2`}
+            className={`${badgeMenuDashboard} flex flex-col items-start h-full mr-2 p-0`}
           >
             <Table />
+            {/* 
+            <CardPassword /> */}
           </div>
         </div>
       </div>
