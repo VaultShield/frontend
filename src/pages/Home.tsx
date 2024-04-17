@@ -4,7 +4,6 @@ import { GithubIcon } from 'components/svg/GithubIcon';
 
 import { PadlockIcon, SecurityIcon } from 'components/svg/IconsCardsInfo';
 export function Home() {
-
   return (
     <div className="text-white  w-full h-full">
       <div className="flex flex-col items-center justify-center w-full h-full">
@@ -33,6 +32,6 @@ export function Home() {
       </div>
     </div>
   );
-};
+}
 
 export default Home;
