@@ -5,10 +5,12 @@ import {
 
 interface InputBaseProps {
   type: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  readOnly?: boolean;
+  alignment?: string;
 }
 
 const InputBase = ({
@@ -16,7 +18,9 @@ const InputBase = ({
   label,
   placeholder,
   value,
-  onChange
+  onChange,
+  readOnly,
+  alignment
 }: InputBaseProps) => {
   return (
     <div className={wrapperInputBorderBottom}>
@@ -24,9 +28,10 @@ const InputBase = ({
       <input
         type={type}
         placeholder={placeholder}
-        className={inputTransparent}
+        className={`${inputTransparent} ${alignment}`}
         value={value}
         onChange={onChange}
+        readOnly={readOnly}
       />
     </div>
   );
