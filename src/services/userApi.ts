@@ -14,10 +14,15 @@ export interface User {
   organization?: string;
 }
 
+const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
+
 const register = async (payload: User) => {
   try {
     //const hashedPassword = await bcrypt.hash(payload.password, 10);
-    const hashedPassword = CryptoJS.SHA256(payload.password).toString();
+    const hashedPassword = CryptoJS.AES.encrypt(
+      payload.password,
+      SECRET_KEY
+    ).toString();
     const response = await api.post('/api/auth/register', {
       ...payload,
       password: hashedPassword
@@ -35,7 +40,10 @@ const register = async (payload: User) => {
 
 const login = async (credentials: User) => {
   try {
-    const hashedPassword = CryptoJS.SHA256(credentials.password).toString();
+    const hashedPassword = CryptoJS.AES.encrypt(
+      credentials.password,
+      SECRET_KEY
+    ).toString();
     const response = await api.post('/api/auth/login', {
       ...credentials,
       password: hashedPassword
