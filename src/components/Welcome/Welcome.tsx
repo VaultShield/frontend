@@ -8,6 +8,7 @@ import ButtonSwitch from 'components/ButtonSwitch';
 import Table from 'components/Table';
 import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
 import { IconVaultShield } from 'components/svg/IconVaultShield';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CardPassword } from 'components/CardPassword';
 
 const Welcome = () => {
@@ -38,7 +39,6 @@ const Welcome = () => {
       document.body.style.backgroundColor = '#FFFFFF';
       document.body.classList.remove('dark');
     }
-    console.info(theme);
   }, [theme]);
 
   const changeTheme = async () => {

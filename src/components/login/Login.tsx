@@ -3,7 +3,9 @@ import InputBase from '../InputBase';
 import { useState, useContext } from 'react';
 import { UserContext } from 'contexts/userContext';
 import { validateForm } from 'utils/validations';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { NotificationContext } from 'contexts/notificationContext';
+
 interface ErrorsForm {
   email?: string;
   password?: string;
@@ -15,29 +17,17 @@ export function Login() {
     email: string;
     password: string;
   };
+  const navigate = useNavigate();
   const [infoUser, setInfoUser] = useState({
     email: '',
     password: ''
   });
+  //contexts
   const { loginUser } = useContext(UserContext);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { showNotification } = useContext(NotificationContext);
+
   const [errors, setErrors] = useState<ErrorsForm>({});
-  /*
-  const sendData = (infoUser: InfoUser) => {
-    console.log(infoUser);
-    fetch('url', {
-      method: 'POST',
-      body: JSON.stringify(infoUser)
-    })
-      .then((response) => {
-        if (response.ok) return response.json();
-        throw new Error(response.status.toString());
-      })
-      .then((data) => {
-        const value = JSON.parse(data);
-        console.log(value);
-      });
-  };*/
+
   const sendData = async (infoUser: InfoUser) => {
     try {
       const errorsForm: ErrorsForm = validateForm([
@@ -53,9 +43,18 @@ export function Login() {
       setErrors(errorsForm);
       if (!errorsForm.email && !errorsForm.password) {
         await loginUser(infoUser);
+        showNotification({
+          message: 'Registration successfuly!',
+          variant: 'success'
+        });
+        navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
+      showNotification({
+        message: 'Error in registration!',
+        variant: 'danger'
+      });
     }
   };
 
@@ -66,7 +65,6 @@ export function Login() {
           <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
           <p className="dark:text-gray-100"></p>
         </div>
-
         <InputBase
           label="Email"
           type="email"
@@ -74,6 +72,7 @@ export function Login() {
           value={infoUser.email}
           onChange={(e) => setInfoUser({ ...infoUser, email: e.target.value })}
         />
+        {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
         <InputBase
           label="Password"
           type="password"
@@ -82,7 +81,7 @@ export function Login() {
             setInfoUser({ ...infoUser, password: e.target.value })
           }
         />
-
+        {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -92,6 +91,7 @@ export function Login() {
         >
           Login
         </button>
+        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
         <div>
           <span>You don't have an account?</span>
 

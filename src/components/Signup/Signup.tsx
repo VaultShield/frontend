@@ -1,10 +1,11 @@
 import { useContext, useState, MouseEventHandler } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { validateForm } from 'utils/validations';
 import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
-import { validateForm } from 'utils/validations';
+import { NotificationContext } from 'contexts/notificationContext';
 
 interface ErrorsForm {
   email?: string;
@@ -14,8 +15,10 @@ interface ErrorsForm {
 }
 
 const Signup = () => {
+  const navigate = useNavigate();
   //context
   const { addUser } = useContext(UserContext);
+  const { showNotification } = useContext(NotificationContext);
   //user variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,9 +47,18 @@ const Signup = () => {
           username
         };
         await addUser(newUser);
+        showNotification({
+          message: 'Registration successfuly!',
+          variant: 'success'
+        });
+        navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
+      showNotification({
+        message: 'Error in registration!',
+        variant: 'danger'
+      });
     }
   };
 
