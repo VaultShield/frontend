@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { btnDefault } from 'styles/tailwind.classes';
 import './CharacterGenerator.css';
+import { NotificationContext } from 'contexts/notificationContext';
 
 interface CharacterOptions {
   capital: boolean;
@@ -11,6 +12,7 @@ interface CharacterOptions {
 }
 
 const Generator = () => {
+  const { showNotification } = useContext(NotificationContext);
   const [characterList, setCharacterList] = useState([]);
   const [characterOptions, setCharacterOptions] = useState<CharacterOptions>({
     capital: true,
@@ -41,7 +43,10 @@ const Generator = () => {
     }
 
     if (characters === '') {
-      alert('Error: You must select at least one type of character.');
+      showNotification({
+        message: 'Error: You must select at least one type of character.',
+        variant: 'danger'
+      });
       return;
     }
 
