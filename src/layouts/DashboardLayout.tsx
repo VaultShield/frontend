@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, NavLink } from 'react-router-dom';
 import { useTheme } from 'hooks/useTheme';
 import { SvgGear } from 'components/svg/SvgGear';
 import { SvgExit } from 'components/svg/SvgExit';
@@ -57,19 +57,27 @@ const DashboardLayout = () => {
                 <IconVaultShield />
               </div>
 
-              <Link
-                className="w-full dark:bg-cinder-800 dark:bg-opacity-55 bg-cinder-700 bg-opacity-25 py-2 border-r-cinder-700 border-r-2"
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? 'w-full dark:bg-cinder-800 dark:bg-opacity-55 bg-cinder-700 bg-opacity-25 py-2 border-r-cinder-700 border-r-2 text-start pl-10'
+                    : ' py-2 w-full hover:bg-cinder-300 hover:bg-opacity-50 dark:hover:bg-cinder-800 dark:hover:bg-opacity-30 text-start pl-10'
+                }
                 to="/"
               >
                 My acounts
-              </Link>
+              </NavLink>
 
-              <Link
-                className="w-full hover:bg-cinder-700 hover:bg-opacity-25"
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? 'w-full dark:bg-cinder-800 dark:bg-opacity-55 bg-cinder-700 bg-opacity-25 py-2 border-r-cinder-700 border-r-2  text-start pl-10'
+                    : 'py-2 w-full  hover:bg-cinder-300 hover:bg-opacity-50 dark:hover:bg-cinder-800 dark:hover:bg-opacity-30  text-start pl-10'
+                }
                 to="/generator"
               >
                 Password generator
-              </Link>
+              </NavLink>
             </div>
             <div className={`${badgeMenuDashboard} w-full`}>
               <div className="flex pl-6  my-2">
