@@ -13,7 +13,7 @@ yarn install
 ```
 `or`
 ```bash
-npm install --force
+npm install
 ```
 
 Finally, run the development server:
