@@ -1,46 +1,11 @@
-import { useContext, useEffect } from 'react';
 import { Outlet, Link, NavLink } from 'react-router-dom';
-import { useTheme } from 'hooks/useTheme';
 import { SvgGear } from 'components/svg/SvgGear';
 import { SvgExit } from 'components/svg/SvgExit';
-import { ThemeContext } from 'contexts/themeContext';
 import ButtonSwitch from 'components/ButtonSwitch';
 import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
 import { IconVaultShield } from 'components/svg/IconVaultShield';
 
 const DashboardLayout = () => {
-  const { theme } = useTheme();
-  const { updateTheme } = useContext(ThemeContext);
-
-  useEffect(() => {
-    /**
-     * Change color of SVG according to user preference
-     */
-
-    const svgSettings = document.querySelectorAll('.fill-current');
-    //update svgs
-    svgSettings.forEach(function (element) {
-      if (theme === 'dark') {
-        element?.classList.add('text-white');
-        element?.classList.remove('text-black');
-      } else {
-        element?.classList.add('text-black');
-        element?.classList.remove('text-white');
-      }
-    });
-    //update body
-    if (theme === 'dark') {
-      document.body.classList.add('dark');
-      document.body.style.backgroundColor = '#18181b';
-    } else {
-      document.body.style.backgroundColor = '#FFFFFF';
-      document.body.classList.remove('dark');
-    }
-  }, [theme]);
-
-  const changeTheme = async () => {
-    await updateTheme(theme === 'dark' ? '' : 'dark');
-  };
   return (
     <div className="flex justify-center items-center h-screen">
       <div className={dashboardMainCard}>
@@ -81,7 +46,7 @@ const DashboardLayout = () => {
             </div>
             <div className={`${badgeMenuDashboard} w-full`}>
               <div className="flex pl-6  my-2">
-                <ButtonSwitch handleClick={changeTheme} />
+                <ButtonSwitch/>
               </div>
               <Link
                 className="flex justify-start items-center my-1 pl-4"
