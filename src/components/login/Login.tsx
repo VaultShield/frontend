@@ -59,50 +59,54 @@ export function Login() {
   };
 
   return (
-    <div className={card}>
-      <form className={insideCard}>
-        <div>
-          <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
-          <p className="dark:text-gray-100"></p>
-        </div>
-        <InputBase
-          label="Email"
-          type="email"
-          placeholder="example@..."
-          value={infoUser.email}
-          onChange={(e) => setInfoUser({ ...infoUser, email: e.target.value })}
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-        <InputBase
-          label="Password"
-          type="password"
-          value={infoUser.password}
-          onChange={(e) =>
-            setInfoUser({ ...infoUser, password: e.target.value })
-          }
-        />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            sendData(infoUser);
-          }}
-          className={btnDefault}
-        >
-          Login
-        </button>
-        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-        <div>
-          <span>You don't have an account?</span>
-
-          <Link
-            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
-            to="/signup"
+    <div className="flex flex-col justify-center items-center">
+      <div className={card}>
+        <form className={insideCard}>
+          <div>
+            <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
+            <p className="dark:text-gray-100"></p>
+          </div>
+          <InputBase
+            label="Email"
+            type="email"
+            placeholder="example@..."
+            value={infoUser.email}
+            onChange={(e) =>
+              setInfoUser({ ...infoUser, email: e.target.value })
+            }
+          />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          <InputBase
+            label="Password"
+            type="password"
+            value={infoUser.password}
+            onChange={(e) =>
+              setInfoUser({ ...infoUser, password: e.target.value })
+            }
+          />
+          {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              sendData(infoUser);
+            }}
+            className={btnDefault}
           >
-            signup
-          </Link>
-        </div>
-      </form>
+            Login
+          </button>
+          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
+          <div>
+            <span>You don't have an account?</span>
+
+            <Link
+              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
+              to="/signup"
+            >
+              signup
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

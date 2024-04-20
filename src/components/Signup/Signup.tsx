@@ -63,49 +63,51 @@ const Signup = () => {
   };
 
   return (
-    <div className={card}>
-      <div className={insideCard}>
-        <div>
-          <h2 className="dark:text-gray-100 text-lg">
-            Create a VaultShield account
-          </h2>
-          <p className="dark:text-gray-100"> one account for everything!</p>
-        </div>
-        <InputBase
-          label="Username"
-          type="text"
-          placeholder="what do you want to call yourself?"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></InputBase>
-        {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
-        <InputBase
-          label="Email"
-          type="email"
-          placeholder="input your email..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-        <InputBase
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-        <button className={btnDefault} onClick={handleRegister}>
-          Create Account
-        </button>
-        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-        <div>
-          <span>Already have an account?</span>
-          <Link
-            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
-            to="/Login"
-          >
-            Login
-          </Link>
+    <div className="flex flex-col justify-center items-center">
+      <div className={card}>
+        <div className={insideCard}>
+          <div>
+            <h2 className="dark:text-gray-100 text-lg">
+              Create a VaultShield account
+            </h2>
+            <p className="dark:text-gray-100"> one account for everything!</p>
+          </div>
+          <InputBase
+            label="Username"
+            type="text"
+            placeholder="what do you want to call yourself?"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          ></InputBase>
+          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
+          <InputBase
+            label="Email"
+            type="email"
+            placeholder="input your email..."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          <InputBase
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
+          <button className={btnDefault} onClick={handleRegister}>
+            Create Account
+          </button>
+          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
+          <div>
+            <span>Already have an account?</span>
+            <Link
+              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
+              to="/Login"
+            >
+              Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>

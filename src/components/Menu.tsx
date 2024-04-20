@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Anchor } from './Anchor';
 import { IconVaultShield } from './svg/IconVaultShield';
 import { CloseMenuIcon, OpenMenuIcon } from './svg/MenuIcon';
@@ -24,17 +25,13 @@ export function Menu() {
   };
 
   return (
-    <nav className="h-full flex justify-center md:justify-between w-full items-center relative z-20 px-2 md:px-4">
+    <nav className=" flex justify-center  md:justify-between w-full items-center relative z-20 px-2 md:px-4">
       <div className="w-[172px] flex justify-center sm:justify-start">
-        <IconVaultShield />
+        <Link to="/">
+          <IconVaultShield />
+        </Link>
       </div>
-      <ul className="hidden md:visible md:flex">
-        <li>
-          <a className="hover:underline text-cinder-100" href="/">
-            Home
-          </a>
-        </li>
-      </ul>
+
       <ul className="md:flex gap-4 w-[172px] hidden  md:visible  justify-between">
         <li className="flex  w-full items-center ">
           <Anchor direction="/login" name="Login" />
