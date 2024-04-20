@@ -26,7 +26,17 @@ yarn run dev
 npm run dev
 ```
 
+Create a .env.local file and put in:
+
+```bash
+VITE_SECRET_KEY=
+VITE_URL=http://localhost:8080/
+VITE_REGISTER_URL=api/auth/register
+VITE_LOGIN_URL=api/auth/login
+```
+
 Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+
 
 ## Development technologies:
 
