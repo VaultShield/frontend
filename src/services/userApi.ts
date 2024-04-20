@@ -15,6 +15,10 @@ export interface User {
 }
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
+const URL = import.meta.env.VITE_URL;
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
+const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
+
 
 const register = async (payload: User) => {
   try {
@@ -23,7 +27,7 @@ const register = async (payload: User) => {
       payload.password,
       SECRET_KEY
     ).toString();
-    const response = await api.post('/api/auth/register', {
+    const response = await api.post(URL+REGISTER_URL, {
       ...payload,
       password: hashedPassword
     });
@@ -44,7 +48,7 @@ const login = async (credentials: User) => {
       credentials.password,
       SECRET_KEY
     ).toString();
-    const response = await api.post('/api/auth/login', {
+    const response = await api.post(URL+LOGIN_URL, {
       ...credentials,
       password: hashedPassword
     });
