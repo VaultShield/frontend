@@ -1,9 +1,9 @@
-import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
+import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from '../InputBase';
 import { useState, useContext } from 'react';
 import { UserContext } from 'contexts/userContext';
 import { validateForm } from 'utils/validations';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NotificationContext } from 'contexts/notificationContext';
 
 interface ErrorsForm {
@@ -12,7 +12,7 @@ interface ErrorsForm {
   error?: string;
 }
 
-export function Login() {
+export function Login({ handleLogin }) {
   type InfoUser = {
     email: string;
     password: string;
@@ -58,10 +58,15 @@ export function Login() {
     }
   };
 
+  const handleSignupClick = (e) => {
+    e.preventDefault();
+    handleLogin();
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className={card}>
-        <form className={insideCard}>
+    <div className="flex flex-col justify-center items-center p-0 m-0">
+      <div className="border rounded-md shadow-xl h-max w-max m-0 pb-4 px-4 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
+        <form className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-[420px]">
           <div>
             <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
             <p className="dark:text-gray-100"></p>
@@ -98,12 +103,12 @@ export function Login() {
           <div>
             <span>You don't have an account?</span>
 
-            <Link
-              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
-              to="/signup"
+            <span
+              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
+              onClick={(e) => handleSignupClick(e)}
             >
               signup
-            </Link>
+            </span>
           </div>
         </form>
       </div>

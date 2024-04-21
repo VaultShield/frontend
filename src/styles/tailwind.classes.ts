@@ -4,14 +4,14 @@ rounded-md
 shadow-xl
 h-max
 pb-4 px-4
-w-11/12 sm:w-10/12 md:w-6/12 lg:w-4/12
+
 dark:bg-zinc-900 
 dark:border-zinc-800 
 dark:text-white 
 flex
 flex-col
 `;
-
+//w-11/12 sm:w-10/12 md:w-6/12 lg:w-4/12
 export const insideCard = `
 flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9
 `;
