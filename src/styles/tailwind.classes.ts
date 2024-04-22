@@ -33,4 +33,7 @@ w-full h-[90%] border rounded-md my-4 mx-6 shadow-xl dark:bg-zinc-900
 dark:border-zinc-800 
 dark:text-white`;
 
-export const badgeMenuDashboard = `badgeMenuDashboard border my-4 rounded-md  dark:bg-shamrock-950 bg-shamrock-100 border-shamrock-400 dark:border-zinc-800`;
+//export const badgeMenuDashboard = `badgeMenuDashboard border my-4 rounded-md  dark:bg-shamrock-950 bg-shamrock-100 border-shamrock-400 dark:border-zinc-800`;
+
+export const badgeMenuDashboard = ` my-2 rounded-md  dark:bg-opacity-0 `;
+

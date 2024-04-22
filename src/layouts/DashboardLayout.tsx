@@ -1,13 +1,14 @@
 import { Outlet, Link, NavLink } from 'react-router-dom';
-import { SvgGear } from 'components/svg/SvgGear';
-import { SvgExit } from 'components/svg/SvgExit';
-import ButtonSwitch from 'components/ButtonSwitch';
 import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
-import { IconVaultShield } from 'components/svg/IconVaultShield';
+
+import { Menu } from 'components/Menu';
 
 const DashboardLayout = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-start items-center h-screen">
+      <header className="w-full flex justify-between  rounded-none md:rounded-b-xl">
+        <Menu />
+      </header>
       <div className={dashboardMainCard}>
         <div className="grid sm:grid-cols-5 h-full grid-cols-1 ">
           {/* Side panel */}
@@ -18,10 +19,10 @@ const DashboardLayout = () => {
             <div
               className={`${badgeMenuDashboard} h-full w-full flex flex-col items-center`}
             >
-              <div className="flex items-center justify-center py-8">
+              {/*  <div className="flex items-center justify-center py-8">
                 <IconVaultShield />
               </div>
-
+ */}
               <NavLink
                 className={({ isActive }) =>
                   isActive
@@ -43,26 +44,6 @@ const DashboardLayout = () => {
               >
                 Password generator
               </NavLink>
-            </div>
-            <div className={`${badgeMenuDashboard} w-full`}>
-              <div className="flex pl-6  my-2">
-                <ButtonSwitch/>
-              </div>
-              <Link
-                className="flex justify-start items-center my-1 pl-4"
-                to="/settings"
-              >
-                <SvgGear />
-                <span className="ml-2">Settings</span>
-              </Link>
-
-              <Link
-                className="flex justify-start items-center mt-1 pl-4 mb-1"
-                to="/logout"
-              >
-                <SvgExit />
-                <span className="ml-2">Exit</span>
-              </Link>
             </div>
           </div>
           {/* panel principal  */}
