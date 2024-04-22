@@ -13,13 +13,14 @@ import Signup from 'components/Signup';
 import Notification from 'components/Notification';
 import Generator from 'components/Generator';
 //contexts
-import { ThemeContext } from 'contexts/themeContext';
+//import { ThemeContext } from 'contexts/themeContext';
 import { UserContext } from 'contexts/userContext';
 //hooks
 import { useUser } from 'hooks/useUser';
+//import ThemeContext from 'contexts/themeContext';
 
 const App = () => {
-  const { updateTheme } = useContext(ThemeContext);
+  //const { updateTheme } = useContext(ThemeContext);
   const { logged } = useContext(UserContext);
   const navigate = useNavigate();
   const { isLogged } = useUser();
@@ -34,29 +35,6 @@ const App = () => {
       navigate('/');
     }
   }, [isLogged]);
-
-  /**
-   *Check the user's color theme preferences.
-   */
-  useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-
-    const asignTheme = async () => {
-      if (prefersDarkMode) {
-        document.body.classList.add('dark');
-        document.body.style.backgroundColor = '#18181b';
-        await updateTheme('dark');
-      } else {
-        document.body.classList.remove('dark');
-        document.body.style.backgroundColor = '#FFFFFF';
-        await updateTheme('');
-      }
-    };
-
-    asignTheme();
-  }, []);
 
   useEffect(() => {
     if (token) {
