@@ -3,7 +3,7 @@ import { SvgDarkIcon } from 'components/svg/SvgDarkIcon';
 import { SvgLightIcon } from 'components/svg/SvgLightIcon';
 
 import { useTheme } from 'hooks/useTheme';
-const ButtonSwitch = ({ handleClick }) => {
+const ButtonSwitch = ({ handleClick }: { handleClick: () => void }) => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(theme === 'dark');
 
@@ -26,7 +26,7 @@ const ButtonSwitch = ({ handleClick }) => {
     >
       <div
         id="switch-toggle"
-        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 dark:text-yellow-900 text-yellow-100 border-[0.6px]`}
+        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 dark:text-yellow-100 text-yellow-900 border-[0.6px]`}
       >
         {isDark ? <SvgDarkIcon /> : <SvgLightIcon />}
       </div>

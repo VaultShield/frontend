@@ -6,8 +6,8 @@ import { PadlockIcon, SecurityIcon } from 'components/svg/IconsCardsInfo';
 export function Home() {
   return (
     <div className="text-white  w-full h-full">
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <header className="bg-cinder-750 h-14 w-full flex justify-between py-4 md:p-4 rounded-none md:rounded-b-xl">
+      <div className="flex flex-col items-center justify-start w-full h-full">
+        <header className=" w-full flex justify-between rounded-none ">
           <Menu />
         </header>
         <main className="h-[620px] lg:h-[700px] flex flex-col justify-center p-0 m-0 ">
