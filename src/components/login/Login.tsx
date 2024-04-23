@@ -44,7 +44,7 @@ export function Login({ handleLogin }) {
       if (!errorsForm.email && !errorsForm.password) {
         await loginUser(infoUser);
         showNotification({
-          message: 'Registration successfuly!',
+          message: 'Login successfuly!',
           variant: 'success'
         });
         navigate('/');
@@ -52,7 +52,7 @@ export function Login({ handleLogin }) {
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
       showNotification({
-        message: 'Error in registration!',
+        message: 'Error in login user!',
         variant: 'danger'
       });
     }
@@ -64,9 +64,9 @@ export function Login({ handleLogin }) {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center p-0 m-0">
-      <div className="border rounded-md shadow-xl h-max w-max m-0 pb-4 px-4 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
-        <form className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-[420px]">
+    <div className="flex flex-col justify-center items-center p-0 m-0 ">
+      <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
+        <form className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-full px-2">
           <div>
             <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
             <p className="dark:text-gray-100"></p>

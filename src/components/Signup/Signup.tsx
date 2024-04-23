@@ -2,7 +2,7 @@ import { useContext, useState, MouseEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { validateForm } from 'utils/validations';
-import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
+import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
 import { NotificationContext } from 'contexts/notificationContext';
@@ -68,9 +68,9 @@ const Signup = ({ handleSignup }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="border rounded-md shadow-xl h-max w-max m-0 pb-4 px-4 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
-        <div className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-[420px]">
+    <div className="flex flex-col justify-center items-center p-0 m-0">
+      <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2  dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
+        <div className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-full">
           <div>
             <h2 className="dark:text-gray-100 text-lg">
               Create a VaultShield account
@@ -100,7 +100,7 @@ const Signup = ({ handleSignup }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-          <button className={btnDefault} onClick={handleRegister}>
+          <button className={btnDefault} onClick={(e) => handleRegister(e)}>
             Create Account
           </button>
           {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}

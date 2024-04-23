@@ -20,13 +20,11 @@ const initialThemeState = {
   theme: ''
 };
 
-if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
   initialThemeState.theme = 'dark';
-}
-else{
+} else {
   initialThemeState.theme = 'white';
 }
-
 
 const themeReducer = (state: ThemeState, action: ThemeAction) => {
   switch (action.type) {
