@@ -15,9 +15,18 @@ interface ThemeContextType {
   updateTheme: (payload: string) => Promise<void>;
 }
 
+//select  browser theme
 const initialThemeState = {
   theme: ''
 };
+
+if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+  initialThemeState.theme = 'dark';
+}
+else{
+  initialThemeState.theme = 'white';
+}
+
 
 const themeReducer = (state: ThemeState, action: ThemeAction) => {
   switch (action.type) {
