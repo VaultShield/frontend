@@ -4,7 +4,7 @@ export function IconViewPassword() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      className="w-6  dark:stroke-cinder-100 stroke-cinder-900"
+      className="w-6  "
     >
       <g
         stroke="inherit"
@@ -25,7 +25,7 @@ export function IconHiddenPassword() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      className="w-6 dark:stroke-cinder-100 stroke-cinder-900"
+      className="w-6"
     >
       <path
         stroke="inherit"

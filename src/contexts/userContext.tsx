@@ -43,7 +43,7 @@ interface UserContextType {
  */
 const initialUserState: UserState = {
   user: null,
-  isLogged: false
+  isLogged: true
 };
 
 // Reducer function to handle user actions and update state
