@@ -41,7 +41,13 @@ const api = (axios: AxiosInstance) => {
      * @returns {Promise<T>} - The promise that resolves to the response data.
      */
     get: <T>(url: string, config: AxiosRequestConfig = {}) =>
-      axios.get<T>(url, config),
+      axios.get<T>(url, {
+        ...config,
+        headers: {
+          ...config.headers,
+          'Content-Type': 'application/json'
+        }
+      }),
 
     /**
      * Sends a POST request.
@@ -52,7 +58,13 @@ const api = (axios: AxiosInstance) => {
      * @returns {Promise<T>} - The promise that resolves to the response data.
      */
     post: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-      axios.post<T>(url, body, config),
+      axios.post<T>(url, body, {
+        ...config,
+        headers: {
+          ...config.headers,
+          'Content-Type': 'application/json'
+        }
+      }),
 
     /**
      * Sends a DELETE request.
@@ -62,7 +74,13 @@ const api = (axios: AxiosInstance) => {
      * @returns {Promise<T>} - The promise that resolves to the response data.
      */
     delete: <T>(url: string, config: AxiosRequestConfig = {}) =>
-      axios.delete<T>(url, config),
+      axios.delete<T>(url, {
+        ...config,
+        headers: {
+          ...config.headers,
+          'Content-Type': 'application/json'
+        }
+      }),
 
     /**
      * Sends a PATCH request.
@@ -73,7 +91,13 @@ const api = (axios: AxiosInstance) => {
      * @returns {Promise<T>} - The promise that resolves to the response data.
      */
     patch: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-      axios.patch<T>(url, body, config),
+      axios.patch<T>(url, body, {
+        ...config,
+        headers: {
+          ...config.headers,
+          'Content-Type': 'application/json'
+        }
+      }),
 
     /**
      * Sends a PUT request.
@@ -84,7 +108,13 @@ const api = (axios: AxiosInstance) => {
      * @returns {Promise<T>} - The promise that resolves to the response data.
      */
     put: <T>(url: string, body: unknown, config: AxiosRequestConfig = {}) =>
-      axios.put<T>(url, body, config)
+      axios.put<T>(url, body, {
+        ...config,
+        headers: {
+          ...config.headers,
+          'Content-Type': 'application/json'
+        }
+      })
   };
 };
 

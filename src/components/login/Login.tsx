@@ -7,19 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import { NotificationContext } from 'contexts/notificationContext';
 
 interface ErrorsForm {
-  email?: string;
+  username?: string;
   password?: string;
   error?: string;
 }
 
 export function Login({ handleLogin }) {
   type InfoUser = {
-    email: string;
+    username: string;
     password: string;
   };
   const navigate = useNavigate();
   const [infoUser, setInfoUser] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   //contexts
@@ -31,7 +31,7 @@ export function Login({ handleLogin }) {
   const sendData = async (infoUser: InfoUser) => {
     try {
       const errorsForm: ErrorsForm = validateForm([
-        { name: 'email', value: infoUser.email, required: true },
+        { name: 'username', value: infoUser.username, required: true },
         {
           name: 'password',
           value: infoUser.password,
@@ -41,7 +41,7 @@ export function Login({ handleLogin }) {
       ]);
 
       setErrors(errorsForm);
-      if (!errorsForm.email && !errorsForm.password) {
+      if (!errorsForm.username && !errorsForm.password) {
         await loginUser(infoUser);
         showNotification({
           message: 'Login successfuly!',
@@ -72,15 +72,15 @@ export function Login({ handleLogin }) {
             <p className="dark:text-gray-100"></p>
           </div>
           <InputBase
-            label="Email"
-            type="email"
-            placeholder="example@..."
-            value={infoUser.email}
+            label="Username"
+            type="text"
+            placeholder="input your username"
+            value={infoUser.username}
             onChange={(e) =>
-              setInfoUser({ ...infoUser, email: e.target.value })
+              setInfoUser({ ...infoUser, username: e.target.value })
             }
           />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
           <InputBase
             label="Password"
             type="password"

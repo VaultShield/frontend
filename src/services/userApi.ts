@@ -18,11 +18,6 @@ export interface User {
 }
 
 /**
- * The secret key used for encrypting passwords.
- * @type {string}
- */
-const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
-/**
  * The URL for the registration endpoint.
  * @type {string}
  */
@@ -41,10 +36,7 @@ const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
  */
 const register = async (payload: User) => {
   try {
-    const hashedPassword = CryptoJS.AES.encrypt(
-      payload.password,
-      SECRET_KEY
-    ).toString();
+    const hashedPassword = CryptoJS.SHA256(payload.password).toString();
     const response = await api.post(REGISTER_URL, {
       ...payload,
       password: hashedPassword
@@ -68,10 +60,7 @@ const register = async (payload: User) => {
  */
 const login = async (credentials: User) => {
   try {
-    const hashedPassword = CryptoJS.AES.encrypt(
-      credentials.password,
-      SECRET_KEY
-    ).toString();
+    const hashedPassword = CryptoJS.SHA256(credentials.password).toString();
     const response = await api.post(LOGIN_URL, {
       ...credentials,
       password: hashedPassword
