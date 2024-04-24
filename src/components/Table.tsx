@@ -1,5 +1,3 @@
-import { CardPassword } from './CardPassword';
-
 /**
  * example table
  * @returns
@@ -20,25 +18,7 @@ const Table = () => {
           </th>
         </tr>
       </thead>
-      <tbody className="">
-        <CardPassword
-          name="Google"
-          nameUser="example@...."
-          password="12345678"
-        />
-        <CardPassword
-          name="Facebook"
-          nameUser="example@...."
-          password="*****"
-        />
-        <CardPassword
-          name="Instagram"
-          nameUser="example@...."
-          password="*****"
-        />
-        <CardPassword name="GitHub" nameUser="example@...." password="*****" />
-        <CardPassword name="Discord" nameUser="example@...." password="*****" />
-      </tbody>
+      <tbody className=""></tbody>
     </table>
   );
 };
