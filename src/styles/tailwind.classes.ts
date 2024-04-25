@@ -29,10 +29,10 @@ self-center rounded-lg text-center bg-shamrock-500 w-36 hover:bg-shamrock-600 my
 `;
 
 export const dashboardMainCard = `dashboardMainCard
-w-full h-[90%] border rounded-md my-4 mx-6 shadow-xl dark:bg-zinc-900 
-dark:border-zinc-800 
+w-full h-full  rounded-md my-0 mx-0 shadow-xl  
+ 
 dark:text-white`;
 
 //export const badgeMenuDashboard = `badgeMenuDashboard border my-4 rounded-md  dark:bg-shamrock-950 bg-shamrock-100 border-shamrock-400 dark:border-zinc-800`;
 
-export const badgeMenuDashboard = ` my-2 rounded-md  dark:bg-opacity-0 `;
+export const badgeMenuDashboard = ` rounded-md  `;
