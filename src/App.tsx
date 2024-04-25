@@ -68,11 +68,11 @@ const App = () => {
   }
 
   return (
-    <>
+    <div className="bg-bground-white dark:bg-bground-dark h-screen">
       <Notification />
 
       <Routes>{routes}</Routes>
-    </>
+    </div>
   );
 };
 

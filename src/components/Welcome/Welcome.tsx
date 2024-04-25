@@ -1,17 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-
 import { CardCredential } from 'components/CardCredential';
-/* import Table from 'components/Table'; */
-import { useState } from 'react';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
-
+import { useState } from 'react';
 const Welcome = () => {
   const [newCredential, setNewCredential] = useState(false);
   return (
-    <>
-      <header className="w-full text-start bg-opacity-55 py-4 text-xl flex justify-between relative">
-        <div className="text-2xl text-cinder-100 w-full text-center">
-          My acounts
+    <div className="w-full pt-4 md:pl-2 sm:pr-4 lg:pr-8">
+      <header className="w-full text-start  pt-4 pb-8 text-xl flex justify-between relative">
+        <div className="text-2xl text-shamrock-800 dark:text-shamrock-50 w-full text-center">
+          My Credentials
         </div>
         <div className="absolute right-5">
           <button
@@ -23,7 +19,7 @@ const Welcome = () => {
         </div>
       </header>
 
-      <div
+      <main
         className={`${badgeMenuDashboard} flex flex-col items-start h-full mr-2 p-0`}
       >
         {' '}
@@ -78,9 +74,30 @@ const Welcome = () => {
             password="mypassword"
             userName="example-developer@......"
           />
+
+          <CardCredential
+            account="Netflix"
+            notes="-"
+            password="mypassword"
+            userName="example-developer@......"
+          />
+
+          <CardCredential
+            account="Netflix"
+            notes="-"
+            password="mypassword"
+            userName="example-developer@......"
+          />
+
+          <CardCredential
+            account="Netflix"
+            notes="-"
+            password="mypassword"
+            userName="example-developer@......"
+          />
         </section>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 
