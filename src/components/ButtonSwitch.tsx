@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'contexts/themeContext';
 import { SvgDarkIcon } from 'components/svg/SvgDarkIcon';
 import { SvgLightIcon } from 'components/svg/SvgLightIcon';
-
 import { useTheme } from 'hooks/useTheme';
+
 const ButtonSwitch = () => {
   const { theme } = useTheme();
   const [isDark, setIsDark] = useState(theme === 'dark');
@@ -22,8 +22,7 @@ const ButtonSwitch = () => {
     ? 'bg-shamrock-800 translate-x-full'
     : 'bg-shamrock-100 -translate-x-2';
 
-    setTheme();
-   
+  SetTheme();
 
   return (
     <button
@@ -40,15 +39,15 @@ const ButtonSwitch = () => {
   );
 };
 
-function setTheme(){
-  const {theme } = useTheme();
+const SetTheme = () => {
+  const { theme } = useTheme();
 
   /**
    * Change color of SVG according to user preference
    */
   useEffect(() => {
     const svgSettings = document.querySelectorAll('.fill-current');
-    const background = document.querySelector('body');
+
     //update svgs
     svgSettings.forEach(function (element) {
       if (theme === 'dark') {
@@ -59,31 +58,21 @@ function setTheme(){
         element?.classList.remove('text-white');
       }
     });
-    setBackgroundColor(theme);
-    
+    SetBackgroundColor(theme);
   }, [theme]);
+};
 
- }
-
- function setBackgroundColor(theme: string){
-
-    const background = document.querySelector('body');
-    if (theme === 'dark') {
-      background?.classList.add('dark');
-      background?.classList.add('bg-bground-dark');
-      background?.classList.remove('bg-bground-grey');
-    
-    } else {
-      background?.classList.remove('dark');
-      document.body.classList.remove('bg-bground-dark');
-      document.body.classList.add('bg-bground-grey');
-      
-      }
- }
-
-
-
-  
+const SetBackgroundColor = (theme: string) => {
+  const background = document.querySelector('body');
+  if (theme === 'dark') {
+    background?.classList.add('dark');
+    background?.classList.add('bg-bground-dark');
+    background?.classList.remove('bg-bground-grey');
+  } else {
+    background?.classList.remove('dark');
+    document.body.classList.remove('bg-bground-dark');
+    document.body.classList.add('bg-bground-grey');
+  }
+};
 
 export default ButtonSwitch;
-

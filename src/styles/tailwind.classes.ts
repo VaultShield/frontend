@@ -4,7 +4,7 @@ rounded-md
 shadow-xl
 h-max
 pb-4 px-4
-w-11/12 sm:w-10/12 md:w-6/12 lg:w-4/12
+
 dark:bg-zinc-900 
 dark:border-zinc-800 
 dark:text-white 
@@ -36,4 +36,3 @@ dark:text-white`;
 //export const badgeMenuDashboard = `badgeMenuDashboard border my-4 rounded-md  dark:bg-shamrock-950 bg-shamrock-100 border-shamrock-400 dark:border-zinc-800`;
 
 export const badgeMenuDashboard = ` my-2 rounded-md  dark:bg-opacity-0 `;
-

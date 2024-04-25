@@ -1,8 +1,8 @@
 import { useContext, useState, MouseEventHandler } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { validateForm } from 'utils/validations';
-import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
+import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
 import { NotificationContext } from 'contexts/notificationContext';
@@ -14,7 +14,7 @@ interface ErrorsForm {
   error?: string;
 }
 
-const Signup = () => {
+const Signup = ({ handleSignup }) => {
   const navigate = useNavigate();
   //context
   const { addUser } = useContext(UserContext);
@@ -62,50 +62,57 @@ const Signup = () => {
     }
   };
 
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    handleSignup();
+  };
+
   return (
-    <div className={card}>
-      <div className={insideCard}>
-        <div>
-          <h2 className="dark:text-gray-100 text-lg">
-            Create a VaultShield account
-          </h2>
-          <p className="dark:text-gray-100"> one account for everything!</p>
-        </div>
-        <InputBase
-          label="Username"
-          type="text"
-          placeholder="what do you want to call yourself?"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></InputBase>
-        {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
-        <InputBase
-          label="Email"
-          type="email"
-          placeholder="input your email..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-        <InputBase
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-        <button className={btnDefault} onClick={handleRegister}>
-          Create Account
-        </button>
-        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-        <div>
-          <span>Already have an account?</span>
-          <Link
-            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
-            to="/Login"
-          >
-            Login
-          </Link>
+    <div className="flex flex-col justify-center items-center p-0 m-0">
+      <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2  dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
+        <div className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-full">
+          <div>
+            <h2 className="dark:text-gray-100 text-lg">
+              Create a VaultShield account
+            </h2>
+            <p className="dark:text-gray-100"> one account for everything!</p>
+          </div>
+          <InputBase
+            label="Username"
+            type="text"
+            placeholder="what do you want to call yourself?"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          ></InputBase>
+          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
+          <InputBase
+            label="Email"
+            type="email"
+            placeholder="input your email..."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          <InputBase
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
+          <button className={btnDefault} onClick={(e) => handleRegister(e)}>
+            Create Account
+          </button>
+          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
+          <div>
+            <span>Already have an account?</span>
+            <span
+              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
+              onClick={(e) => handleLoginClick(e)}
+            >
+              Login
+            </span>
+          </div>
         </div>
       </div>
     </div>

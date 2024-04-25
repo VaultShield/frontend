@@ -1,4 +1,4 @@
-import { Outlet, Link, NavLink } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
 
 import { Menu } from 'components/Menu';

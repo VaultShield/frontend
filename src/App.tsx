@@ -60,6 +60,7 @@ const App = () => {
     routes = (
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<Home />} />
+        {/* lo mas probable borrar estas dos lineas porque no seran necesarias */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Route>

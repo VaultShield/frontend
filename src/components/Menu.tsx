@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Anchor } from './Anchor';
 import { IconVaultShield } from './svg/IconVaultShield';
 import { CloseMenuIcon, OpenMenuIcon } from './svg/MenuIcon';
