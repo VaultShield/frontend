@@ -1,6 +1,6 @@
-import { createContext, useReducer, Dispatch } from 'react';
-import userService, { User } from 'services/userApi';
+import { Dispatch, createContext, useReducer } from 'react';
 import storageService from 'services/storage';
+import userService, { User } from 'services/userApi';
 
 /**
  * @typedef {Object} UserState - Represents the state of the user.
@@ -44,7 +44,7 @@ interface UserContextType {
  */
 const initialUserState: UserState = {
   user: null,
-  isLogged: true
+  isLogged: false
 };
 
 // Reducer function to handle user actions and update state
@@ -97,17 +97,17 @@ export const UserContextProvider: React.FC<{ children: React.ReactNode }> = (
   const addUser = async (newUser: User): Promise<void> => {
     const response = await userService.register(newUser);
     const statusCode = response.status;
-    if (statusCode === 201) {
-      const token = response.data.token;
-      if (token) {
-        storageService.setToken(token); // Store the user token in local storage
-        logged();
-      } else {
-        throw new Error('Missing token');
-      }
-    } else {
-      throw new Error(`Registration error. Status Code: ${statusCode}`);
-    }
+    // if (statusCode === 201) {
+    //   const token = response.data.token;
+    //   if (token) {
+    //     storageService.setToken(token); // Store the user token in local storage
+    //     logged();
+    //   } else {
+    //     throw new Error('Missing token');
+    //   }
+    // } else {
+    //   throw new Error(`Registration error. Status Code: ${statusCode}`);
+    // }
 
     return Promise.resolve();
   };

@@ -1,89 +1,60 @@
-import CryptoJS from 'crypto-js';
-
 import api from './api';
-import ws from 'utils/warningSelf';
 
 /**
  * Represents a user.
  */
 export interface User {
   id?: number;
-  username?: string;
+  username: string;
   last_name?: string;
   name?: string;
   email?: string;
-  password?: string;
+  password: string;
   keyword?: string;
   organization?: string;
 }
 
-/**
- * The secret key used for encrypting passwords.
- * @type {string}
- */
-const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
-/**
- * The URL for the registration endpoint.
- * @type {string}
- */
-const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
-/**
- * The URL for the login endpoint.
- * @type {string}
- */
-const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
+const URL = import.meta.env.VITE_URL;
 
-/**
- * Registers a user.
- * @param {User} payload - The user data to be registered.
- * @returns {Promise<any>} - The promise that resolves to the registration response.
- * @throws {Error} - If an error occurs during registration.
- */
+const REGISTER_URL = URL + import.meta.env.VITE_REGISTER_URL;
+
+const LOGIN_URL = URL + import.meta.env.VITE_LOGIN_URL;
+
 const register = async (payload: User) => {
   try {
-    const hashedPassword = CryptoJS.AES.encrypt(
-      payload.password,
-      SECRET_KEY
-    ).toString();
+    // const res = await fetch(REGISTER_URL, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     username: payload.username,
+    //     password: payload.password,
+    //     email: payload.email
+    //   })
+    // });
+
+    // if (!res.ok) return [new Error(`Error uploading file ${res.statusText}`)];
+    // const data = await res.json();
+    // console.log({ data });
+    //return data;
     const response = await api.post(REGISTER_URL, {
-      ...payload,
-      password: hashedPassword
+      ...payload
     });
+
     return response;
-  } catch (err) {
-    console.info(
-      `%cError: ${ws.faceScreaming} %c${err.response.data.error}`,
-      ws.style1,
-      ws.style2
-    );
-    throw new Error(err.response.data.error);
+  } catch (err: any) {
+    console.log({ err });
+    throw new Error(err.response.data.message);
   }
 };
 
-/**
- * Authenticates a user with the provided credentials.
- * @param {User} credentials - The user credentials for authentication.
- * @returns {Promise<any>} - The promise that resolves to the login response.
- * @throws {Error} - If an error occurs during authentication.
- */
 const login = async (credentials: User) => {
   try {
-    const hashedPassword = CryptoJS.AES.encrypt(
-      credentials.password,
-      SECRET_KEY
-    ).toString();
     const response = await api.post(LOGIN_URL, {
-      ...credentials,
-      password: hashedPassword
+      ...credentials
     });
     return response;
   } catch (err) {
-    console.info(
-      `%cError: ${ws.faceScreaming} %c${err.response.data.error}`,
-      ws.style1,
-      ws.style2
-    );
-    throw new Error(err.response.data.error);
+    throw new Error('ERROR');
   }
 };
 

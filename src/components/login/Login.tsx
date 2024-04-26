@@ -1,25 +1,28 @@
-import { btnDefault } from 'styles/tailwind.classes';
-import InputBase from '../InputBase';
-import { useState, useContext } from 'react';
-import { UserContext } from 'contexts/userContext';
-import { validateForm } from 'utils/validations';
-import { useNavigate } from 'react-router-dom';
 import { NotificationContext } from 'contexts/notificationContext';
-
+import { UserContext } from 'contexts/userContext';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { btnDefault } from 'styles/tailwind.classes';
+import { validateForm } from 'utils/validations';
+import InputBase from '../InputBase';
 interface ErrorsForm {
-  email?: string;
+  username?: string;
   password?: string;
   error?: string;
 }
 
-export function Login({ handleLogin }) {
-  type InfoUser = {
-    email: string;
-    password: string;
-  };
+type InfoUser = {
+  username: string;
+  password: string;
+};
+
+interface LoginProps {
+  handleLogin: () => void;
+}
+export function Login({ handleLogin }: LoginProps) {
   const navigate = useNavigate();
   const [infoUser, setInfoUser] = useState({
-    email: '',
+    username: '',
     password: ''
   });
   //contexts
@@ -31,7 +34,7 @@ export function Login({ handleLogin }) {
   const sendData = async (infoUser: InfoUser) => {
     try {
       const errorsForm: ErrorsForm = validateForm([
-        { name: 'email', value: infoUser.email, required: true },
+        { name: 'userName', value: infoUser.username, required: true },
         {
           name: 'password',
           value: infoUser.password,
@@ -41,7 +44,7 @@ export function Login({ handleLogin }) {
       ]);
 
       setErrors(errorsForm);
-      if (!errorsForm.email && !errorsForm.password) {
+      if (!errorsForm.username && !errorsForm.password) {
         await loginUser(infoUser);
         showNotification({
           message: 'Login successfuly!',
@@ -58,11 +61,12 @@ export function Login({ handleLogin }) {
     }
   };
 
-  const handleSignupClick = (e) => {
+  const handleSignupClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     handleLogin();
   };
-
   return (
     <div className="flex flex-col justify-center items-center p-0 m-0 ">
       <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
@@ -72,15 +76,15 @@ export function Login({ handleLogin }) {
             <p className="dark:text-gray-100"></p>
           </div>
           <InputBase
-            label="Email"
-            type="email"
-            placeholder="example@..."
-            value={infoUser.email}
+            label="Username"
+            type="username"
+            placeholder="username ..."
+            value={infoUser.username}
             onChange={(e) =>
-              setInfoUser({ ...infoUser, email: e.target.value })
+              setInfoUser({ ...infoUser, username: e.target.value })
             }
           />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
           <InputBase
             label="Password"
             type="password"
@@ -105,7 +109,9 @@ export function Login({ handleLogin }) {
 
             <span
               className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
-              onClick={(e) => handleSignupClick(e)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                handleSignupClick(e)
+              }
             >
               signup
             </span>
