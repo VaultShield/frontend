@@ -4,7 +4,7 @@ export function OpenMenuIcon() {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      className="fill-cinder-800 dark:fill-white stroke-cinder-800 dark:stroke-white  w-7"
+      className=" stroke-shamrock-100  w-7"
     >
       <path
         stroke="inherit"
@@ -22,7 +22,7 @@ export function CloseMenuIcon() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="-2 -2 32 32"
-      className="fill-cinder-800 dark:fill-white stroke-cinder-800 dark:stroke-white w-6"
+      className="fill-shamrock-100 stroke-shamrock-100 w-6"
     >
       <path
         fill="inherit"

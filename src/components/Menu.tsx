@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { Anchor } from './Anchor';
 import { IconVaultShield } from './svg/IconVaultShield';
 import { CloseMenuIcon, OpenMenuIcon } from './svg/MenuIcon';
@@ -34,10 +33,6 @@ export function Menu() {
   const { theme } = useTheme();
   const { updateTheme } = useContext(ThemeContext);
   useEffect(() => {
-    /**
-     * Change color of SVG according to user preference
-     */
-
     const svgSettings = document.querySelectorAll('.fill-current');
     //update svgs
     svgSettings.forEach(function (element) {
@@ -66,30 +61,23 @@ export function Menu() {
   const justify = isLogged ? 'md:justify-between' : 'md:justify-start';
 
   return (
-    <nav className="w-full flex justify-center items-start">
+    <nav className="w-full h-full flex justify-center items-start">
       <div
-        className={`${justify} dark:bg-cinder-750 bg-white h-16 flex justify-center md:rounded-b-xl md:justify-center w-full max-w-[2400px] items-center relative z-20 px-2 md:px-4`}
+        className={`${justify} dark:bg-shamrock-600 bg-shamrock-500 h-full flex justify-center md:rounded-b-lg md:justify-center w-full max-w-[2400px] items-center relative z-20 px-2  md:px-4`}
       >
         <div className="w-[172px] flex justify-center sm:justify-center">
           <IconVaultShield />
         </div>
-        {/* 
-      {!isLogged && (
-        <ul className="md:flex gap-4 w-[172px] hidden  md:visible  justify-between">
-          <li className="flex  w-full items-center ">
-            <Anchor direction="/login" name="Login" />
-          </li>
-
-          <li className="w-full flex items-center">
-            <Anchor direction="/signup" name="Signup" />
-          </li>
-        </ul>
-      )} */}
+        {!isLogged && (
+          <div className="absolute right-2 sm:right-8 top-0 bottom-0 flex justify-center items-center h-full">
+            <ButtonSwitch />
+          </div>
+        )}
         {isLogged && (
           <div
-            className={`${badgeMenuDashboard} hidden md:flex w-full md:w-[260px]`}
+            className={`${badgeMenuDashboard} hidden md:flex justify-between w-full md:w-[260px] pr-2 py-3`}
           >
-            <div className="flex pl-6  my-2">
+            <div className="flex pl-1  my-2">
               <ButtonSwitch handleClick={changeTheme} />
             </div>
             <Link
@@ -97,7 +85,7 @@ export function Menu() {
               to="/settings"
             >
               <SvgGear />
-              <span className="ml-2 dark:text-white text-cinder-900">
+              <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
                 Settings
               </span>
             </Link>
@@ -107,27 +95,32 @@ export function Menu() {
               to="/logout"
             >
               <SvgExit />
-              <span className="ml-2 dark:text-white text-cinder-900">Exit</span>
+              <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
+                Exit
+              </span>
             </Link>
           </div>
         )}
-        <div className="absolute right-2 md:hidden pr-3 md:pr-0 flex flex-col items-end">
-          <button
-            onClick={() => menuOpen()}
-            className="open-menu flex items-center"
-          >
-            <OpenMenuIcon />
-          </button>
-          <button
-            onClick={() => menuClose()}
-            className="close-menu hidden items-center"
-          >
-            <CloseMenuIcon />
-          </button>
-        </div>
+
+        {isLogged && (
+          <div className="absolute right-2 md:hidden pr-3 md:pr-0 flex flex-col items-end">
+            <button
+              onClick={() => menuOpen()}
+              className="open-menu flex items-center"
+            >
+              <OpenMenuIcon />
+            </button>
+            <button
+              onClick={() => menuClose()}
+              className="close-menu hidden items-center"
+            >
+              <CloseMenuIcon />
+            </button>
+          </div>
+        )}
         <div
           id="menu"
-          className="absolute top-14 bg-cinder-100 dark:bg-cinder-750 bg-opacity-90 w-full z-10 flex flex-col justify-center items-center hidden md:hidden"
+          className="absolute top-12 py-2 bg-shamrock-200 dark:bg-shamrock-700  w-full z-10 flex flex-col justify-center items-center hidden md:hidden"
         >
           {!isLogged && (
             <ul className="[&>li]:py-3 [&>li]:w-full w-full pt-3 pb-2">
@@ -139,7 +132,7 @@ export function Menu() {
                 <Anchor direction="/signup" name="Signup" />
               </li>
               <li>
-                <a className="hover:underline text-cinder-100" href="/">
+                <a className="hover:underline text-shamrock-100" href="/">
                   Home
                 </a>
               </li>
@@ -149,7 +142,7 @@ export function Menu() {
             <div
               className={`${badgeMenuDashboard} flex w-full md:w-[260px] justify-between px-6`}
             >
-              <div className="flex pl-6  my-2">
+              <div className="flex  my-2">
                 <ButtonSwitch handleClick={changeTheme} />
               </div>
               <Link
@@ -157,7 +150,7 @@ export function Menu() {
                 to="/settings"
               >
                 <SvgGear />
-                <span className="ml-2 dark:text-white text-cinder-900">
+                <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
                   Settings
                 </span>
               </Link>
@@ -167,7 +160,7 @@ export function Menu() {
                 to="/logout"
               >
                 <SvgExit />
-                <span className="ml-2 dark:text-white text-cinder-900">
+                <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
                   Exit
                 </span>
               </Link>
