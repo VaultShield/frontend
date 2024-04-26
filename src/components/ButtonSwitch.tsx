@@ -19,19 +19,19 @@ const ButtonSwitch = () => {
   };
 
   const switchToggleClass = isDark
-    ? 'bg-shamrock-800 translate-x-full'
-    : 'bg-shamrock-100 -translate-x-2';
+    ? 'bg-shamrock-900 translate-x-full'
+    : 'bg-shamrock-50 -translate-x-2';
 
   SetTheme();
 
   return (
     <button
-      className="w-12 h6 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow"
+      className="w-12 h-6 rounded-full bg-shamrock-700 dark:bg-white flex items-center transition-colors duration-500 focus:outline-none shadow"
       onClick={handleButtonClick}
     >
       <div
         id="switch-toggle"
-        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 dark:text-yellow-100 text-yellow-900 border-[0.6px]`}
+        className={`w-6 h-6 relative rounded-full transition duration-500 transform ${switchToggleClass} p-1 dark:text-shamrock-50 text-shamrock-900 border-[0.6px]`}
       >
         {isDark ? <SvgDarkIcon /> : <SvgLightIcon />}
       </div>

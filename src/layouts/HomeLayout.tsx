@@ -5,8 +5,8 @@ import { GithubIcon } from 'components/svg/GithubIcon';
 
 const HomeLayout = () => {
   return (
-    <div className="flex flex-col justify-between h-screen text-white">
-      <header className="bg-cinder-750 h-14 w-full flex justify-between items-center py-4 md:p-4 rounded-none md:rounded-b-xl">
+    <div className="flex flex-col justify-between h-full text-white">
+      <header className="h-16 w-full flex justify-between items-center md:p-0 rounded-none md:rounded-b-xl">
         <Menu />
       </header>
       <Outlet />
