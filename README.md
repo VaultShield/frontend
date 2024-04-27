@@ -1,41 +1,44 @@
 <h1 align="center" > VaultShield</h1>
 <h3 align="center"> Frontend</h3>
 
+### Installation 
+
+1.  Clone the repository.
 
 
-First, clone the repository.
+```
+git clone https://github.com/VaultShield/frontend.git
+```
+2. Navigate to the project directory:
 
-Second, install the dependecies:
+```
+cd frontend
+```
 
-
+3. Install the dependencies: (yarn or npm)
 ```bash
 yarn install
 ```
-`or`
+or
 ```bash
 npm install
 ```
 
-Finally, run the development server:
+### Environment Variables
 
+To connect with VaultShiel-API you must create in the root directory a ``.env.local`` file with the same information as in ``.env.example``
+
+### Running the Application
+To run the application in development mode, use the following command:
 ```bash
 yarn run dev
 ```
-`or`
+or
 ```bash
 npm run dev
 ```
 
-Create a .env.local file and put in:
-
-```bash
-VITE_SECRET_KEY=
-VITE_URL=http://localhost:8080/
-VITE_REGISTER_URL=api/auth/register
-VITE_LOGIN_URL=api/auth/login
-```
-
-Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
+The application will be available at [http://localhost:5173](http://localhost:5173)
 
 
 ## Development technologies:
@@ -43,3 +46,7 @@ Open [http://localhost:5173](http://localhost:5173) with your browser to see the
 - React + Vite
 - Typescript
 - CSS + Tailwind
+
+
+## API info
+- [VaultShiel backend repo](https://github.com/VaultShield/backend)
