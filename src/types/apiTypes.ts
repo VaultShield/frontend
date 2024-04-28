@@ -77,3 +77,8 @@ export interface CredentialResponse {
   userId: string;
   password: Password;
 }
+
+export interface UserDataUpdateRequest {
+  username: string;
+  email: string;
+}
