@@ -13,19 +13,13 @@ import Signup from 'components/Signup';
 import Notification from 'components/Notification';
 import Generator from 'components/Generator';
 //contexts
-//import { ThemeContext } from 'contexts/themeContext';
-import { UserContext } from 'contexts/userContext';
+import { useUserStore } from 'store/userStore';
 //hooks
-import { useUser } from 'hooks/useUser';
-//import ThemeContext from 'contexts/themeContext';
 
 const App = () => {
-  //const { updateTheme } = useContext(ThemeContext);
-  const { logged } = useContext(UserContext);
+  const isLogged = useUserStore((state) => state.isLogged);
   const navigate = useNavigate();
-  const { isLogged } = useUser();
   const [isLoading, setIsLoading] = useState(true);
-  const token = localStorage.getItem('token'); //check token in localStorage
 
   useEffect(() => {
     if (isLogged !== undefined) {
@@ -34,13 +28,7 @@ const App = () => {
     if (isLogged) {
       navigate('/');
     }
-  }, [isLogged]);
-
-  useEffect(() => {
-    if (token) {
-      logged();
-    }
-  }, []);
+  }, [isLogged, navigate]);
 
   if (isLoading) {
     return <div>Loading...</div>;

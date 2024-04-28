@@ -1,10 +1,13 @@
 import { NotificationContext } from 'contexts/notificationContext';
-import { UserContext } from 'contexts/userContext';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { btnDefault } from 'styles/tailwind.classes';
 import { validateForm } from 'utils/validations';
 import InputBase from '../InputBase';
+import { LoginRequest, User } from 'types/apiTypes';
+import userApi from 'services/userApi';
+import { useUserStore } from 'store/userStore';
+
 interface ErrorsForm {
   username?: string;
   password?: string;
@@ -20,13 +23,18 @@ interface LoginProps {
   handleLogin: () => void;
 }
 export function Login({ handleLogin }: LoginProps) {
+  const setUser = useUserStore((state) => state.setUser);
+  const setTokenStore = useUserStore((state) => state.setToken);
+  const setIsLogged = useUserStore((state) => state.setIsLogged);
+  const setRefreshToken = useUserStore((state) => state.setRefreshToken);
+
   const navigate = useNavigate();
   const [infoUser, setInfoUser] = useState({
     username: '',
     password: ''
   });
   //contexts
-  const { loginUser } = useContext(UserContext);
+  //const { loginUser } = useContext(UserContext);
   const { showNotification } = useContext(NotificationContext);
 
   const [errors, setErrors] = useState<ErrorsForm>({});
@@ -67,6 +75,29 @@ export function Login({ handleLogin }: LoginProps) {
     e.preventDefault();
     handleLogin();
   };
+
+  const loginUser = async (credentials: LoginRequest): Promise<void> => {
+    const response = await userApi.login(credentials);
+    const { token, user, refreshToken } = response;
+    if (token) {
+      localStorage.setItem('token', JSON.stringify(token)); // Store the user token in local storage
+      saveGlobalStateUser(token, user, refreshToken);
+    } else {
+      throw new Error('Missing token');
+    }
+  };
+
+  const saveGlobalStateUser = (
+    token: string,
+    user: User,
+    refreshToken: string
+  ) => {
+    setTokenStore(token);
+    setUser(user);
+    setRefreshToken(refreshToken);
+    setIsLogged(true);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center p-0 m-0 ">
       <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
