@@ -27,7 +27,6 @@ const ButtonExit = () => {
     setRefreshToken('');
     setIsLogged(false);
     localStorage.removeItem('token');
-    console.log('fuera');
   };
 
   return (
