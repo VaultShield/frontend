@@ -6,14 +6,10 @@ import { SvgGear } from './svg/SvgGear';
 import ButtonSwitch from './ButtonSwitch';
 import ButtonExit from './ButtonExit';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
-import { useContext, useEffect } from 'react';
-import { useTheme } from 'hooks/useTheme';
-import ThemeContext from 'contexts/themeContext';
 import { useUserStore } from 'store/userStore';
 
 export function Menu() {
- 
-  const isLogged = useUserStore(state => state.isLogged);
+  const isLogged = useUserStore((state) => state.isLogged);
   const menuOpen = () => {
     const menu = document.getElementById('menu');
     const openMenu = document.querySelector('.open-menu');
@@ -31,7 +27,6 @@ export function Menu() {
     openMenu?.classList.remove('hidden');
     closeMenu?.classList.add('hidden');
   };
-
 
   const justify = isLogged ? 'md:justify-between' : 'md:justify-start';
 
@@ -53,7 +48,7 @@ export function Menu() {
             className={`${badgeMenuDashboard} hidden md:flex justify-between w-full md:w-[260px] pr-2 py-3`}
           >
             <div className="flex pl-1  my-2">
-              <ButtonSwitch/>
+              <ButtonSwitch />
             </div>
             <Link
               className="flex justify-start items-center my-1 pl-4"
@@ -65,7 +60,7 @@ export function Menu() {
               </span>
             </Link>
 
-            <ButtonExit/>
+            <ButtonExit />
           </div>
         )}
 
@@ -110,7 +105,7 @@ export function Menu() {
               className={`${badgeMenuDashboard} flex w-full md:w-[260px] justify-between px-6`}
             >
               <div className="flex  my-2">
-                <ButtonSwitch/>
+                <ButtonSwitch />
               </div>
               <Link
                 className="flex justify-start items-center my-1 pl-4"
@@ -122,7 +117,7 @@ export function Menu() {
                 </span>
               </Link>
 
-              <ButtonExit/>
+              <ButtonExit />
             </div>
           )}
         </div>
