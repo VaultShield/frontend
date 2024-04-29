@@ -17,12 +17,11 @@ const register = async (payload: RegisterRequest) => {
         email: payload.email
       })
     });
-
-    if (!res.ok) return [new Error(`Error uploading file ${res.statusText}`)];
     const data = await res.json();
+    if (res.ok) return '200';
     return data;
   } catch (err: any) {
-    throw new Error(err.response.data.message);
+    throw new Error(err.data.message);
   }
 };
 

@@ -1,11 +1,10 @@
-import { NotificationContext } from 'contexts/notificationContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { btnDefault } from 'styles/tailwind.classes';
 import { validateForm } from 'utils/validations';
 import InputBase from '../InputBase';
 import { LoginRequest, User } from 'types/apiTypes';
-import userApi from 'services/userApi';
+import LoginRegister from 'services/LoginRegister';
 import { useUserStore } from 'store/userStore';
 
 interface ErrorsForm {
@@ -13,11 +12,6 @@ interface ErrorsForm {
   password?: string;
   error?: string;
 }
-
-type InfoUser = {
-  username: string;
-  password: string;
-};
 
 interface LoginProps {
   handleLogin: () => void;
@@ -33,13 +27,9 @@ export function Login({ handleLogin }: LoginProps) {
     username: '',
     password: ''
   });
-  //contexts
-  //const { loginUser } = useContext(UserContext);
-  const { showNotification } = useContext(NotificationContext);
-
   const [errors, setErrors] = useState<ErrorsForm>({});
 
-  const sendData = async (infoUser: InfoUser) => {
+  const sendData = async (infoUser: LoginRequest) => {
     try {
       const errorsForm: ErrorsForm = validateForm([
         { name: 'userName', value: infoUser.username, required: true },
@@ -54,18 +44,10 @@ export function Login({ handleLogin }: LoginProps) {
       setErrors(errorsForm);
       if (!errorsForm.username && !errorsForm.password) {
         await loginUser(infoUser);
-        showNotification({
-          message: 'Login successfuly!',
-          variant: 'success'
-        });
         navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
-      showNotification({
-        message: 'Error in login user!',
-        variant: 'danger'
-      });
     }
   };
 
@@ -77,7 +59,7 @@ export function Login({ handleLogin }: LoginProps) {
   };
 
   const loginUser = async (credentials: LoginRequest): Promise<void> => {
-    const response = await userApi.login(credentials);
+    const response = await LoginRegister.login(credentials);
     const { token, user, refreshToken } = response;
     if (token) {
       localStorage.setItem('token', JSON.stringify(token)); // Store the user token in local storage

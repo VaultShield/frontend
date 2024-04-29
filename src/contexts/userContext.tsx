@@ -1,6 +1,6 @@
 import { Dispatch, createContext, useReducer } from 'react';
 import storageService from 'services/storage';
-import userService, { User } from 'services/userApi';
+import userService, { User } from 'services/LoginRegister';
 
 /**
  * @typedef {Object} UserState - Represents the state of the user.
