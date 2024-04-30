@@ -7,9 +7,6 @@ import { SvgGear } from './svg/SvgGear';
 import ButtonSwitch from './ButtonSwitch';
 import { useUser } from 'hooks/useUser';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
-import { useContext, useEffect } from 'react';
-import { useTheme } from 'hooks/useTheme';
-import ThemeContext from 'contexts/themeContext';
 
 export function Menu() {
   const { isLogged } = useUser();
@@ -29,33 +26,6 @@ export function Menu() {
     menu?.classList.add('hidden');
     openMenu?.classList.remove('hidden');
     closeMenu?.classList.add('hidden');
-  };
-  const { theme } = useTheme();
-  const { updateTheme } = useContext(ThemeContext);
-  useEffect(() => {
-    const svgSettings = document.querySelectorAll('.fill-current');
-    //update svgs
-    svgSettings.forEach(function (element) {
-      if (theme === 'dark') {
-        element?.classList.add('text-white');
-        element?.classList.remove('text-black');
-      } else {
-        element?.classList.add('text-black');
-        element?.classList.remove('text-white');
-      }
-    });
-    //update body
-    if (theme === 'dark') {
-      document.body.classList.add('dark');
-      document.body.style.backgroundColor = '#18181b';
-    } else {
-      document.body.style.backgroundColor = '#FFFFFF';
-      document.body.classList.remove('dark');
-    }
-  }, [theme]);
-
-  const changeTheme = async () => {
-    await updateTheme(theme === 'dark' ? '' : 'dark');
   };
 
   const justify = isLogged ? 'md:justify-between' : 'md:justify-start';
@@ -78,7 +48,7 @@ export function Menu() {
             className={`${badgeMenuDashboard} hidden md:flex justify-between w-full md:w-[260px] pr-2 py-3`}
           >
             <div className="flex pl-1  my-2">
-              <ButtonSwitch handleClick={changeTheme} />
+              <ButtonSwitch />
             </div>
             <Link
               className="flex justify-start items-center my-1 pl-4"
@@ -143,7 +113,7 @@ export function Menu() {
               className={`${badgeMenuDashboard} flex w-full md:w-[260px] justify-between px-6`}
             >
               <div className="flex  my-2">
-                <ButtonSwitch handleClick={changeTheme} />
+                <ButtonSwitch />
               </div>
               <Link
                 className="flex justify-start items-center my-1 pl-4"
