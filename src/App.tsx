@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import './App.css';
 //layouts
@@ -25,22 +25,24 @@ const App = () => {
   const navigate = useNavigate();
   const { isLogged } = useUser();
   const [isLoading, setIsLoading] = useState(true);
-  const token = localStorage.getItem('token'); //check token in localStorage
+  const token = localStorage.getItem('token');
+  const lastVisitedPage = localStorage.getItem('lastVisitedPage') ?? '/';
 
   useEffect(() => {
     if (isLogged !== undefined) {
       setIsLoading(false);
     }
     if (isLogged) {
-      navigate('/');
+      if (lastVisitedPage === null || lastVisitedPage === '') navigate('/');
+      if (lastVisitedPage === '/generator') navigate('/generator');
     }
-  }, [isLogged]);
+  }, [isLogged, lastVisitedPage, navigate]);
 
   useEffect(() => {
     if (token) {
       logged();
     }
-  }, []);
+  }, [logged, token]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -71,7 +73,10 @@ const App = () => {
     <div className="bg-bground-white dark:bg-bground-dark h-screen">
       <Notification />
 
-      <Routes>{routes}</Routes>
+      <Routes>
+        {routes}
+        <Route path="*" element={<Navigate to={lastVisitedPage} replace />} />
+      </Routes>
     </div>
   );
 };
