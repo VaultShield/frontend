@@ -1,11 +1,10 @@
-import { useContext, useState, MouseEventHandler } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 import { validateForm } from 'utils/validations';
 import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
-import { UserContext } from 'contexts/userContext';
-import { NotificationContext } from 'contexts/notificationContext';
+import { RegisterRequest } from 'types/apiTypes';
+import LoginRegister from 'services/LoginRegister';
 
 interface ErrorsForm {
   email?: string;
@@ -14,11 +13,16 @@ interface ErrorsForm {
   error?: string;
 }
 
-const Signup = ({ handleSignup }) => {
-  const navigate = useNavigate();
-  //context
-  const { addUser } = useContext(UserContext);
-  const { showNotification } = useContext(NotificationContext);
+interface RegisterProps {
+  handleSignup: () => void;
+}
+const Signup = ({ handleSignup }: RegisterProps) => {
+  const registerRequest: RegisterRequest = {
+    email: '',
+    password: '',
+    username: ''
+  };
+
   //user variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,12 +30,8 @@ const Signup = ({ handleSignup }) => {
   //validation error;
   const [errors, setErrors] = useState<ErrorsForm>({});
 
-  const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
+  const RegisterNewUser = async () => {
     try {
-      event.preventDefault();
-
       const errorsForm: ErrorsForm = validateForm([
         { name: 'email', value: email, required: true },
         { name: 'password', value: password, required: true, minLength: 8 },
@@ -41,28 +41,30 @@ const Signup = ({ handleSignup }) => {
       setErrors(errorsForm);
 
       if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
-        const newUser = {
-          email,
-          password,
-          username
-        };
-        await addUser(newUser);
-        showNotification({
-          message: 'Registration successfuly!',
-          variant: 'success'
-        });
-        navigate('/');
+        registerRequest.email = email;
+        registerRequest.password = password;
+        registerRequest.username = username;
+        const response = await LoginRegister.register(registerRequest);
+        if (response !== '200') {
+          // TODO: toast con el mensaje de error
+          console.log(
+            '---------------------ERROR EN REGISTRO--------------------'
+          );
+          console.log(response.message);
+          return;
+        }
+        // TODO: toast con mensaje de usuario registrado.
+        console.log(
+          '---------------------EXITO EN REGISTRO--------------------'
+        );
+        handleSignup();
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
-      showNotification({
-        message: 'Error in registration!',
-        variant: 'danger'
-      });
     }
   };
 
-  const handleLoginClick = (e) => {
+  const handleLoginClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     handleSignup();
   };
@@ -100,7 +102,7 @@ const Signup = ({ handleSignup }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-          <button className={btnDefault} onClick={(e) => handleRegister(e)}>
+          <button className={btnDefault} onClick={() => RegisterNewUser()}>
             Create Account
           </button>
           {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
