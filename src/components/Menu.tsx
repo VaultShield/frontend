@@ -2,14 +2,15 @@ import { Anchor } from './Anchor';
 import { IconVaultShield } from './svg/IconVaultShield';
 import { CloseMenuIcon, OpenMenuIcon } from './svg/MenuIcon';
 import { Link } from 'react-router-dom';
-import { SvgExit } from './svg/SvgExit';
 import { SvgGear } from './svg/SvgGear';
 import ButtonSwitch from './ButtonSwitch';
-import { useUser } from 'hooks/useUser';
+import ButtonExit from './ButtonExit';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
+import { useUserStore } from 'store/userStore';
+
 
 export function Menu() {
-  const { isLogged } = useUser();
+  const isLogged = useUserStore((state) => state.isLogged);
   const menuOpen = () => {
     const menu = document.getElementById('menu');
     const openMenu = document.querySelector('.open-menu');
@@ -60,15 +61,7 @@ export function Menu() {
               </span>
             </Link>
 
-            <Link
-              className="flex justify-start items-center mt-1 pl-4 mb-1"
-              to="/logout"
-            >
-              <SvgExit />
-              <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
-                Exit
-              </span>
-            </Link>
+            <ButtonExit />
           </div>
         )}
 
@@ -125,15 +118,7 @@ export function Menu() {
                 </span>
               </Link>
 
-              <Link
-                className="flex justify-start items-center mt-1 pl-4 mb-1"
-                to="/logout"
-              >
-                <SvgExit />
-                <span className="ml-2 text-shamrock-950 dark:text-shamrock-100">
-                  Exit
-                </span>
-              </Link>
+              <ButtonExit />
             </div>
           )}
         </div>

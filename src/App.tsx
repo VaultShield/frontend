@@ -13,17 +13,12 @@ import Signup from 'components/Signup';
 import Notification from 'components/Notification';
 import Generator from 'components/Generator';
 //contexts
-//import { ThemeContext } from 'contexts/themeContext';
-import { UserContext } from 'contexts/userContext';
+import { useUserStore } from 'store/userStore';
 //hooks
-import { useUser } from 'hooks/useUser';
-//import ThemeContext from 'contexts/themeContext';
 
 const App = () => {
-  //const { updateTheme } = useContext(ThemeContext);
-  const { logged } = useContext(UserContext);
+  const isLogged = useUserStore((state) => state.isLogged);
   const navigate = useNavigate();
-  const { isLogged } = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem('token');
   const lastVisitedPage = localStorage.getItem('lastVisitedPage') ?? '/';
@@ -37,12 +32,6 @@ const App = () => {
       if (lastVisitedPage === '/generator') navigate('/generator');
     }
   }, [isLogged, lastVisitedPage, navigate]);
-
-  useEffect(() => {
-    if (token) {
-      logged();
-    }
-  }, [logged, token]);
 
   if (isLoading) {
     return <div>Loading...</div>;

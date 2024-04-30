@@ -1,37 +1,38 @@
-import { btnDefault } from 'styles/tailwind.classes';
-import InputBase from '../InputBase';
-import { useState, useContext } from 'react';
-import { UserContext } from 'contexts/userContext';
-import { validateForm } from 'utils/validations';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NotificationContext } from 'contexts/notificationContext';
+import { btnDefault } from 'styles/tailwind.classes';
+import { validateForm } from 'utils/validations';
+import InputBase from '../InputBase';
+import { LoginRequest, User } from 'types/apiTypes';
+import LoginRegister from 'services/LoginRegister';
+import { useUserStore } from 'store/userStore';
 
 interface ErrorsForm {
-  email?: string;
+  username?: string;
   password?: string;
   error?: string;
 }
 
-export function Login({ handleLogin }) {
-  type InfoUser = {
-    email: string;
-    password: string;
-  };
+interface LoginProps {
+  handleLogin: () => void;
+}
+export function Login({ handleLogin }: LoginProps) {
+  const setUser = useUserStore((state) => state.setUser);
+  const setTokenStore = useUserStore((state) => state.setToken);
+  const setIsLogged = useUserStore((state) => state.setIsLogged);
+  const setRefreshToken = useUserStore((state) => state.setRefreshToken);
+
   const navigate = useNavigate();
   const [infoUser, setInfoUser] = useState({
-    email: '',
+    username: '',
     password: ''
   });
-  //contexts
-  const { loginUser } = useContext(UserContext);
-  const { showNotification } = useContext(NotificationContext);
-
   const [errors, setErrors] = useState<ErrorsForm>({});
 
-  const sendData = async (infoUser: InfoUser) => {
+  const sendData = async (infoUser: LoginRequest) => {
     try {
       const errorsForm: ErrorsForm = validateForm([
-        { name: 'email', value: infoUser.email, required: true },
+        { name: 'userName', value: infoUser.username, required: true },
         {
           name: 'password',
           value: infoUser.password,
@@ -41,26 +42,42 @@ export function Login({ handleLogin }) {
       ]);
 
       setErrors(errorsForm);
-      if (!errorsForm.email && !errorsForm.password) {
+      if (!errorsForm.username && !errorsForm.password) {
         await loginUser(infoUser);
-        showNotification({
-          message: 'Login successfuly!',
-          variant: 'success'
-        });
         navigate('/');
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
-      showNotification({
-        message: 'Error in login user!',
-        variant: 'danger'
-      });
     }
   };
 
-  const handleSignupClick = (e) => {
+  const handleSignupClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     handleLogin();
+  };
+
+  const loginUser = async (credentials: LoginRequest): Promise<void> => {
+    const response = await LoginRegister.login(credentials);
+    const { token, user, refreshToken } = response;
+    if (token) {
+      localStorage.setItem('token', JSON.stringify(token)); // Store the user token in local storage
+      saveGlobalStateUser(token, user, refreshToken);
+    } else {
+      throw new Error('Missing token');
+    }
+  };
+
+  const saveGlobalStateUser = (
+    token: string,
+    user: User,
+    refreshToken: string
+  ) => {
+    setTokenStore(token);
+    setUser(user);
+    setRefreshToken(refreshToken);
+    setIsLogged(true);
   };
 
   return (
@@ -72,15 +89,15 @@ export function Login({ handleLogin }) {
             <p className="dark:text-gray-100"></p>
           </div>
           <InputBase
-            label="Email"
-            type="email"
-            placeholder="example@..."
-            value={infoUser.email}
+            label="Username"
+            type="username"
+            placeholder="username ..."
+            value={infoUser.username}
             onChange={(e) =>
-              setInfoUser({ ...infoUser, email: e.target.value })
+              setInfoUser({ ...infoUser, username: e.target.value })
             }
           />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
           <InputBase
             label="Password"
             type="password"
@@ -105,7 +122,9 @@ export function Login({ handleLogin }) {
 
             <span
               className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
-              onClick={(e) => handleSignupClick(e)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                handleSignupClick(e)
+              }
             >
               signup
             </span>
