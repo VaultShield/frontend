@@ -94,7 +94,7 @@ const Generator = () => {
   };
 
   return (
-    <div>
+    <div className="h-full">
       <h2 className="text-2xl">Unique password generator</h2>
       <p>Generate strong and unique passwords with a click of the button</p>
 
