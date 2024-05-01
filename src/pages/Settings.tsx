@@ -2,7 +2,7 @@ import FormUpdateUser from 'components/Settings/FormUpdateUser';
 
 export default function Settings() {
   return (
-    <section className="flex flex-col items-center p-10 gap-10">
+    <section className="flex flex-col items-center p-10 gap-10 w-full">
       <svg
         width="200"
         height="200"
