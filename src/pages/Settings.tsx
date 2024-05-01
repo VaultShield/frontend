@@ -1,6 +1,6 @@
 import FormUpdateUser from 'components/Settings/FormUpdateUser';
 
-export const Settings = () => {
+export default function Settings() {
   return (
     <section className="flex flex-col items-center p-10 gap-10">
       <svg
@@ -32,4 +32,4 @@ export const Settings = () => {
       <FormUpdateUser />
     </section>
   );
-};
+}
