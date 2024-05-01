@@ -4,7 +4,7 @@ import {
   UserDataUpdateRequest
 } from 'types/apiTypes';
 
-const BASE_URL = import.meta.env.VITE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const UPDATE_URL = BASE_URL + import.meta.env.VITE_USER_URL;
 const REFRESH_TOKEN_URL = BASE_URL + import.meta.env.VITE_REFRESH_TOKEN_URL;
 
@@ -19,13 +19,6 @@ export async function updateUserData(formData: FormData, token: string) {
   };
   console.log({ user, token, id });
   try {
-    // const res = await axios.put(`${UPDATE_URL}${id}`, user, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // });
-    // console.log(res);
     const response = await fetch(`${UPDATE_URL}${id}`, {
       method: 'PUT',
       headers: {
