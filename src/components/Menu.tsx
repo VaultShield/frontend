@@ -8,6 +8,7 @@ import ButtonExit from './ButtonExit';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
 import { useUserStore } from 'store/userStore';
 
+
 export function Menu() {
   const isLogged = useUserStore((state) => state.isLogged);
   const menuOpen = () => {
@@ -31,7 +32,7 @@ export function Menu() {
   const justify = isLogged ? 'md:justify-between' : 'md:justify-start';
 
   return (
-    <nav className="w-full h-full flex justify-center items-start">
+    <nav className="w-full h-full max-h-[64px] flex justify-center items-start">
       <div
         className={`${justify} dark:bg-shamrock-600 bg-shamrock-500 h-full flex justify-center md:rounded-b-lg md:justify-center w-full max-w-[2400px] items-center relative z-20 px-2  md:px-4`}
       >

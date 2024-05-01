@@ -11,7 +11,7 @@ import {
 const DashboardLayout = () => {
   return (
     <div className="flex bg-bground-white dark:bg-bground-dark flex-col justify-start items-center h-full overflow-hidden">
-      <header className="w-full h-24  flex justify-between  rounded-none md:rounded-b-xl">
+      <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
         <Menu />
       </header>
       <div className={dashboardMainCard}>
