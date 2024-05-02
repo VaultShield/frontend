@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import LoginRegister from 'services/LoginRegister';
+import { toast } from 'sonner';
+import { useUserStore } from 'store/userStore';
 import { btnDefault } from 'styles/tailwind.classes';
+import { LoginRequest, User } from 'types/apiTypes';
 import { validateForm } from 'utils/validations';
 import InputBase from '../InputBase';
-import { LoginRequest, User } from 'types/apiTypes';
-import LoginRegister from 'services/LoginRegister';
-import { useUserStore } from 'store/userStore';
 
 interface ErrorsForm {
   username?: string;
@@ -64,8 +65,11 @@ export function Login({ handleLogin }: LoginProps) {
     if (token) {
       localStorage.setItem('token', JSON.stringify(token)); // Store the user token in local storage
       saveGlobalStateUser(token, user, refreshToken);
+      toast.success('Login successful', {
+        duration: 2000
+      });
     } else {
-      throw new Error('Missing token');
+      throw new Error('Incorrect username or password');
     }
   };
 

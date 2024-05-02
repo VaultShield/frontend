@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-import { validateForm } from 'utils/validations';
-import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
-import { RegisterRequest } from 'types/apiTypes';
 import LoginRegister from 'services/LoginRegister';
+import { toast } from 'sonner';
+import { btnDefault } from 'styles/tailwind.classes';
+import { RegisterRequest } from 'types/apiTypes';
+import { validateForm } from 'utils/validations';
 
 interface ErrorsForm {
   email?: string;
@@ -46,17 +47,10 @@ const Signup = ({ handleSignup }: RegisterProps) => {
         registerRequest.username = username;
         const response = await LoginRegister.register(registerRequest);
         if (response !== '200') {
-          // TODO: toast con el mensaje de error
-          console.log(
-            '---------------------ERROR EN REGISTRO--------------------'
-          );
-          console.log(response.message);
+          toast.error(response.message, { duration: 2000 });
           return;
         }
-        // TODO: toast con mensaje de usuario registrado.
-        console.log(
-          '---------------------EXITO EN REGISTRO--------------------'
-        );
+        toast.success('User registered successfully', { duration: 2000 });
         handleSignup();
       }
     } catch (err) {
