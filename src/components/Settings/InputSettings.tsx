@@ -7,6 +7,7 @@ interface InputSettingsProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errors: ErrorsForm;
   icon: React.ReactNode;
+  name: string;
 }
 
 const InputSettings = ({
@@ -14,13 +15,14 @@ const InputSettings = ({
   isEditing,
   handleChange,
   errors,
-  icon
+  icon,
+  name
 }: InputSettingsProps) => {
   return (
     <div className="text-[#45ADB0] bg-[#45ADB0] bg-opacity-[18%]  rounded-2xl flex p-3 gap-4 w-full  items-center">
       {icon}
       <input
-        name="username"
+        name={name}
         type="text"
         className="self-center flex flex-col items-start w-full bg-transparent focus:outline-none"
         value={value}

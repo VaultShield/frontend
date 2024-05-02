@@ -28,6 +28,7 @@ const FormUpdateUser = () => {
           handleChange={handleChange}
           errors={errors}
           icon={<UsernameIcon />}
+          name="username"
         />
         <InputSettings
           value={newEmail}
@@ -35,6 +36,7 @@ const FormUpdateUser = () => {
           handleChange={handleChange}
           errors={errors}
           icon={<EmailIcon />}
+          name="email"
         />
         <InputSettings
           value="" // TODO: editar contraseña
@@ -42,6 +44,7 @@ const FormUpdateUser = () => {
           handleChange={handleChange}
           errors={errors}
           icon={<KeyIcon />}
+          name="password"
         />
         <div className="w-full flex justify-end gap-4">
           {isEditing ? (
