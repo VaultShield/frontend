@@ -28,8 +28,8 @@ const App = () => {
 
   const lastVisitedPage = localStorage.getItem('lastVisitedPage') ?? '/';
   useEffect(() => {
+    //If there is no session, go home
     if (!isLogged && !recoverSesionStorage()) {
-      console.log(0);
       navigate('/');
     }
   }, []);
