@@ -8,12 +8,12 @@ import { NotificationContextProvider } from 'contexts/notificationContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeContextProvider>
-      <NotificationContextProvider>
-        <Router>
+    <Router>
+      <ThemeContextProvider>
+        <NotificationContextProvider>
           <App />
-        </Router>
-      </NotificationContextProvider>
-    </ThemeContextProvider>
+        </NotificationContextProvider>
+      </ThemeContextProvider>
+    </Router>
   </React.StrictMode>
 );

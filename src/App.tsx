@@ -18,23 +18,33 @@ import { GENERATOR, HOME, SETTINGS } from 'lib/routes';
 //import ThemeContext from 'contexts/themeContext';
 
 import { Toaster } from 'sonner';
+import { useStorage } from 'hooks/useStorage';
 
 const App = () => {
   const isLogged = useUserStore((state) => state.isLogged);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const { recoverSesionStorage } = useStorage();
 
   const lastVisitedPage = localStorage.getItem('lastVisitedPage') ?? '/';
+  useEffect(() => {
+    if (!isLogged && !recoverSesionStorage()) {
+      console.log(0);
+      navigate('/');
+    }
+  }, []);
+  useEffect(() => {
+    setIsLoading(false);
+    const currentPath = window.location.pathname;
+    localStorage.setItem('lastVisitedPage', currentPath);
+  }, [navigate]);
 
   useEffect(() => {
-    if (isLogged !== undefined) {
-      setIsLoading(false);
+    if (!isLoading && isLogged) {
+      const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+      if (lastVisitedPage) navigate(lastVisitedPage);
     }
-    if (isLogged) {
-      if (lastVisitedPage === null || lastVisitedPage === '') navigate('/');
-      if (lastVisitedPage === '/generator') navigate('/generator');
-    }
-  }, [isLogged, lastVisitedPage, navigate]);
+  }, [isLogged, isLoading]);
 
   if (isLoading) {
     return <div>Loading...</div>;

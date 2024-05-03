@@ -39,7 +39,9 @@ export const useStorage = () => {
       };
       const refreshToken = sesion[3];
       saveGlobalStateUser(token, user, refreshToken);
+      return true;
     }
+    return false;
   };
 
   return { saveSesionStorage, recoverSesionStorage, saveGlobalStateUser };
