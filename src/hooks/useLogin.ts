@@ -65,7 +65,7 @@ export const useLogin = ({ handleLogin }: LoginProps) => {
     const response = await LoginRegister.login(credentials);
     const { token, user, refreshToken } = response;
     if (token) {
-      localStorage.setItem('token', JSON.stringify(token)); // Store the user token in local storage
+      localStorage.setItem('token', token); // Store the user token in local storage
       saveGlobalStateUser(token, user, refreshToken);
       toast.success('Login successful', {
         duration: 2000
