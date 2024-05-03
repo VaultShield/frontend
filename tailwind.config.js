@@ -6,6 +6,9 @@ export default {
   theme: {
     extend: {
       colors: {
+        'primary':'#119FA4',
+        'white':'#ECFEFF',
+        'black':'#1E2828',
         cinder: {
           50: '#f2f3fb',
           100: '#e7e9f8',
