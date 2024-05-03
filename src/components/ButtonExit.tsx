@@ -1,17 +1,14 @@
 import { useUserStore } from 'store/userStore';
 import { SvgExit } from './svg/SvgExit';
-import { useNavigate } from 'react-router-dom';
 
 const ButtonExit = () => {
   const setUser = useUserStore((state) => state.setUser);
   const setTokenStore = useUserStore((state) => state.setToken);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setRefreshToken = useUserStore((state) => state.setRefreshToken);
-  const navigator = useNavigate();
 
   const handleButtonClick = async () => {
     deletteGlobalStateUser();
-    navigator('/');
   };
 
   const deletteGlobalStateUser = () => {
@@ -27,6 +24,7 @@ const ButtonExit = () => {
     setRefreshToken('');
     setIsLogged(false);
     localStorage.removeItem('token');
+    sessionStorage.removeItem('sesionId');
   };
 
   return (
