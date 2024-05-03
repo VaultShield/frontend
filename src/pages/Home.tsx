@@ -3,13 +3,21 @@ import { Login } from 'components/login';
 import Signup from 'components/Signup';
 
 import { PadlockIcon, SecurityIcon } from 'components/svg/IconsCardsInfo';
-import { useState } from 'react';
+import { useStorage } from 'hooks/useStorage';
+import { useEffect, useState } from 'react';
+import { useUserStore } from 'store/userStore';
 
 export function Home() {
   const [islogin, setIsLogin] = useState(true);
+  const { isLogged } = useUserStore((state) => state);
+  const { recoverSesionStorage } = useStorage();
   const handleLogin = () => {
     setIsLogin(!islogin);
   };
+  useEffect(() => {
+    if (!isLogged) recoverSesionStorage();
+  }, []);
+
   return (
     <div className="flex flex-col md:flex-row justify-center items-center w-full p-0 mt-10 md:m-0">
       <div className="w-6/12 m-0 p-0 ">
