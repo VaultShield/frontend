@@ -1,12 +1,13 @@
 import { useContext, useState, MouseEventHandler } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import { validateForm } from 'utils/validations';
 import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from 'components/InputBase';
 import { UserContext } from 'contexts/userContext';
 import { NotificationContext } from 'contexts/notificationContext';
-
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 interface ErrorsForm {
   email?: string;
   password?: string;
@@ -14,7 +15,12 @@ interface ErrorsForm {
   error?: string;
 }
 
-const Signup = ({ handleSignup }) => {
+interface RegisterProps {
+  isOpen: boolean,
+  onClose: () => void
+}
+
+const Signup = ({  onClose, isOpen }:RegisterProps) => {
   const navigate = useNavigate();
   //context
   const { addUser } = useContext(UserContext);
@@ -26,96 +32,93 @@ const Signup = ({ handleSignup }) => {
   //validation error;
   const [errors, setErrors] = useState<ErrorsForm>({});
 
-  const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
-    try {
-      event.preventDefault();
+  // const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
+  //   event
+  // ) => {
+  //   try {
+  //     event.preventDefault();
 
-      const errorsForm: ErrorsForm = validateForm([
-        { name: 'email', value: email, required: true },
-        { name: 'password', value: password, required: true, minLength: 8 },
-        { name: 'username', value: username, required: true }
-      ]);
+  //     const errorsForm: ErrorsForm = validateForm([
+  //       { name: 'email', value: email, required: true },
+  //       { name: 'password', value: password, required: true, minLength: 8 },
+  //       { name: 'username', value: username, required: true }
+  //     ]);
 
-      setErrors(errorsForm);
+  //     setErrors(errorsForm);
 
-      if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
-        const newUser = {
-          email,
-          password,
-          username
-        };
-        await addUser(newUser);
-        showNotification({
-          message: 'Registration successfuly!',
-          variant: 'success'
-        });
-        navigate('/');
-      }
-    } catch (err) {
-      if (err instanceof Error) setErrors({ error: err.message });
-      showNotification({
-        message: 'Error in registration!',
-        variant: 'danger'
-      });
-    }
-  };
+  //     if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
+  //       const newUser = {
+  //         email,
+  //         password,
+  //         username
+  //       };
+  //       await addUser(newUser);
+  //       showNotification({
+  //         message: 'Registration successfuly!',
+  //         variant: 'success'
+  //       });
+  //       navigate('/');
+  //     }
+  //   } catch (err) {
+  //     if (err instanceof Error) setErrors({ error: err.message });
+  //     showNotification({
+  //       message: 'Error in registration!',
+  //       variant: 'danger'
+  //     });
+  //   }
+  // };
 
-  const handleLoginClick = (e) => {
-    e.preventDefault();
-    handleSignup();
-  };
+  // const handleLoginClick = (e) => {
+  //   e.preventDefault();
+  //   handleSignup();
+  // };
 
   return (
-    <div className="flex flex-col justify-center items-center p-0 m-0">
-      <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2  dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
-        <div className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-full">
-          <div>
-            <h2 className="dark:text-gray-100 text-lg">
-              Create a VaultShield account
-            </h2>
-            <p className="dark:text-gray-100"> one account for everything!</p>
+    <>
+      {
+        isOpen ? (
+          <div className='absolute flex justify-center items-center right-0 top-0 h-screen w-screen text-white '>
+            <div onClick={onClose} className='absolute bg-[#000000] opacity-80 h-screen w-screen '></div>
+            <div className='flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold'>
+              <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
+                <div className="cursor-pointer z-20">
+                  x
+
+                </div>
+              </div>
+              <div className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black">
+                <div className="text-4xl  mb-5">
+                  Lets Start!
+                </div>
+                <div className="w-full flex items-center">
+                  <PersonRoundedIcon className="absolute ml-4 text-primary" />
+                  <input type="text" className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray " placeholder="Username" />
+
+                </div>
+                <div className="w-full flex items-center">
+                  <EmailRoundedIcon className="absolute ml-4 text-primary" />
+                  <input type="text" className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray " placeholder="Email" />
+
+                </div>
+                <div className="w-full flex items-center">
+                  <KeyRoundedIcon className="absolute ml-4 text-primary" />
+
+                  <input type="password" className="bg-primary bg-opacity-15 rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray " placeholder="Password" />
+
+                </div>
+                <div className="w-full">
+                  <button className="bg-primary w-full h-12 rounded-full text-white">
+                    Login
+                  </button>
+                </div>
+               
+              </div>
+
+            </div>
           </div>
-          <InputBase
-            label="Username"
-            type="text"
-            placeholder="what do you want to call yourself?"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></InputBase>
-          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
-          <InputBase
-            label="Email"
-            type="email"
-            placeholder="input your email..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-          <InputBase
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-          <button className={btnDefault} onClick={(e) => handleRegister(e)}>
-            Create Account
-          </button>
-          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-          <div>
-            <span>Already have an account?</span>
-            <span
-              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
-              onClick={(e) => handleLoginClick(e)}
-            >
-              Login
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+        ) : null
+      }
+    </>
   );
 };
 
