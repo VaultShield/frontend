@@ -2,7 +2,10 @@ import { useContext, useState, useEffect } from 'react';
 import { btnDefault } from 'styles/tailwind.classes';
 import './CharacterGenerator.css';
 import { NotificationContext } from 'contexts/notificationContext';
-
+import Slider, {
+  SliderThumb,
+  SliderValueLabelProps,
+} from "@mui/material/Slider";
 
 
 const Generator = () => {
@@ -69,35 +72,107 @@ const Generator = () => {
   }, [includeUppercase, includeLowercase, includeNumbers, includeSymbols, sliderValue]);
 
   return (
-    <div className="w-full  bg-red-500 text-black">
-      <div className='flex space-x-6'>
-        <div className='w-2/3 flex flex-col  bg-white rounded-xl  p-6'>
-          <div className='flex w-full '>
-            <div className='bg-shamrock-600 bg-opacity-15 rounded-lg w-5/6 h-12 flex'>
+    <div className="w-full   text-black p-6">
+      <div className='grid grid-cols-3 gap-6'>
+        <div className='col-span-2 grid grid-cols-6 bg-white rounded-xl gap-6 p-6'>
+          <div className='col-span-5 '>
+            <div className='bg-shamrock-600 bg-opacity-15 rounded-lg w-full h-12 flex'>
               <input value={password} type="text" className='h-12 bg-transparent outline-none w-full pl-3' />
-              <button onClick={()=> generatePassword(sliderValue)} className='pr-3'>O</button>
+              <button onClick={() => generatePassword(sliderValue)} className='pr-3'>O</button>
             </div>
-            <button className='bg-shamrock-600 w-1/6 rounded-lg text-white'>
+            <div className='w-full flex justify-between items-center space-x-3 '>
+              <div>Weak</div>
+              <div className='h-1.5 w-full bg-shamrock-600 rounded-lg ' />
+              <div>Strong</div>
+            </div>
+            <div className='flex '>
+              <div>
+                Password Length
+              </div>
+              <Slider
+                valueLabelDisplay="auto"
+                aria-label="pretto slider"
+                defaultValue={20}
+                color="primary"
+                min={1}
+                max={50}
+                value={sliderValue}
+                onChange={handleSliderChange}
+              />
+            </div>
+          </div>
+          <div className=''>
+            <button onClick={copyToClipboard} className='bg-shamrock-600 w-full h-12 rounded-lg text-white'>
               Copy
             </button>
           </div>
-          <div className='w-5/6 flex justify-between items-center space-x-3 '>
-            <div>Weak</div>
-            <div className='h-1.5 w-full bg-shamrock-600 rounded-lg '/>
-            <div>Strong</div>
-          </div>
-          <div>
-            <div>
-              Password Length
-            </div>
-            <input type="range" />
-          </div>
 
         </div>
-        <div className='w-1/3 bg-white rounded-xl'>
-          fds
-        </div>
+        <div className=' flex-col flex justify-between bg-white rounded-xl p-6'>
+        <div className='grid grid-cols-4  text-xl font-medium'>
+            <div className='col-span-3 flex space-x-2'>
+              <input
+                checked={includeUppercase}
+
+                onChange={() => handleCheckboxChange(setIncludeUppercase, includeUppercase)}
+                type="checkbox"
+                className='scale-150 accent-shamrock-600' />
+              <div>
+                Uppercase
+              </div>
+            </div>
+            <div className='text-gray-400 flex justify-start'>
+              <span className='text-shamrock-600'>  ej.</span> ABCDE
+            </div>
+          </div>
+
+          <div className='grid grid-cols-4  text-xl font-medium'>
+            <div className='col-span-3 flex space-x-2'>
+              <input
+                checked={includeLowercase}
+                onChange={() => handleCheckboxChange(setIncludeLowercase, includeLowercase)}
+                type="checkbox"
+                className='scale-150 accent-shamrock-600' />
+              <div>
+                Lowercase
+              </div>
+            </div>
+            <div className='text-gray-400 flex justify-start'>
+              <span className='text-shamrock-600'>  ej.</span> abcde
+            </div>
+          </div>
+          <div className='grid grid-cols-4  text-xl font-medium'>
+            <div className='col-span-3 flex space-x-2'>
+              <input
+                checked={includeNumbers}
+                onChange={() => handleCheckboxChange(setIncludeNumbers, includeNumbers)}
+                type="checkbox"
+                className='scale-150 accent-shamrock-600' />
+              <div>
+                Number
+              </div>
+            </div>
+            <div className='text-gray-400 flex justify-start'>
+              <span className='text-shamrock-600'>  ej.</span> 123456
+            </div>
+          </div>
+          <div className='grid grid-cols-4  text-xl font-medium'>
+            <div className='col-span-3 flex space-x-2'>
+              <input
+                checked={includeSymbols}
+                onChange={() => handleCheckboxChange(setIncludeSymbols, includeSymbols)}
+                type="checkbox"
+                className='scale-150 accent-shamrock-600' />
+              <div>
+                Symbols
+              </div>
+            </div>
+            <div className='text-gray-400 flex justify-start'>
+              <span className='text-shamrock-600'>  ej.</span> #!@/~
+            </div>
+          </div>        </div>
       </div>
+
     </div>
   );
 };
