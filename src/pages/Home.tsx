@@ -8,8 +8,8 @@ export function Home() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <div className="grid grid-cols-2 w-screen h-screen degradado text-white ">
-      <div className="flex items-center justify-center">
+    <div className="grid lg:grid-cols-2 grid-cols-1  w-screen h-screen degradado text-white ">
+      <div className="max-lg:hidden flex items-center justify-center">
         <img src={LogoVaultShield} alt="Logo_ValutShield" />
       </div>
       <div className="">
@@ -20,7 +20,7 @@ export function Home() {
           <div className="flex items-center w-full  px-[15%] mb-4 ">
             <button
               onClick={() => setShowRegister(true)}
-              className="flex items-center justify-center w-full h-12 bg-primary hover:bg-opacity-80 text-white  rounded-full group "
+              className="flex items-center justify-center w-full h-12 shadow-lg bg-primary hover:bg-opacity-80 text-white  rounded-full group "
             >
               Register
             </button>
@@ -32,7 +32,7 @@ export function Home() {
           <div className="flex items-center w-full  px-[15%] mb-4 ">
             <button
               onClick={() => setShowLogin(true)}
-              className="flex items-center justify-center w-full h-12 bg-white bg-opacity-25 hover:bg-opacity-30  text-whitebg  rounded-full group "
+              className="flex items-center justify-center w-full h-12 shadow-lg bg-white bg-opacity-25 hover:bg-opacity-30  text-whitebg  rounded-full group "
             >
               Login
             </button>
