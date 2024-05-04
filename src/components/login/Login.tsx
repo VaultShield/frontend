@@ -1,3 +1,4 @@
+import Close from '@mui/icons-material/Close';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useLogin } from 'hooks/useLogin';
@@ -22,13 +23,19 @@ export function Login({ onClose, handleLogin }: LoginProps) {
         className="absolute bg-[#000000] opacity-80 h-screen w-screen "
       ></div>
 
-      <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem] sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
-        <div className="  text-whitebg w-full flex justify-end items-start text-black  pr-5 pt-5">
-          <CloseRoundedIcon onClick={onClose} className='cursor-pointer' />
+
+      <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
+        <div className="  text-white  w-full flex justify-end items-start  pr-5 pt-5">
+          <button
+            onClick={onClose}
+            className="md:h-12 md:w-12 w-10 h-10 rounded-lg border-2 border-primary  text-primary border-opacity-15 hover:bg-primary hover:text-white flex justify-center items-center cursor-pointer z-20"
+          >
+            <CloseRoundedIcon />
+          </button>
         </div>
-        <form className="w-[90%] max-w-[30rem]   flex flex-col justify-center items-center space-y-4  h-full mt-[-2.84rem] text-black">
+        <form className="w-full flex flex-col justify-center items-center space-y-4 px-5   h-full mt-[-2.84rem] text-black">
           <div className="text-4xl  mb-5">Welcome Back!</div>
-          <div className="w-full flex items-center">
+          <div className="w-full max-w-[30rem]  flex items-center">
             <PersonRoundedIcon className="absolute ml-4 text-primary" />
             <input
               type="username"
@@ -43,7 +50,7 @@ export function Login({ onClose, handleLogin }: LoginProps) {
               <p className="text-red-500">{errors.username}</p>
             )}{' '}
           </div>
-          <div className="w-full flex items-center">
+          <div className="w-full max-w-[30rem]  flex items-center">
             <KeyRoundedIcon className="absolute ml-4 text-primary" />
             <input
               type="password"
@@ -63,7 +70,7 @@ export function Login({ onClose, handleLogin }: LoginProps) {
               e.preventDefault();
               sendData(infoUser);
             }}
-            className="bg-primary w-full h-12 rounded-full text-white"
+            className="bg-primary w-full max-w-[30rem]  h-12 rounded-full text-white"
           >
             Login
           </button>
