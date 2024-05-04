@@ -3,6 +3,7 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useLogin } from 'hooks/useLogin';
 import { useState } from 'react';
 import { Recover } from './Recover';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 interface LoginProps {
   onClose: () => void;
@@ -21,11 +22,11 @@ export function Login({ onClose, handleLogin }: LoginProps) {
         className="absolute bg-[#000000] opacity-80 h-screen w-screen "
       ></div>
 
-      <div className="flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold">
-        <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
-          <div className="cursor-pointer z-20">x</div>
+      <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem] sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
+        <div className="  text-whitebg w-full flex justify-end items-start text-black  pr-5 pt-5">
+          <CloseRoundedIcon onClick={onClose} className='cursor-pointer' />
         </div>
-        <form className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black">
+        <form className="w-[90%] max-w-[30rem]   flex flex-col justify-center items-center space-y-4  h-full mt-[-2.84rem] text-black">
           <div className="text-4xl  mb-5">Welcome Back!</div>
           <div className="w-full flex items-center">
             <PersonRoundedIcon className="absolute ml-4 text-primary" />
