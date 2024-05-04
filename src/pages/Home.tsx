@@ -1,7 +1,7 @@
 import { CardInfo } from 'components/CardsInfo';
 import { Login } from 'components/login';
 import Signup from 'components/Signup';
-
+import LogoVaultShield from "../../public/Logo_ValutShield.png"
 import {  useState } from 'react';
 
 export function Home() {
@@ -13,7 +13,7 @@ export function Home() {
   return (
     <div className="grid grid-cols-2 w-screen h-screen degradado text-white ">
       <div className='flex items-center justify-center'>
-        VaultShield
+        <img src={LogoVaultShield} alt="Logo_ValutShield" />
       </div>
       <div className=''>
       
