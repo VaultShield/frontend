@@ -9,7 +9,7 @@ export function Recover({ onClose }: RecoverProps) {
   const [userCorrect, setUserCorrect] = useState('');
 
   return (
-    <div className="absolute flex justify-center items-center right-0 top-0 h-screen  w-screen  z-50 ">
+    <div className="absolute flex justify-center items-center right-0 top-0 h-screen  w-screen  z-50 overflow-y-hidden">
       <div className="bg-white text-whitebg w-full h-full flex flex-col justify-center rounded-lg items-center p-6 space-y-5">
         <div className="w-full flex justify-start">
           <div
@@ -23,14 +23,14 @@ export function Recover({ onClose }: RecoverProps) {
         </div>
 
         {userCorrect === 'seed' ? (
-          <div className="w-full h-full  flex flex-col justify-center items-center space-y-5">
+          <div className="w-full h-[90%] flex flex-col justify-center items-center space-y-5">
             <div className="font-bold text-2xl text-black">
               Enter All Words!
             </div>
             <div className="text-gray-400">
               Enter the words we gave you when you registered in the same order.
             </div>
-            <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 p-5 bg-primary bg-opacity-15 rounded-lg">
+            <div className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 min-[420px]:grid-cols-2 gap-4 p-5 bg-primary bg-opacity-15 rounded-lg max-h-[70%] overflow-y-auto">
               {Array.from({ length: 15 }).map((_, index) => (
                 <div
                   key={index}
