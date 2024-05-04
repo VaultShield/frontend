@@ -1,25 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
-import { dashboardMainCard, badgeMenuDashboard } from 'styles/tailwind.classes';
+import { dashboardMainCard } from 'styles/tailwind.classes';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import { Menu } from 'components/Menu';
 import { NavLinkDashboard } from 'components/NavLinkDashboard';
 import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import {
-  IconCredentials,
-  IconNewPasswordGenerator
-} from 'components/svg/IconsMenuDashboard';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import { useState } from 'react';
 import { useUserStore } from 'store/userStore';
 import { Link } from 'react-router-dom';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
-  const username = useUserStore((state) => state.user.username); 
+  const username = useUserStore((state) => state.user.username);
 
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden">
@@ -49,31 +46,50 @@ const DashboardLayout = () => {
               </div>
             </div>
             <div
-              className={`w-full ${showOptions ? 'bg-white bg-opacity-25' : ''}  rounded-3xl flex-col flex justify-end text-lg font-semibold items-start`}
+              className={`w-full ${showOptions ? 'bg-white bg-opacity-25' : ''}  rounded-[1.73rem] flex-col flex justify-end text-lg font-semibold items-start overflow-hidden`}
             >
               {showOptions ? (
-                <>
-                  <Link onClick={()=>setShowOptions(!showOptions)} className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full " to="/settings">
+                <aside className="w-full">
+                  <Link
+                    onClick={() => setShowOptions(!showOptions)}
+                    className="flex items-center h-14 cursor-pointer w-full hover:bg-white hover:bg-opacity-25"
+                    to="/settings"
+                  >
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <EditRoundedIcon />
-                       
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
                   </Link>
-                  <div onClick={()=>setShowOptions(!showOptions)} className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full hover:text-red-400">
+                  <div
+                    onClick={() => setShowOptions(!showOptions)}
+                    className="flex items-center h-14  cursor-pointer w-full hover:text-red-500 hover:bg-white hover:bg-opacity-25"
+                  >
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <LogoutRoundedIcon />
                     </div>
                     <div className="max-xl:hidden">Log Out</div>
                   </div>
-                </>
+                </aside>
               ) : null}
 
-              <div onClick={()=>setShowOptions(!showOptions)} className="bg-white w-full bg-opacity-25 h-14 flex items-center p-1 rounded-full space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center ">
+              <div
+                onClick={() => setShowOptions(!showOptions)}
+                className={`w-full bg-opacity-25 h-14 flex items-center p-1 ${showOptions ? 'rounded-b-2xl ' : 'rounded-full bg-white '}  space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center group relative`}
+              >
                 <div className="xl:bg-white xl:bg-opacity-25  aspect-square h-full flex items-center justify-center rounded-full ">
                   <PersonRoundedIcon />
                 </div>
                 <div className="max-xl:hidden">{username}</div>
+                <div className=" absolute right-3 transition-colors duration-150 w-10 h-10 flex items-center justify-center group-hover:bg-white rounded-full group-hover:bg-opacity-25">
+                  <div className=" flex justify-end max-xl:hidden ">
+                    {showOptions && (
+                      <KeyboardArrowUpRoundedIcon className="scale-125" />
+                    )}
+                    {!showOptions && (
+                      <KeyboardArrowDownRoundedIcon className="scale-125 " />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
