@@ -1,4 +1,20 @@
-export function FormCreateCredential({ isOpen, onClose }) {
+interface EditCredentialsProps {
+  account: string;
+  userName: string;
+  notes: string;
+  password: string;
+  onClose: () => void;
+  isOpen: boolean;
+}
+
+export function FormEditCredential({
+  isOpen,
+  onClose,
+  account,
+  userName,
+  notes,
+  password
+}: EditCredentialsProps) {
   return (
     <>
       {isOpen ? (
@@ -18,6 +34,7 @@ export function FormCreateCredential({ isOpen, onClose }) {
                   type="text"
                   className="bg-black w-full rounded-lg outline-none pl-3 h-12 placeholder:text-gray-600 "
                   placeholder="Title"
+                  value={account}
                 />
               </div>
               <div className=" flex-col items-start flex w-full ">
@@ -25,6 +42,7 @@ export function FormCreateCredential({ isOpen, onClose }) {
                   type="text"
                   className="bg-black w-full rounded-lg outline-none pl-3 h-12 placeholder:text-gray-600 "
                   placeholder="Username"
+                  value={userName}
                 />
               </div>
               <div className=" flex-col items-start flex w-full ">
@@ -32,6 +50,7 @@ export function FormCreateCredential({ isOpen, onClose }) {
                   type="password"
                   className="bg-black w-full rounded-lg outline-none pl-3 h-12 placeholder:text-gray-600 "
                   placeholder="Password"
+                  value={password}
                 />
               </div>
               <div className=" flex-col items-start flex w-full ">
@@ -39,6 +58,7 @@ export function FormCreateCredential({ isOpen, onClose }) {
                   type="text"
                   className="bg-black w-full rounded-lg outline-none pl-3 h-12 placeholder:text-gray-600 "
                   placeholder="Note"
+                  value={notes}
                 />
               </div>
               <div className=" flex-col items-start flex w-full ">
