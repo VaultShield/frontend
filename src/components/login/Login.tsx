@@ -80,7 +80,7 @@ export function Login({ onClose, handleLogin }: LoginProps) {
           </div>
         </form>
       </div>
-      <Recover isOpen={showRecover} onClose={() => setShowRecover(false)} />
+      {showRecover && <Recover onClose={() => setShowRecover(false)} />}
     </div>
   );
 }
