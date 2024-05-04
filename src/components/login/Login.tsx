@@ -1,66 +1,94 @@
+
+import { useLogin } from 'hooks/useLogin';
 import { btnDefault } from 'styles/tailwind.classes';
 import InputBase from '../InputBase';
-import { useLogin } from 'hooks/useLogin';
+import { useState, useContext } from 'react';
+import { validateForm } from 'utils/validations';
+import { useNavigate } from 'react-router-dom';
+import { NotificationContext } from 'contexts/notificationContext';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
+import { Recover } from './Recover';
 
 interface LoginProps {
+  isOpen: boolean;
+  onClose: () => void;
   handleLogin: () => void;
+
 }
 
-export function Login({ handleLogin }: LoginProps) {
+export function Login({ isOpen, onClose, handleLogin }: LoginProps) {
+  const [showRecover, setShowRecover] = useState(false)
+
   const { infoUser, errors, sendData, handleSignupClick, setInfoUser } =
     useLogin({ handleLogin });
 
   return (
-    <div className="flex flex-col justify-center items-center p-0 m-0 ">
-      <div className="border rounded-md shadow-xl h-max w-[360px] md:w-6/12 m-0 px-4 pb-2 dark:bg-zinc-900 dark:border-zinc-800 dark:text-white flex flex-col">
-        <form className="flex justify-evenly flex-col rounded-md dark:bg-zinc-700 h-[420px] mt-9 w-full px-2">
-          <div>
-            <h2 className="dark:text-gray-100 text-lg">Acount Login</h2>
-            <p className="dark:text-gray-100"></p>
-          </div>
-          <InputBase
-            label="Username"
-            type="username"
-            placeholder="username ..."
-            value={infoUser.username}
-            onChange={(e) =>
-              setInfoUser({ ...infoUser, username: e.target.value })
-            }
-          />
-          {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
-          <InputBase
-            label="Password"
-            type="password"
-            value={infoUser.password}
-            onChange={(e) =>
-              setInfoUser({ ...infoUser, password: e.target.value })
-            }
-          />
-          {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              sendData(infoUser);
-            }}
-            className={btnDefault}
-          >
-            Login
-          </button>
-          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-          <div>
-            <span>You don't have an account?</span>
+    <>{
+      isOpen ? (
+        <div className="absolute flex justify-center items-center right-0 top-0 h-screen w-screen text-white ">
+          <div onClick={onClose} className='absolute bg-[#000000] opacity-80 h-screen w-screen '></div>
 
-            <span
-              className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400 cursor-pointer"
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                handleSignupClick(e)
-              }
-            >
-              signup
-            </span>
+          <div className="flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold">
+            <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
+              <div className="cursor-pointer z-20">
+                x
+
+              </div>
+            </div>
+            <form className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black">
+              <div className="text-4xl  mb-5">
+                Welcome Back!
+              </div>
+              <div className='w-full flex items-center'>
+                <PersonRoundedIcon className="absolute ml-4 text-primary" />
+                <input
+                  type="username"
+                  className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray " placeholder="Username"
+                  value={infoUser.username}
+                  onChange={(e) =>
+                    setInfoUser({ ...infoUser, username: e.target.value })
+                  }
+                />
+                {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
+              </div>
+              <div className='w-full flex items-center'>
+                <KeyRoundedIcon className="absolute ml-4 text-primary" />
+                <input
+                  type="password"
+                  className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray " placeholder="Password"
+
+                  value={infoUser.password}
+                  onChange={(e) =>
+                    setInfoUser({ ...infoUser, password: e.target.value })
+                  }
+                />
+                {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  sendData(infoUser);
+                }}
+                className='bg-primary w-full h-12 rounded-full text-white'
+              >
+                Login
+              </button>
+              {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
+              <div>
+              <div className="w-full flex justify-center text-black  font-medium ">
+                  Forget the password?&nbsp; <span onClick={()=>setShowRecover(true)} className="text-primary font-semibold cursor-pointer">Recover</span>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
+          <Recover isOpen={showRecover} onClose={() => setShowRecover(false)} />
+
+        </div>
+      ) : null
+    }
+    </>
+
   );
 }

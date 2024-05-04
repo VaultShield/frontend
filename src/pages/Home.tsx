@@ -1,40 +1,51 @@
-import { CardInfo } from 'components/CardsInfo';
-import { Login } from 'components/login';
 import Signup from 'components/Signup';
-import { PadlockIcon, SecurityIcon } from 'components/svg/IconsCardsInfo';
+import { Login } from 'components/login';
 import { useState } from 'react';
+import LogoVaultShield from '../../public/Logo_ValutShield.png';
 
 export function Home() {
-  const [islogin, setIsLogin] = useState(true);
-  const handleLogin = () => {
-    setIsLogin(!islogin);
-  };
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center w-full p-0 mt-10 md:m-0">
-      <div className="w-6/12 m-0 p-0 ">
-        <main className="h-auto   flex flex-col justify-center items-center p-0 m-0 ">
-          <section className="flex flex-col gap-4 ">
-            <h1 className="text-cinder-100 text-7xl">VaultShield</h1>
-            <p className="text-cinder-700 text-2xl">Password manager</p>
-          </section>
-        </main>
-        <section className="flex flex-col justify-center  items-center md:flex-row mb-6  p-0 py-10 h-32 md:px-6">
-          <CardInfo title="Store your passwords">
-            <PadlockIcon />
-          </CardInfo>
-          <CardInfo title="Export your passwords">
-            <SecurityIcon />
-          </CardInfo>
-        </section>
+    <div className="grid grid-cols-2 w-screen h-screen degradado text-white ">
+      <div className="flex items-center justify-center">
+        <img src={LogoVaultShield} alt="Logo_ValutShield" />
       </div>
-      <div className="w-6/12 m-0 p-0">
-        {islogin ? (
-          <Login handleLogin={handleLogin} />
-        ) : (
-          <Signup handleSignup={handleLogin} />
-        )}
+      <div className="">
+        <div className="flex flex-col justify-center items-center h-full  font-semibold text-lg space-y-3 ">
+          <div className="text-4xl font-semibold text-whitebg mb-6 ">
+            Join Now!
+          </div>
+          <div className="flex items-center w-full  px-[15%] mb-4 ">
+            <button
+              onClick={() => setShowRegister(true)}
+              className="flex items-center justify-center w-full h-12 bg-primary hover:bg-opacity-80 text-white  rounded-full group "
+            >
+              Register
+            </button>
+          </div>
+
+          <div className="text-whitebg font-medium">
+            Alredy have an account?
+          </div>
+          <div className="flex items-center w-full  px-[15%] mb-4 ">
+            <button
+              onClick={() => setShowLogin(true)}
+              className="flex items-center justify-center w-full h-12 bg-white bg-opacity-25 hover:bg-opacity-30  text-whitebg  rounded-full group "
+            >
+              Login
+            </button>
+          </div>
+        </div>
       </div>
+
+      <Signup isOpen={showRegister} onClose={() => setShowRegister(false)} />
+      <Login
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        handleLogin={() => setShowLogin(!showLogin)}
+      />
     </div>
   );
 }
