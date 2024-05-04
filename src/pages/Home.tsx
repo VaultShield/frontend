@@ -40,12 +40,18 @@ export function Home() {
         </div>
       </div>
 
-      <Signup isOpen={showRegister} onClose={() => setShowRegister(false)} />
-      <Login
-        isOpen={showLogin}
-        onClose={() => setShowLogin(false)}
-        handleLogin={() => setShowLogin(!showLogin)}
-      />
+      {showRegister && (
+        <Signup
+          onClose={() => setShowRegister(false)}
+          handleLogin={() => setShowLogin(true)}
+        />
+      )}
+      {showLogin && (
+        <Login
+          onClose={() => setShowLogin(false)}
+          handleLogin={() => setShowLogin(!showLogin)}
+        />
+      )}
     </div>
   );
 }

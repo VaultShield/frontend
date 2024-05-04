@@ -5,20 +5,14 @@ import { FormEvent, useState } from 'react';
 import LoginRegister from 'services/LoginRegister';
 import { toast } from 'sonner';
 import { RegisterRequest } from 'types/apiTypes';
+import { ErrorsForm } from 'types/types';
 import { validateForm } from 'utils/validations';
-interface ErrorsForm {
-  email?: string;
-  password?: string;
-  username?: string;
-  error?: string;
-}
 
 interface RegisterProps {
-  isOpen: boolean;
   onClose: () => void;
   handleLogin: () => void;
 }
-const Signup = ({ isOpen, onClose, handleLogin }: RegisterProps) => {
+const Signup = ({ onClose, handleLogin }: RegisterProps) => {
   const registerRequest: RegisterRequest = {
     email: '',
     password: '',
@@ -62,69 +56,65 @@ const Signup = ({ isOpen, onClose, handleLogin }: RegisterProps) => {
   };
 
   return (
-    <>
-      {isOpen ? (
-        <div className="absolute flex justify-center items-center right-0 top-0 h-screen w-screen text-white ">
-          <div
-            onClick={onClose}
-            className="absolute bg-[#000000] opacity-80 h-screen w-screen "
-          ></div>
+    <div className="absolute flex justify-center items-center right-0 top-0 h-screen w-screen text-white ">
+      <div
+        onClick={onClose}
+        className="absolute bg-[#000000] opacity-80 h-screen w-screen "
+      ></div>
 
-          <div className="flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold">
-            <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
-              <div className="cursor-pointer z-20">x</div>
-            </div>
-            <form
-              className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black"
-              onSubmit={registerNewUser}
-            >
-              <div className="text-4xl  mb-5">Lets Start!</div>
-              <div className="w-full flex items-center">
-                <PersonRoundedIcon className="absolute ml-4 text-primary" />
-                <input
-                  type="text"
-                  className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                ></input>
-                {errors.username && (
-                  <p className="text-red-500">{errors.username}</p>
-                )}{' '}
-              </div>
-              <div className="w-full flex items-center">
-                <EmailRoundedIcon className="absolute ml-4 text-primary" />
-                <input
-                  type="email"
-                  className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-              </div>
-              <div className="w-full flex items-center">
-                <KeyRoundedIcon className="absolute ml-4 text-primary" />
-                <input
-                  type="password"
-                  className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                {errors.password && (
-                  <p className="text-red-500">{errors.password}</p>
-                )}{' '}
-              </div>
-              <button className="bg-primary w-full h-12 rounded-full text-white">
-                Create Account
-              </button>
-              {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-            </form>
-          </div>
+      <div className="flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold">
+        <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
+          <div className="cursor-pointer z-20">x</div>
         </div>
-      ) : null}
-    </>
+        <form
+          className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black"
+          onSubmit={registerNewUser}
+        >
+          <div className="text-4xl  mb-5">Lets Start!</div>
+          <div className="w-full flex items-center">
+            <PersonRoundedIcon className="absolute ml-4 text-primary" />
+            <input
+              type="text"
+              className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            ></input>
+            {errors.username && (
+              <p className="text-red-500">{errors.username}</p>
+            )}{' '}
+          </div>
+          <div className="w-full flex items-center">
+            <EmailRoundedIcon className="absolute ml-4 text-primary" />
+            <input
+              type="email"
+              className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
+          </div>
+          <div className="w-full flex items-center">
+            <KeyRoundedIcon className="absolute ml-4 text-primary" />
+            <input
+              type="password"
+              className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && (
+              <p className="text-red-500">{errors.password}</p>
+            )}{' '}
+          </div>
+          <button className="bg-primary w-full h-12 rounded-full text-white">
+            Create Account
+          </button>
+          {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
+        </form>
+      </div>
+    </div>
   );
 };
 
