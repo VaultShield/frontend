@@ -13,6 +13,7 @@ import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRound
 import { useState } from 'react';
 import { useUserStore } from 'store/userStore';
 import { Link } from 'react-router-dom';
+import ButtonExit from 'components/ButtonExit';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
@@ -60,15 +61,8 @@ const DashboardLayout = () => {
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
                   </Link>
-                  <div
-                    onClick={() => setShowOptions(!showOptions)}
-                    className="flex items-center h-14  cursor-pointer w-full hover:text-red-500 hover:bg-white hover:bg-opacity-25"
-                  >
-                    <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
-                      <LogoutRoundedIcon />
-                    </div>
-                    <div className="max-xl:hidden">Log Out</div>
-                  </div>
+                  <ButtonExit/>
+
                 </aside>
               ) : null}
 
