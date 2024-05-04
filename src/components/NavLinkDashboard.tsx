@@ -13,14 +13,21 @@ export function NavLinkDashboard({
     <NavLink
       className={({ isActive }) =>
         isActive
-          ? 'w-full dark:bg-shamrock-800  bg-shamrock-200 py-2 border-r-shamrock-500 dark:border-r-shamrock-400 border-r-4 text-start pl-10'
-          : ' py-2 w-full transition-colors duration-200 hover:bg-shamrock-100 dark:hover:bg-shamrock-950  text-start pl-10'
+          ? 'bg-white bg-opacity-25 h-14 flex items-center p-1 rounded-full space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center'
+          : ' hover:bg-white hover:bg-opacity-25 h-14  flex items-center p-1 rounded-full space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center'
       }
       to={to}
     >
-      <div className="w-full flex items-center gap-4 text-lg h-11">
-        <div className="w-6 fill-shamrock-50">{children}</div> {nameLink}
+
+      <div className='xl:bg-white xl:bg-opacity-25  aspect-square h-full flex items-center justify-center rounded-full '>
+        {children}
+
+      </div> 
+      <div className='max-xl:hidden'>
+        {nameLink}
       </div>
+
+
     </NavLink>
   );
 }
