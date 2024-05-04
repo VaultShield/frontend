@@ -1,3 +1,4 @@
+import Close from '@mui/icons-material/Close';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
@@ -63,11 +64,16 @@ const Signup = ({ onClose, handleLogin }: RegisterProps) => {
       ></div>
 
       <div className="flex flex-col justify-center bg-white w-[57rem] h-[75%] rounded-lg z-10 text-whitebg  font-semibold">
-        <div className="  text-whitebg w-full flex justify-end items-start  pr-5 pt-5">
-          <div className="cursor-pointer z-20">x</div>
+        <div className="  text-white  w-full flex justify-end items-start  pr-5 pt-5">
+          <button
+            onClick={onClose}
+            className="md:h-12 md:w-12 w-10 h-10 rounded-lg border-2 border-primary  text-primary border-opacity-15 hover:bg-primary hover:text-white flex justify-center items-center cursor-pointer z-20"
+          >
+            <Close />
+          </button>
         </div>
         <form
-          className="w-full flex flex-col justify-center items-center space-y-4 px-56 h-full mt-[-2.84rem] text-black"
+          className="w-full flex flex-col justify-center items-center space-y-4 px-10 md:px-20 lg:px-40 xl:px-56 h-full mt-[-2.84rem] text-black"
           onSubmit={registerNewUser}
         >
           <div className="text-4xl  mb-5">Lets Start!</div>
