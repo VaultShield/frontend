@@ -14,9 +14,13 @@ import {
   IconNewPasswordGenerator
 } from 'components/svg/IconsMenuDashboard';
 import { useState } from 'react';
+import { useUserStore } from 'store/userStore';
+import { Link } from 'react-router-dom';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
+  const username = useUserStore((state) => state.user.username); 
+
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
@@ -49,14 +53,14 @@ const DashboardLayout = () => {
             >
               {showOptions ? (
                 <>
-                  <div className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full ">
+                  <Link onClick={()=>setShowOptions(!showOptions)} className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full " to="/settings">
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <EditRoundedIcon />
                        
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
-                  </div>
-                  <div className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full hover:text-red-400">
+                  </Link>
+                  <div onClick={()=>setShowOptions(!showOptions)} className="flex items-center h-14 opacity-50 hover:opacity-100 cursor-pointer w-full hover:text-red-400">
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <LogoutRoundedIcon />
                     </div>
@@ -69,7 +73,7 @@ const DashboardLayout = () => {
                 <div className="xl:bg-white xl:bg-opacity-25  aspect-square h-full flex items-center justify-center rounded-full ">
                   <PersonRoundedIcon />
                 </div>
-                <div className="max-xl:hidden">Passwords</div>
+                <div className="max-xl:hidden">{username}</div>
               </div>
             </div>
           </div>
