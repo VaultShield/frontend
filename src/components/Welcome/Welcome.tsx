@@ -1,8 +1,10 @@
 import { CardCredential } from 'components/CardCredential';
 import { badgeMenuDashboard } from 'styles/tailwind.classes';
 import { useState } from 'react';
+import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
 const Welcome = () => {
   const [newCredential, setNewCredential] = useState(false);
+
   return (
     <div className="w-full pt-4 md:pl-2 sm:pr-4 lg:pr-8">
       <header className="w-full text-start  pt-4 pb-8 text-xl flex justify-between relative">
@@ -22,32 +24,10 @@ const Welcome = () => {
       <main
         className={`${badgeMenuDashboard} flex flex-col items-start h-full mr-2 p-0`}
       >
-        {' '}
-        {!newCredential && <div className="h-7"></div>}
-        {newCredential && (
-          <div className="w-full flex px-4 justify-between ">
-            <div>
-              Name of Acount
-              <input className="text-cinder-800 ml-4" type="text" />
-            </div>
-            <div>
-              Name User
-              <input className="text-cinder-800 ml-4" type="text" />
-            </div>
-            <div>
-              Password
-              <input className="text-cinder-800 ml-4" type="text" />
-            </div>
-            <div>
-              <button
-                onClick={() => setNewCredential(false)}
-                className="bg-white rounded-3xl text-cinder-900 px-4 cursor-pointer py-1 text-sm"
-              >
-                Okey!
-              </button>
-            </div>
-          </div>
-        )}
+        <FormCreateCredential
+          isOpen={newCredential}
+          onClose={() => setNewCredential(false)}
+        />
         {/* <Table /> */}
         <section className=" dark:border-shamrock-800 border-shamrock-500 border-opacity-45 border-t-2 w-full h-full max-w-[1150px] rounded-xl mx-1">
           <CardCredential
