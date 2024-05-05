@@ -6,7 +6,7 @@ export const useStorage = () => {
   const setTokenStore = useUserStore((state) => state.setToken);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setRefreshToken = useUserStore((state) => state.setRefreshToken);
-  const saveSesionStorage = (user: User, refreshToken: string) => {
+  const saveSessionStorage = (user: User, refreshToken: string) => {
     sessionStorage.removeItem('sesionId');
     const sesionID = `${user.id};${user.username};${user.email};${refreshToken}`;
     sessionStorage.setItem('sesionId', sesionID);
@@ -20,7 +20,7 @@ export const useStorage = () => {
     setUser(user);
     setRefreshToken(refreshToken);
     setIsLogged(true);
-    saveSesionStorage(user, refreshToken);
+    saveSessionStorage(user, refreshToken);
   };
 
   const recoverSesionStorage = () => {
@@ -44,5 +44,5 @@ export const useStorage = () => {
     return false;
   };
 
-  return { saveSesionStorage, recoverSesionStorage, saveGlobalStateUser };
+  return { saveSessionStorage, recoverSesionStorage, saveGlobalStateUser };
 };
