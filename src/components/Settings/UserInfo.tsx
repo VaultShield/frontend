@@ -3,7 +3,7 @@ import FormUpdateUser from './FormUpdateUser';
 
 const UserInfo = () => {
   return (
-    <div className="w-full flex flex-col px-4 mb-4 gap-5">
+    <div className="w-full flex flex-col px-4 mb-4 gap-5 bg-white rounded-2xl py-10">
       <header className="flex flex-col items-center ">
         <svg
           width="150"
