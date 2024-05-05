@@ -77,11 +77,11 @@ export async function updateUserPassword(formData: FormData, token: string) {
     });
     if (!response.ok) {
       const errorMessage = await response.json();
-      return { error: errorMessage };
+      throw new Error(errorMessage.message);
     }
     const data = await response.json();
     return data.message;
   } catch (error) {
-    return error;
+    throw new Error((error as Error).message || 'Error');
   }
 }

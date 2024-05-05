@@ -67,16 +67,18 @@ export const useChangePassword = () => {
         });
         return;
       }
-      const res = await updateUserPassword(formData, token);
-      if (res.error) {
-        toast.error('Your old password is incorrect');
-        return;
+      try {
+        await updateUserPassword(formData, token);
+        resetForm();
+        setIsOpen(false);
+        toast.success('Password chanded successfully', {
+          duration: 2000
+        });
+      } catch (error) {
+        toast.error(
+          (error as Error)?.message || 'Your old password is incorrect'
+        );
       }
-      resetForm();
-      setIsOpen(false);
-      toast.success('Password chanded successfully', {
-        duration: 2000
-      });
     }
   };
 
