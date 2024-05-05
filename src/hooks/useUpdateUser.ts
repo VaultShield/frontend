@@ -5,6 +5,7 @@ import { useUserStore } from 'store/userStore';
 import { RefreshTokenResponse } from 'types/apiTypes';
 import { ErrorsForm } from 'types/types';
 import { validateForm } from 'utils/validations';
+import { useStorage } from './useStorage';
 
 export const useUpdateUser = () => {
   const { user, token, refreshToken } = useUserStore((state) => state);
@@ -12,7 +13,7 @@ export const useUpdateUser = () => {
   const setRefreshToken = useUserStore((state) => state.setRefreshToken);
   const setToken = useUserStore((state) => state.setToken);
   const [errors, setErrors] = useState<ErrorsForm>({});
-
+  const { saveSesionStorage } = useStorage();
   const { username, email } = user;
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState(username);
@@ -56,7 +57,7 @@ export const useUpdateUser = () => {
     setErrors(errorsForm);
     if (!errorsForm.email && !errorsForm.username) {
       const res = await updateUserData(formData, token);
-      if (!res.id) {
+      if (res.error) {
         console.log(res.message);
         toast.error(res.message, { duration: 2000 });
         return;
@@ -68,6 +69,10 @@ export const useUpdateUser = () => {
       setToken(newToken.token);
       setRefreshToken(newToken.refreshToken);
       localStorage.setItem('token', newToken.token);
+      saveSesionStorage(
+        { ...user, username: res.username, email: res.email },
+        newToken.refreshToken
+      );
       setIsEditing(false);
       toast.success('User updated successfully', {
         duration: 2000
