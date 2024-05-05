@@ -13,7 +13,7 @@ export const useUpdateUser = () => {
   const setRefreshToken = useUserStore((state) => state.setRefreshToken);
   const setToken = useUserStore((state) => state.setToken);
   const [errors, setErrors] = useState<ErrorsForm>({});
-  const { saveSesionStorage } = useStorage();
+  const { saveSessionStorage } = useStorage();
   const { username, email } = user;
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState(username);
@@ -69,7 +69,7 @@ export const useUpdateUser = () => {
       setToken(newToken.token);
       setRefreshToken(newToken.refreshToken);
       localStorage.setItem('token', newToken.token);
-      saveSesionStorage(
+      saveSessionStorage(
         { ...user, username: res.username, email: res.email },
         newToken.refreshToken
       );
