@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginRegister from 'services/LoginRegister';
+import { login } from 'services/LoginRegister';
 import { toast } from 'sonner';
 import { LoginRequest } from 'types/apiTypes';
 import { validateForm } from 'utils/validations';
@@ -55,7 +55,7 @@ export const useLogin = ({ handleLogin }: LoginProps) => {
   };
 
   const loginUser = async (credentials: LoginRequest): Promise<void> => {
-    const response = await LoginRegister.login(credentials);
+    const response = await login(credentials);
     const { token, user, refreshToken } = response;
     if (token) {
       localStorage.setItem('token', token); // Store the user token in local storage
