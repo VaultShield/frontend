@@ -8,7 +8,7 @@ export default function Settings() {
   const { isLogged } = useUserStore();
   if (!isLogged) navigate(HOME);
   return (
-    <section className="flex flex-col items-center p-10 gap-10 w-full">
+    <section className="flex flex-col items-center gap-10 w-full bg-white rounded-2xl my-5 mx-5">
       <UserInfo />
     </section>
   );
