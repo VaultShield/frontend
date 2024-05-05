@@ -94,7 +94,7 @@ const DashboardLayout = () => {
             </div>
           </div>
 
-          <div className="xl:w-4/5 w-full flex overflow-y-auto">
+          <div className="xl:w-4/5 w-full items-start lg:pt-8 min-[2000px]:pt-16 justify-start flex  flex-col">
             <Outlet />
           </div>
         </div>
