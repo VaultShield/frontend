@@ -3,15 +3,23 @@ export function InputForm({
   type,
   placeholder,
   value,
-  onChange
+  onChange,
+  icon,
+  name,
+  id
 }: InputFormProps) {
   return (
-    <input
-      type={type}
-      className="bg-blueLigth-100  placeholder:text-blueLigth-700 w-full rounded-lg outline-none pl-3 h-12 text-blueLigth-700  "
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
+    <label className="bg-primary bg-opacity-15 text-[#45ADB0] rounded-full h-12  flex px-4 py-3 gap-3 w-full  outline-none placeholder:text-grayr ">
+      {icon}
+      <input
+        type={type}
+        className="self-center flex flex-col items-start w-full bg-transparent focus:outline-none "
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        name={name}
+        id={id}
+      />
+    </label>
   );
 }

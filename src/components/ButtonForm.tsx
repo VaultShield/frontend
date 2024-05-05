@@ -7,7 +7,7 @@ export function ButtonForm({ name, onClick }: ButtonFormProps) {
   return (
     <button
       onClick={onClick}
-      className="bg-blueLigth-700 text-white w-full h-12 rounded-lg hover:bg-blueLigth-600"
+      className=" text-white w-full h-12 rounded-3xl hover:bg-blueLigth-600 bg-[#45ADB0] "
     >
       {name}
     </button>
