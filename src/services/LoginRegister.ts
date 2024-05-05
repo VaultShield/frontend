@@ -1,4 +1,8 @@
-import { type LoginRequest, RegisterRequest } from 'types/apiTypes';
+import {
+  ErrorMessage,
+  RegisterRequest,
+  type LoginRequest
+} from 'types/apiTypes';
 
 const URL = import.meta.env.VITE_BASE_URL;
 
@@ -6,7 +10,7 @@ const REGISTER_URL = URL + import.meta.env.VITE_REGISTER_URL;
 
 const LOGIN_URL = URL + import.meta.env.VITE_LOGIN_URL;
 
-const register = async (payload: RegisterRequest) => {
+export const register = async (payload: RegisterRequest) => {
   try {
     const res = await fetch(REGISTER_URL, {
       method: 'POST',
@@ -17,15 +21,18 @@ const register = async (payload: RegisterRequest) => {
         email: payload.email
       })
     });
+    if (!res.ok) {
+      const errorMessage = await res.json();
+      throw new Error(errorMessage.message);
+    }
     const data = await res.json();
-    if (res.ok) return '200';
     return data;
-  } catch (err: any) {
-    throw new Error(err.data.message);
+  } catch (err) {
+    throw new Error((err as ErrorMessage).message);
   }
 };
 
-const login = async (credentials: LoginRequest) => {
+export const login = async (credentials: LoginRequest) => {
   try {
     const res = await fetch(LOGIN_URL, {
       method: 'POST',
@@ -36,12 +43,13 @@ const login = async (credentials: LoginRequest) => {
       })
     });
 
-    if (!res.ok) return [new Error(`Error uploading file ${res.statusText}`)];
+    if (!res.ok) {
+      const errorMessage = await res.json();
+      throw new Error(errorMessage.message);
+    }
     const data = await res.json();
     return data;
-  } catch (err: any) {
-    throw new Error(err.response.data.message);
+  } catch (err) {
+    throw new Error((err as ErrorMessage).message);
   }
 };
-
-export default { register, login };

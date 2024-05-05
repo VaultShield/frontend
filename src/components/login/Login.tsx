@@ -1,10 +1,9 @@
-import Close from '@mui/icons-material/Close';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useLogin } from 'hooks/useLogin';
 import { useState } from 'react';
 import { Recover } from './Recover';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 interface LoginProps {
   onClose: () => void;
@@ -22,7 +21,6 @@ export function Login({ onClose, handleLogin }: LoginProps) {
         onClick={onClose}
         className="absolute bg-[#000000] opacity-80 h-screen w-screen "
       ></div>
-
 
       <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
         <div className="  text-white  w-full flex justify-end items-start  pr-5 pt-5">

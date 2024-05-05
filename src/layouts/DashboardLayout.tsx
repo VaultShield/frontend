@@ -1,26 +1,24 @@
-import { Outlet } from 'react-router-dom';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
-import { dashboardMainCard } from 'styles/tailwind.classes';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import { NavLinkDashboard } from 'components/NavLinkDashboard';
-import LogoVault from '../../public/Logo_ValutShield.png';
-import LogoVaultIcon from '../../public/shield_lock.png';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
-import { useState } from 'react';
-import { useUserStore } from 'store/userStore';
-import { Link } from 'react-router-dom';
+import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import ButtonExit from 'components/ButtonExit';
+import { NavLinkDashboard } from 'components/NavLinkDashboard';
+import { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { useUserStore } from 'store/userStore';
+import { dashboardMainCard } from 'styles/tailwind.classes';
+import LogoVault from '../../public/Logo_ValutShield.png';
+import LogoVaultIcon from '../../public/shield_lock.png';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
 
   return (
-    <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden">
+    <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
         <Menu />
       </header> */}
@@ -61,8 +59,7 @@ const DashboardLayout = () => {
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
                   </Link>
-                  <ButtonExit/>
-
+                  <ButtonExit />
                 </aside>
               ) : null}
 
