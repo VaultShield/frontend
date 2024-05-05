@@ -25,7 +25,7 @@ const InputSettings = ({
 }: InputSettingsProps) => {
   const [view, setView] = useState(false);
   return (
-    <div className="flex flex-row w-full gap-4">
+    <div className="flex md:flex-row w-full md:gap-4 flex-col">
       <div className="relative w-full flex items-center">
         <div className="absolute ml-4 text-primary">{icon}</div>
         <input
