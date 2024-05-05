@@ -45,8 +45,8 @@ const InputSettings = ({
             {view ? <Visibility /> : <VisibilityOff />}
           </div>
         )}
-        {error && <p className="text-red-500">{error}</p>}
       </div>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };
