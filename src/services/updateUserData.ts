@@ -1,12 +1,13 @@
 import {
   RefreshTokenRequest,
-  User,
+  UpdatePasswordRequest,
   UserDataUpdateRequest
 } from 'types/apiTypes';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const UPDATE_URL = BASE_URL + import.meta.env.VITE_USER_URL;
 const REFRESH_TOKEN_URL = BASE_URL + import.meta.env.VITE_REFRESH_TOKEN_URL;
+const UPDATE_PASSWORD_URL = BASE_URL + import.meta.env.VITE_UPDATE_PASSWORD_URL;
 
 export async function updateUserData(formData: FormData, token: string) {
   const username = formData.get('username')?.toString();
@@ -17,7 +18,6 @@ export async function updateUserData(formData: FormData, token: string) {
     username,
     email
   };
-  console.log({ user, token, id });
   try {
     const response = await fetch(`${UPDATE_URL}${id}`, {
       method: 'PUT',
@@ -27,8 +27,11 @@ export async function updateUserData(formData: FormData, token: string) {
       },
       body: JSON.stringify(user)
     });
+    if (!response.ok) {
+      const errorMessage = await response.json();
+      return { error: errorMessage };
+    }
     const data = await response.json();
-    console.log(data as User);
     return data;
   } catch (error) {
     return error;
@@ -48,9 +51,37 @@ export async function updateToken(refreshToken: string) {
       body: JSON.stringify(request)
     });
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Error refreshing token:', error);
+  }
+}
+
+export async function updateUserPassword(formData: FormData, token: string) {
+  const oldPassword = formData.get('oldPassword')?.toString();
+  const newPassword = formData.get('newPassword')?.toString();
+  const id = formData.get('id')?.toString();
+  if (!oldPassword || !newPassword || !id) throw new Error('Missing data');
+  const passwordRequest: UpdatePasswordRequest = {
+    oldPassword,
+    newPassword
+  };
+  try {
+    const response = await fetch(`${UPDATE_PASSWORD_URL}${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(passwordRequest)
+    });
+    if (!response.ok) {
+      const errorMessage = await response.json();
+      return { error: errorMessage };
+    }
+    const data = await response.json();
+    return data.message;
+  } catch (error) {
+    return error;
   }
 }
