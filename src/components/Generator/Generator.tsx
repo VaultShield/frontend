@@ -134,9 +134,9 @@ const Generator = () => {
     <div className="w-full   text-black sm:py-6 sm:pr-6 ">
       <div className="grid max-lg:grid-rows-auto lg:grid-cols-3  sm:gap-6">
         <div className="  lg:col-span-2 grid grid-cols-5 bg-white rounded-xl sm:gap-6 gap-2 p-6">
-          <div className="grid grid-cols-5 col-span-5 sm:gap-6 gap-3">
+          <div className="grid grid-cols-5 col-span-5  2xl:gap-6 gap-3">
             <div className="col-span-4 ">
-              <div className="bg-primary bg-opacity-15 rounded-lg w-full h-12 flex">
+              <div className="bg-primary bg-opacity-15 rounded-full w-full h-12 flex">
                 <input
                   value={password}
                   type="text"
@@ -187,7 +187,7 @@ const Generator = () => {
 
               <button
                 onClick={copyToClipboard}
-                className="bg-primary w-full h-12 space-x-2 rounded-lg text-white flex items-center justify-center font-medium"
+                className="bg-primary w-full h-12 space-x-2 rounded-full text-white flex items-center justify-center font-medium"
               >
                 <ContentCopyRoundedIcon />
                 <div className="max-sm:hidden">Copy</div>
