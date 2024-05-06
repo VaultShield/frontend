@@ -50,14 +50,14 @@ const ButtonExit = ({setShowConfirmation, showConfirmation}:ExitProps) => {
     <div className="absolute h-screen w-screen  flex items-center justify-center z-20 top-0 right-0">
       <div className="bg-white rounded-xl z-50 text-black w-96 py-6 space-y-3 mx-3">
         <div className='text-xl font-semibold'>
-          ¿Estás seguro/a?
+          Are your sure?
         </div>
         <div className='grid min-[500px]:grid-cols-2  gap-3 font-medium w-full px-6 '>
          
-          <button onClick={handleButtonClick} className='min-[500px]:order-2 h-12 hover:bg-primary hover:text-white bg-white rounded-lg border-2 border-primary w-full '>
+          <button onClick={handleButtonClick} className='min-[500px]:order-2 h-12 text-white bg-primary rounded-full border-2 border-primary w-full  '>
             Confirm
           </button>
-          <button onClick={()=>setShowConfirmation(false)} className='h-12 hover:bg-red-600 hover:text-white bg-white rounded-lg border-2 border-red-600 w-full '>
+          <button onClick={()=>setShowConfirmation(false)} className='h-12 bg-red-600 text-white bg-white rounded-full border-2 border-red-600 w-full '>
             Cancel
           </button>
         </div>

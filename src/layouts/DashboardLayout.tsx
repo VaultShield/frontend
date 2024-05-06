@@ -96,8 +96,8 @@ const DashboardLayout = () => {
           </div>
 
           {/* Bottombar */}
-          <div className="sm:hidden absolute h-screen w-screen bottom-0 right-0 py-6 max-[400px]:px-3 px-6 flex items-end">
-            <div className="w-full degradado rounded-2xl flex justify-between items-center py-3 max-[400px]:px-3 px-6 ">
+          <div className="sm:hidden absolute h-screen w-screen bottom-0 right-0  flex items-end">
+            <div className="w-full degradado  flex justify-between items-center py-3 max-[400px]:px-3 px-6 ">
               <NavLinkDashboard nameLink="Passwords" to="/">
                 <GridViewRoundedIcon />
               </NavLinkDashboard>
