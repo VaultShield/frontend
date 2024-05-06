@@ -61,23 +61,6 @@ export const useRecover = ({ onClose }: UseRecoverProps) => {
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // const words = [
-    //   'rutabaga',
-    //   'blueberry',
-    //   'banana',
-    //   'horseradish',
-    //   'papaya',
-    //   'xigua',
-    //   'okra',
-    //   'zucchini',
-    //   'lime',
-    //   'ilama',
-    //   'oat',
-    //   'vanilla',
-    //   'quinoa',
-    //   'thimbleberry',
-    //   'carrot'
-    // ];
     const res = await getRecoverToken(username, seeds);
     if (res.error) {
       toast.error(res.error.message, { duration: 2000 });
