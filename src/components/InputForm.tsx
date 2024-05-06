@@ -5,6 +5,7 @@ export function InputForm({
   value,
   onChange,
   icon,
+  iconOnlyForPassword,
   name,
   id
 }: InputFormProps) {
@@ -20,6 +21,7 @@ export function InputForm({
         name={name}
         id={id}
       />
+      {iconOnlyForPassword}
     </label>
   );
 }

@@ -1,6 +1,7 @@
 export type InputFormProps = {
   type: string;
   icon?: React.ReactNode;
+  iconOnlyForPassword?: React.ReactNode;
   placeholder?: string;
   value?: string;
   name?: string;
