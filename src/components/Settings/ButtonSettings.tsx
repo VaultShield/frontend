@@ -13,7 +13,7 @@ const ButtonSettings = ({
     <button
       type={type}
       onClick={handleClick}
-      className="bg-primary w-full h-12 rounded-full text-white  "
+      className="bg-primary w-full h-12 rounded-full text-white  font-semibold"
     >
       {text}
     </button>
