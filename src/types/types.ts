@@ -6,3 +6,9 @@ export interface ErrorsForm {
   oldPassword?: string;
   newPassword?: string;
 }
+
+export enum CARD {
+  seed = 'seed',
+  password = 'password',
+  username = 'username'
+}
