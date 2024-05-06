@@ -82,3 +82,12 @@ export interface UserDataUpdateRequest {
   username: string;
   email: string;
 }
+
+export interface UpdatePasswordRequest {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface ErrorMessage {
+  message: string;
+}

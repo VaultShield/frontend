@@ -3,4 +3,6 @@ export interface ErrorsForm {
   password?: string;
   username?: string;
   error?: string;
+  oldPassword?: string;
+  newPassword?: string;
 }

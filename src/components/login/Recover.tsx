@@ -1,16 +1,23 @@
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 interface RecoverProps {
   onClose: () => void;
 }
 export function Recover({ onClose }: RecoverProps) {
   const [userCorrect, setUserCorrect] = useState('');
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('submit');
+  };
   return (
     <div className="absolute flex justify-center items-center right-0 top-0 h-screen  w-screen  z-50 overflow-y-hidden">
-      <div className="bg-white text-whitebg w-full h-full flex flex-col justify-center rounded-lg items-center p-6 space-y-5">
+      <form
+        className="bg-white text-whitebg w-full h-full flex flex-col justify-center rounded-lg items-center p-6 space-y-5"
+        onSubmit={handleSubmit}
+      >
         <div className="w-full flex justify-start">
           <div
             onClick={() => {
@@ -22,7 +29,7 @@ export function Recover({ onClose }: RecoverProps) {
           </div>
         </div>
 
-        {userCorrect === 'seed' ? (
+        {userCorrect === 'seed' && (
           <div className="w-full h-[90%] flex flex-col justify-center items-center space-y-5">
             <div className="font-bold text-2xl text-black">
               Enter All Words!
@@ -54,53 +61,54 @@ export function Recover({ onClose }: RecoverProps) {
               </button>
             </div>
           </div>
-        ) : userCorrect === 'password' ? (
+        )}
+        {userCorrect === 'password' && (
           <div className="w-full h-full flex flex-col justify-center items-center space-y-5">
             <div className="font-bold text-black text-2xl">
               Enter your new password
             </div>
             <div className="w-full max-w-[30rem] flex items-center">
-                <KeyRoundedIcon className="absolute ml-4 text-primary" />{' '}
-                <input
-                  type="text"
-                  className="bg-primary bg-opacity-15 text-black rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-                  placeholder="New Password"
-                />
-              </div>{' '}
-              <div className="w-full max-w-[30rem] ">
-                <button
-                  onClick={() => setUserCorrect('')}
-                  className="bg-primary text-white h-12 w-full rounded-full font-semibold"
-                >
-                  Continue
-                </button>
-              </div>
+              <KeyRoundedIcon className="absolute ml-4 text-primary" />{' '}
+              <input
+                type="text"
+                className="bg-primary bg-opacity-15 text-black rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
+                placeholder="New Password"
+              />
+            </div>{' '}
+            <div className="w-full max-w-[30rem] ">
+              <button
+                onClick={() => setUserCorrect('')}
+                className="bg-primary text-white h-12 w-full rounded-full font-semibold"
+              >
+                Continue
+              </button>
             </div>
-          ) : (
-            <div className="w-full h-full flex flex-col justify-center items-center space-y-5">
-              <div className="font-bold text-2xl text-black">
-                Enter your username
-              </div>
-              <div className="w-full max-w-[30rem] flex items-center">
-                  {' '}
-                  <PersonRoundedIcon className="absolute ml-4 text-primary" />
-                  <input
-                    type="text"
-                    className="bg-primary bg-opacity-15 text-black rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-                    placeholder="Username"
-                  />
-                </div>
-                <div className="w-full max-w-[30rem]">
-                  <button
-                    onClick={() => setUserCorrect('seed')}
-                    className="bg-primary text-white h-12 w-full rounded-full font-semibold"
-                  >
-                    Continue
-                  </button>
-                </div>
-              </div>
+          </div>
         )}
-      </div>
+        {userCorrect === '' && (
+          <div className="w-full h-full flex flex-col justify-center items-center space-y-5">
+            <div className="font-bold text-2xl text-black">
+              Enter your username
+            </div>
+            <div className="w-full max-w-[30rem] flex items-center">
+              <PersonRoundedIcon className="absolute ml-4 text-primary" />
+              <input
+                type="text"
+                className="bg-primary bg-opacity-15 text-black rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
+                placeholder="username"
+              />
+            </div>
+            <div className="w-full max-w-[30rem]">
+              <button
+                onClick={() => setUserCorrect('seed')}
+                className="bg-primary text-white h-12 w-full rounded-full font-semibold"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+      </form>
     </div>
   );
 }
