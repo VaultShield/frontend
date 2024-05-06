@@ -24,10 +24,8 @@ export async function getRecoverToken(username: string, seedphrase: string[]) {
       return { error: errorMessage };
     }
     const data = await response.json();
-    console.log({ data });
     return data.token;
   } catch (error) {
-    console.log((error as Error).message);
     throw new Error((error as Error).message || 'Error');
   }
 }
@@ -45,17 +43,12 @@ export async function recoverPassword(token: string, password: string) {
       },
       body: JSON.stringify(requestNewPassword)
     });
-    console.log(response);
     if (!response.ok) {
       const errorMessage = await response.json();
-      // if (errorMessage.token === null) {
-      //   return { error: { message: 'Incorrect seeds words' } };
-      // }
+
       return { error: errorMessage };
     }
-    const data = await response.json();
-    console.log({ data });
-    return data;
+    return response;
   } catch (error) {
     throw new Error((error as Error).message || 'Error');
   }
