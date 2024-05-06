@@ -66,10 +66,15 @@ const DashboardLayout = () => {
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
                   </Link>
-                  <ButtonExit
-                    setShowConfirmation={setShowConfirmation}
-                    showConfirmation={showConfirmation}
-                  />
+                  <button
+                  className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
+                  onClick={() => setShowConfirmation(true)}
+                >
+                  <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
+                    <LogoutRoundedIcon />
+                  </div>
+                  <div className="max-xl:hidden">Log Out</div>
+                </button>
                 </aside>
               ) : null}
 
@@ -96,7 +101,7 @@ const DashboardLayout = () => {
           </div>
 
           {/* Bottombar */}
-          <div className="sm:hidden absolute h-screen w-screen bottom-0 right-0  flex items-end">
+          <div className="sm:hidden absolute  w-screen bottom-0 right-0  flex items-end">
             <div className="w-full degradado  flex justify-between items-center py-3 max-[400px]:px-3 px-6 ">
               <NavLinkDashboard nameLink="Passwords" to="/">
                 <GridViewRoundedIcon />
@@ -105,28 +110,55 @@ const DashboardLayout = () => {
               <NavLinkDashboard nameLink="Passwords" to="/generator">
                 <PasswordRoundedIcon />
               </NavLinkDashboard>
-              <div onClick={()=>setNewCredential(true)} className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer">
+              <div
+                onClick={() => setNewCredential(true)}
+                className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer"
+              >
                 <AddRoundedIcon />
               </div>
               <NavLinkDashboard nameLink="Passwords" to="/settings">
                 <PersonRoundedIcon />
               </NavLinkDashboard>
               <div className="aspect-square h-12 flex items-center justify-center  cursor-pointer">
-                <ButtonExit
-                  setShowConfirmation={setShowConfirmation}
-                  showConfirmation={showConfirmation}
-                />
+                <button
+                  className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
+                  onClick={() => setShowConfirmation(true)}
+                >
+                  <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
+                    <LogoutRoundedIcon />
+                  </div>
+                  <div className="max-xl:hidden">Log Out</div>
+                </button>
               </div>
             </div>
-            
           </div>
           <FormCreateCredential
-              isOpen={newCredential}
-              onClose={() => setNewCredential(false)}
-            />
+            isOpen={newCredential}
+            onClose={() => setNewCredential(false)}
+          />
           <div className="xl:w-4/5 w-full flex overflow-y-auto">
             <Outlet />
           </div>
+          {showConfirmation && (
+        <div className="absolute h-screen w-screen  flex items-center justify-center z-20 top-0 right-0">
+          <div className="bg-white rounded-xl z-50 text-black w-96 py-6 space-y-3 mx-3">
+            <div className="text-xl font-semibold">Are your sure?</div>
+            <div className="grid min-[500px]:grid-cols-2  gap-3 font-medium w-full px-6 ">
+              <ButtonExit/>
+              <button
+                onClick={() => setShowConfirmation(false)}
+                className="h-12 bg-red-600 text-white  rounded-full border-2 border-red-600 w-full "
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div
+            onClick={() => setShowConfirmation(false)}
+            className="absolute h-screen w-screen bg-[#000000] opacity-90 "
+          />
+        </div>
+      )}
         </div>
       </div>
     </div>

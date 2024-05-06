@@ -2,12 +2,8 @@ import { useUserStore } from 'store/userStore';
 import { useNavigate } from 'react-router-dom';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
-interface ExitProps{
-  setShowConfirmation: (show:boolean)=>void
-  showConfirmation:boolean
-  
-}
-const ButtonExit = ({setShowConfirmation, showConfirmation}:ExitProps) => {
+
+const ButtonExit = () => {
   const setUser = useUserStore((state) => state.setUser);
   const setTokenStore = useUserStore((state) => state.setToken);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
@@ -36,38 +32,12 @@ const ButtonExit = ({setShowConfirmation, showConfirmation}:ExitProps) => {
   };
 
   return (
-    <>
     <button
-    className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
-    onClick={()=>setShowConfirmation(true)}
+    onClick={handleButtonClick}
+    className="min-[500px]:order-2 h-12 text-white bg-primary rounded-full border-2 border-primary w-full  "
   >
-    <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
-      <LogoutRoundedIcon />
-    </div>
-    <div className="max-xl:hidden">Log Out</div>
+    Confirm
   </button>
-  {showConfirmation && (
-    <div className="absolute h-screen w-screen  flex items-center justify-center z-20 top-0 right-0">
-      <div className="bg-white rounded-xl z-50 text-black w-96 py-6 space-y-3 mx-3">
-        <div className='text-xl font-semibold'>
-          Are your sure?
-        </div>
-        <div className='grid min-[500px]:grid-cols-2  gap-3 font-medium w-full px-6 '>
-         
-          <button onClick={handleButtonClick} className='min-[500px]:order-2 h-12 text-white bg-primary rounded-full border-2 border-primary w-full  '>
-            Confirm
-          </button>
-          <button onClick={()=>setShowConfirmation(false)} className='h-12 bg-red-600 text-white  rounded-full border-2 border-red-600 w-full '>
-            Cancel
-          </button>
-        </div>
-    </div>
-      <div
-        onClick={() => setShowConfirmation(false)}
-        className="absolute h-screen w-screen bg-[#000000] opacity-90 "
-      />
-    </div>
-  )}</>
   );
 };
 
