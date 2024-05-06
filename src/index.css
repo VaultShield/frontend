@@ -13,3 +13,7 @@
     background-color: black;
   }
 }
+.degradado{
+  background: linear-gradient(247deg, rgba(9,87,89,1) 0%, rgba(20,186,191,1) 100%);
+
+}

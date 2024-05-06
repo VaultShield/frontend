@@ -1,7 +1,11 @@
-import EmailIcon from 'components/svg/EmailIcon';
-import KeyIcon from 'components/svg/KeyIcon';
-import UsernameIcon from 'components/svg/UsernameIcon';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useUpdateUser } from 'hooks/useUpdateUser';
+import ButtonIcon from './ButtonIcon';
+import ButtonIconText from './ButtonIconText';
+import ButtonSettings from './ButtonSettings';
 import InputSettings from './InputSettings';
 
 const FormUpdateUser = () => {
@@ -17,61 +21,39 @@ const FormUpdateUser = () => {
   } = useUpdateUser();
 
   return (
-    <form
-      className=" flex items-center justify-center max-w-full"
-      onSubmit={handleSubmit}
-    >
-      <div className="w-full flex flex-col px-4  h-64 gap-5">
-        <InputSettings
-          value={newUsername}
-          isEditing
-          handleChange={handleChange}
-          errors={errors}
-          icon={<UsernameIcon />}
-          name="username"
-        />
-        <InputSettings
-          value={newEmail}
-          isEditing
-          handleChange={handleChange}
-          errors={errors}
-          icon={<EmailIcon />}
-          name="email"
-        />
-        <InputSettings
-          value="" // TODO: editar contraseña
-          isEditing
-          handleChange={handleChange}
-          errors={errors}
-          icon={<KeyIcon />}
-          name="password"
-        />
-        <div className="w-full flex justify-end gap-4">
-          {isEditing ? (
-            <>
-              <button
-                onClick={handleCancel}
-                className="bg-[#45ADB0] bg-opacity-[18%] rounded-md text-[#45ADB0] px-4 cursor-pointer py-1 text-sm font-semibold "
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-[#45ADB0]  rounded-md text-[#ECFEFF] px-4 cursor-pointer py-1 text-sm font-semibold  w-16"
-              >
-                Save
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={handleEdit}
-              className="bg-[#45ADB0]  rounded-md text-[#ECFEFF] px-4 cursor-pointer py-1 text-sm font-semibold  w-16"
-            >
-              Edit
-            </button>
-          )}
-        </div>
+    <form className="w-full flex flex-col px-4 gap-5" onSubmit={handleSubmit}>
+      <InputSettings
+        value={newUsername}
+        isEditing={isEditing}
+        handleChange={handleChange}
+        error={errors.username ?? ''}
+        icon={<PersonRoundedIcon />}
+        name="username"
+      />
+      <InputSettings
+        value={newEmail}
+        isEditing={isEditing}
+        handleChange={handleChange}
+        error={errors.email ?? ''}
+        icon={<EmailRoundedIcon />}
+        name="email"
+      />
+      <div className="w-full flex gap-4 h-12">
+        {isEditing ? (
+          <>
+            <ButtonIcon
+              handleClick={handleCancel}
+              icon={<CloseRoundedIcon />}
+            />
+            <ButtonSettings text="Save" type="submit" />
+          </>
+        ) : (
+          <ButtonIconText
+            handleClick={handleEdit}
+            text="Edit"
+            icon={<EditRoundedIcon />}
+          />
+        )}
       </div>
     </form>
   );
