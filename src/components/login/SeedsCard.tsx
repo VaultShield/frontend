@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import CardBasic from './CardBasic';
 
 interface SeedsCardProps {
   handleChangeSeeds: (e: ChangeEvent<HTMLInputElement>, i: number) => void;
@@ -7,7 +6,8 @@ interface SeedsCardProps {
 }
 const SeedsCard = ({ handleChangeSeeds, seeds }: SeedsCardProps) => {
   return (
-    <CardBasic buttonText="Recover" text="Enter All Words!" buttonType="submit">
+    <div className="w-full h-[90%] flex flex-col justify-center items-center space-y-5">
+      <div className="font-bold text-2xl text-black">Enter All Words!</div>
       <div className="text-gray-400">
         Enter the words we gave you when you registered in the same order.
       </div>
@@ -27,7 +27,16 @@ const SeedsCard = ({ handleChangeSeeds, seeds }: SeedsCardProps) => {
           </div>
         ))}
       </div>
-    </CardBasic>
+
+      <div className="w-full max-w-[30rem] ">
+        <button
+          type="submit"
+          className="bg-primary text-white h-12 w-full rounded-full font-semibold"
+        >
+          Recover
+        </button>
+      </div>
+    </div>
   );
 };
 
