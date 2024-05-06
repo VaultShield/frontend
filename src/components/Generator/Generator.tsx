@@ -113,10 +113,8 @@ const Generator = () => {
 
   return (
     <div className="w-full   text-black sm:py-6 sm:pr-6 ">
-      <div className='w-full flex justify-start my-6 text-3xl font-bold max-sm:px-6 sm:text-white text-black'>
-        <div>
-          Passwords Generator
-        </div>
+      <div className="w-full flex justify-start my-6 text-3xl font-bold max-sm:px-6 sm:text-white text-black">
+        Passwords Generator
       </div>
       <div className="grid max-lg:grid-rows-auto lg:grid-cols-3  sm:gap-6">
         <div className="  lg:col-span-2 grid grid-cols-5 bg-white rounded-xl sm:gap-6 gap-2 p-6">
