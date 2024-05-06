@@ -46,6 +46,10 @@ export interface RecoverResponse {
   token: string;
 }
 
+export interface RecoverNewPasswordRequest {
+  newPassword: string;
+}
+
 export interface CredentialRequest {
   userId: string;
   credentialType: string;
