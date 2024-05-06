@@ -16,7 +16,6 @@ import LogoVaultIcon from '../../public/shield_lock.png';
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
-
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
@@ -38,7 +37,6 @@ const DashboardLayout = () => {
                 <NavLinkDashboard nameLink="Passwords" to="/">
                   <GridViewRoundedIcon />
                 </NavLinkDashboard>
-
                 <NavLinkDashboard nameLink="Pass Generator" to="/generator">
                   <PasswordRoundedIcon />
                 </NavLinkDashboard>
@@ -62,7 +60,6 @@ const DashboardLayout = () => {
                   <ButtonExit />
                 </aside>
               ) : null}
-
               <div
                 onClick={() => setShowOptions(!showOptions)}
                 className={`w-full bg-opacity-25 h-14 flex items-center p-1 ${showOptions ? 'rounded-b-2xl ' : 'rounded-full bg-white '}  space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center group relative`}
@@ -93,5 +90,4 @@ const DashboardLayout = () => {
     </div>
   );
 };
-
 export default DashboardLayout;
