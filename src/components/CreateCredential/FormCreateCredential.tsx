@@ -1,7 +1,12 @@
-export function FormCreateCredential({ isOpen, onClose }) {
+interface FormProps{
+  isOpen: boolean,
+  onClose:()=>void
+}
+
+export function FormCreateCredential({ isOpen, onClose }:FormProps) {
   return (
     <>
-      {isOpen ? (
+      {isOpen && (
         <div className="absolute h-screen w-screen top-0 left-0 z-30 flex items-center justify-center">
           <div
             onClick={onClose}
@@ -52,7 +57,7 @@ export function FormCreateCredential({ isOpen, onClose }) {
             </form>
           </div>
         </div>
-      ) : null}
+      ) }
     </>
   );
 }

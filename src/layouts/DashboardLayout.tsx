@@ -14,9 +14,14 @@ import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
+
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [newCredential, setNewCredential] = useState(false);
 
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
@@ -61,7 +66,10 @@ const DashboardLayout = () => {
                     </div>
                     <div className="max-xl:hidden">Edit Profile</div>
                   </Link>
-                  <ButtonExit />
+                  <ButtonExit
+                    setShowConfirmation={setShowConfirmation}
+                    showConfirmation={showConfirmation}
+                  />
                 </aside>
               ) : null}
 
@@ -73,7 +81,7 @@ const DashboardLayout = () => {
                   <PersonRoundedIcon />
                 </div>
                 <div className="max-xl:hidden">{username}</div>
-                <div className=" absolute right-3 transition-colors duration-150 w-10 h-10 flex items-center justify-center group-hover:bg-white rounded-full group-hover:bg-opacity-25">
+                <div className=" absolute right-3 transition-colors duration-150 w-10 h-10 flex items-center justify-center xl:group-hover:bg-white rounded-full xl:group-hover:bg-opacity-25">
                   <div className=" flex justify-end max-xl:hidden ">
                     {showOptions && (
                       <KeyboardArrowUpRoundedIcon className="scale-125" />
@@ -88,8 +96,8 @@ const DashboardLayout = () => {
           </div>
 
           {/* Bottombar */}
-          <div className="sm:hidden absolute w-screen bottom-0 right-0 py-6 max-[400px]:px-3 px-6">
-            <div className="w-full degradado rounded-2xl flex justify-between items-center py-3 max-[400px]:px-3 px-6">
+          <div className="sm:hidden absolute h-screen w-screen bottom-0 right-0 py-6 max-[400px]:px-3 px-6 flex items-end">
+            <div className="w-full degradado rounded-2xl flex justify-between items-center py-3 max-[400px]:px-3 px-6 ">
               <NavLinkDashboard nameLink="Passwords" to="/">
                 <GridViewRoundedIcon />
               </NavLinkDashboard>
@@ -97,17 +105,25 @@ const DashboardLayout = () => {
               <NavLinkDashboard nameLink="Passwords" to="/generator">
                 <PasswordRoundedIcon />
               </NavLinkDashboard>
-              <div className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer">
+              <div onClick={()=>setNewCredential(true)} className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer">
                 <AddRoundedIcon />
               </div>
               <NavLinkDashboard nameLink="Passwords" to="/settings">
                 <PersonRoundedIcon />
               </NavLinkDashboard>
-              <div className="aspect-square h-12 flex items-center justify-center rounded-full hover:bg-white hover:bg-opacity-25 cursor-pointer">
-                <SettingsRoundedIcon />
+              <div className="aspect-square h-12 flex items-center justify-center  cursor-pointer">
+                <ButtonExit
+                  setShowConfirmation={setShowConfirmation}
+                  showConfirmation={showConfirmation}
+                />
               </div>
             </div>
+            
           </div>
+          <FormCreateCredential
+              isOpen={newCredential}
+              onClose={() => setNewCredential(false)}
+            />
           <div className="xl:w-4/5 w-full flex overflow-y-auto">
             <Outlet />
           </div>
