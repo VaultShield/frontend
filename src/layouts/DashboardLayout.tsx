@@ -136,7 +136,7 @@ const DashboardLayout = () => {
             isOpen={newCredential}
             onClose={() => setNewCredential(false)}
           />
-          <div className="xl:w-4/5 w-full flex overflow-y-auto mb-20">
+          <div className="xl:w-4/5 w-full flex overflow-y-auto max-sm:mb-20">
             <Outlet />
           </div>
           {showConfirmation && (
