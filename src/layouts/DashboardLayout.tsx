@@ -13,11 +13,9 @@ import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRound
 import { useState } from 'react';
 import { useUserStore } from 'store/userStore';
 import { Link } from 'react-router-dom';
-
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
-
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
@@ -39,7 +37,6 @@ const DashboardLayout = () => {
                 <NavLinkDashboard nameLink="Passwords" to="/">
                   <GridViewRoundedIcon />
                 </NavLinkDashboard>
-
                 <NavLinkDashboard nameLink="Pass Generator" to="/generator">
                   <PasswordRoundedIcon />
                 </NavLinkDashboard>
@@ -71,7 +68,6 @@ const DashboardLayout = () => {
                   </div>
                 </aside>
               ) : null}
-
               <div
                 onClick={() => setShowOptions(!showOptions)}
                 className={`w-full bg-opacity-25 h-14 flex items-center p-1 ${showOptions ? 'rounded-b-2xl ' : 'rounded-full bg-white '}  space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center group relative`}
@@ -94,7 +90,7 @@ const DashboardLayout = () => {
             </div>
           </div>
 
-          <div className="xl:w-4/5 w-full items-start lg:pt-8 min-[2000px]:pt-16 justify-start flex  flex-col">
+          <div className="xl:w-4/5 w-full flex overflow-y-auto">
             <Outlet />
           </div>
         </div>
@@ -102,5 +98,4 @@ const DashboardLayout = () => {
     </div>
   );
 };
-
 export default DashboardLayout;
