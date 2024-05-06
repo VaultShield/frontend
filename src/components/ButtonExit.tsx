@@ -57,7 +57,7 @@ const ButtonExit = ({setShowConfirmation, showConfirmation}:ExitProps) => {
           <button onClick={handleButtonClick} className='min-[500px]:order-2 h-12 text-white bg-primary rounded-full border-2 border-primary w-full  '>
             Confirm
           </button>
-          <button onClick={()=>setShowConfirmation(false)} className='h-12 bg-red-600 text-white bg-white rounded-full border-2 border-red-600 w-full '>
+          <button onClick={()=>setShowConfirmation(false)} className='h-12 bg-red-600 text-white  rounded-full border-2 border-red-600 w-full '>
             Cancel
           </button>
         </div>
