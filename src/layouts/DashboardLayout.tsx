@@ -12,7 +12,8 @@ import { useUserStore } from 'store/userStore';
 import { dashboardMainCard } from 'styles/tailwind.classes';
 import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
-
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
@@ -24,7 +25,8 @@ const DashboardLayout = () => {
       </header> */}
       <div className={dashboardMainCard}>
         <div className="h-full flex  relative">
-          <div className=" h-full xl:w-1/5  w-24 min-w-24 flex flex-col justify-between   items-center xl:p-5 max-xl:px-5 py-5">
+          {/* SideBar */}
+          <div className="max-sm:hidden h-full xl:w-1/5  w-24 min-w-24 flex flex-col justify-between   items-center xl:p-5 max-xl:px-5 py-5">
             <div className="w-full">
               <div className=" h-28 flex justify-center items-center">
                 <img
@@ -85,6 +87,27 @@ const DashboardLayout = () => {
             </div>
           </div>
 
+          {/* Bottombar */}
+          <div className="sm:hidden absolute w-screen bottom-0 right-0 py-6 max-[400px]:px-3 px-6">
+            <div className="w-full degradado rounded-2xl flex justify-between items-center py-3 max-[400px]:px-3 px-6">
+              <NavLinkDashboard nameLink="Passwords" to="/">
+                <GridViewRoundedIcon />
+              </NavLinkDashboard>
+
+              <NavLinkDashboard nameLink="Passwords" to="/generator">
+                <PasswordRoundedIcon />
+              </NavLinkDashboard>
+              <div className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer">
+                <AddRoundedIcon />
+              </div>
+              <NavLinkDashboard nameLink="Passwords" to="/settings">
+                <PersonRoundedIcon />
+              </NavLinkDashboard>
+              <div className="aspect-square h-12 flex items-center justify-center rounded-full hover:bg-white hover:bg-opacity-25 cursor-pointer">
+                <SettingsRoundedIcon />
+              </div>
+            </div>
+          </div>
           <div className="xl:w-4/5 w-full flex overflow-y-auto">
             <Outlet />
           </div>
