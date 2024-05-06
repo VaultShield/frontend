@@ -57,19 +57,9 @@ const Generator = () => {
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(true);
-  const [barColor1, setBarColor1] = useState('bg-black');
-  const [barColor2, setBarColor2] = useState('bg-black');
-  const [barColor3, setBarColor3] = useState('bg-black');
-  const [barColor4, setBarColor4] = useState('bg-black');
 
   const [sliderValue, setSliderValue] = useState<number>(25);
   const [password, setPassword] = useState<string>('');
-  const calculateBarWidth = (value: number) => {
-    setBarColor1(value > 1 ? 'bg-primary' : 'dark:bg-gray bg-blackwhite');
-    setBarColor2(value > 5 ? 'bg-primary' : 'dark:bg-gray bg-blackwhite');
-    setBarColor3(value > 10 ? 'bg-primary' : 'dark:bg-gray bg-blackwhite');
-    setBarColor4(value > 25 ? 'bg-primary' : 'dark:bg-gray bg-blackwhite');
-  };
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
     setSliderValue(newValue as number);
@@ -106,18 +96,9 @@ const Generator = () => {
       newPassword += charset.charAt(Math.floor(Math.random() * n));
     }
     setPassword(newPassword);
-    calculateBarWidth(newPassword.length);
   };
   const copyToClipboard = () => {
-    if (password === '') {
-      return;
-    }
-    navigator.clipboard.writeText(password).then(
-      () => {},
-      (err) => {
-        console.error('Error al copiar la contraseña: ', err);
-      }
-    );
+    navigator.clipboard.writeText(password);
   };
 
   useEffect(() => {
@@ -132,6 +113,11 @@ const Generator = () => {
 
   return (
     <div className="w-full   text-black sm:py-6 sm:pr-6 ">
+      <div className='w-full flex justify-start my-6 text-3xl font-bold max-sm:px-6 sm:text-white text-black'>
+        <div>
+          Passwords Generator
+        </div>
+      </div>
       <div className="grid max-lg:grid-rows-auto lg:grid-cols-3  sm:gap-6">
         <div className="  lg:col-span-2 grid grid-cols-5 bg-white rounded-xl sm:gap-6 gap-2 p-6">
           <div className="grid grid-cols-5 col-span-5  2xl:gap-6 gap-3">
@@ -152,11 +138,11 @@ const Generator = () => {
               <div className="max-sm:hidden w-full flex justify-between items-center space-x-3 ">
                 <div>Weak</div>
                 <div className="h-1.5 w-full bg-primary bg-opacity-15 rounded-lg ">
-                <div
-                  className={`h-full bg-primary opacity-100 rounded-lg `}
-                  style={{ width: `${sliderValue * 2}%` }}
-                />
-              </div>
+                  <div
+                    className={`h-full bg-primary opacity-100 rounded-lg `}
+                    style={{ width: `${sliderValue * 2}%` }}
+                  />
+                </div>
                 <div>Strong</div>
               </div>
               <div className="max-sm:hidden flex max-sm:flex-col items-center space-x-4 w-full  mt-5 text-grey">
@@ -184,7 +170,6 @@ const Generator = () => {
               </div>
             </div>
             <div className="w-full">
-
               <button
                 onClick={copyToClipboard}
                 className="bg-primary w-full h-12 space-x-2 rounded-full text-white flex items-center justify-center font-medium"
@@ -196,14 +181,12 @@ const Generator = () => {
           </div>
           <div className="col-span-5 sm:hidden">
             <div className=" w-full flex justify-between items-center space-x-3 mb-10 ">
-
               <div className="h-1.5 w-full bg-primary bg-opacity-15 rounded-lg ">
                 <div
-                  className={`h-full bg-primary opacity-100 rounded-lg `}
+                  className="h-full bg-primary opacity-100 rounded-lg "
                   style={{ width: `${sliderValue * 2}%` }}
                 />
               </div>
-
             </div>
             <div className=" flex max-sm:flex-col items-center space-x-4 w-full  mt-8 text-grey">
               <div className="flex space-x-4 items-center basis-3/4 text-gray dark:text-whitegray w-full">
