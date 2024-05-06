@@ -1,6 +1,6 @@
-import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import { useRecover } from 'hooks/useRecover';
 import { CARD } from 'types/types';
+import BackButton from './BackButton';
 import NewPasswordCard from './NewPasswordCard';
 import SeedsCard from './SeedsCard';
 import UsernameCard from './UsernameCard';
@@ -29,15 +29,7 @@ export function Recover({ onClose }: RecoverProps) {
         className="bg-white text-whitebg w-full h-full flex flex-col justify-center rounded-lg items-center p-6 space-y-5"
         onSubmit={handleSubmit}
       >
-        <div className="w-full flex justify-start">
-          <div
-            onClick={handleGoBack}
-            className="h-12 w-12 rounded-lg border-2 border-primary  text-primary border-opacity-15 hover:bg-primary hover:text-white flex justify-center items-center cursor-pointer"
-          >
-            <KeyboardArrowLeftRoundedIcon />
-          </div>
-        </div>
-
+        <BackButton onClick={handleGoBack} />
         {card === CARD.seed && (
           <SeedsCard
             handleChangeSeeds={handleChangeSeeds}
