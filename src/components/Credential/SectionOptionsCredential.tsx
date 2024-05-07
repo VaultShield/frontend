@@ -1,11 +1,18 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { useCredentials } from 'hooks/useCredentials';
 
 interface OptionProps {
+  id: string;
   setEditCredential: (show: boolean) => void;
 }
 
-export function SectionOptionsCredential({ setEditCredential }: OptionProps) {
+export function SectionOptionsCredential({
+  id,
+  setEditCredential
+}: OptionProps) {
+  const [editCredential, setEditCredential] = useState(false);
+
   return (
     <section className="w-full md:max-w-32 h-full flex justify-end items-center">
       <div

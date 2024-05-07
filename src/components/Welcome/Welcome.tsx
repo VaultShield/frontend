@@ -1,16 +1,35 @@
 import { CardCredential } from 'components/CardCredential';
 import { useState } from 'react';
 import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
+import { useCredentials } from 'hooks/useCredentials';
+import { dataDesEncrypt } from 'services/encryption';
 const Welcome = () => {
-  const [newCredential, setNewCredential] = useState(false);
+  const {
+    password,
+    account,
+    title,
+    note,
+    errors,
+    setAccount,
+    setPassword,
+    setTitle,
+    setNote,
+    handleShowCredentials,
+    handleSubmitAddCredential,
+    handleSubmitEditCredential,
+    listOfCredentials,
+    handleChange,
+    handleDeleteCredential
+  } = useCredentials({ onClose });
 
+  const [newCredential, setNewCredential] = useState(false);
+  function onClose() {
+    setNewCredential(false);
+  }
   return (
     <main className="rounded-2xl w-full my-5 mx-5 flex flex-col items-center  max-w-[2100px]  pb-0 p-0 bg-blueLigth-200 overflow-x-hidden ">
       <div className="w-full pb-0">
-        <FormCreateCredential
-          isOpen={newCredential}
-          onClose={() => setNewCredential(false)}
-        />
+        {newCredential && <FormCreateCredential onClose={onClose} />}
         <section className="w-full text-start text-xl h-[70px] flex flex-colum gap-6 sm:items-center justify-center sm:justify-between  pt-6 ">
           <div className="text-2xl sm:text-4xl text-bground-dark w-full text-start pl-5 font-bold">
             My Credentials
@@ -25,51 +44,16 @@ const Welcome = () => {
           </div>
         </section>
         <section className=" w-full rounded-xl mx-1 flex flex-col gap-4 pt-2 sm:pt-6 pb-4  px-4 ">
-          <CardCredential
-            account="Google"
-            notes="Account of my mother"
-            password="mypassword-extended"
-            userName="example-extend@example.com"
-          />
-          <CardCredential
-            account="Discord"
-            notes="Account of my dad"
-            password="mypassword"
-            userName="example@......"
-          />
-          <CardCredential
-            account="GitHub"
-            notes="-"
-            password="mypassword"
-            userName="example-developer@......"
-          />
-          <CardCredential
-            account="Netflix"
-            notes="-"
-            password="mypassword"
-            userName="example-developer@......"
-          />
-
-          <CardCredential
-            account="Netflix"
-            notes="-"
-            password="mypassword"
-            userName="example-developer@......"
-          />
-
-          <CardCredential
-            account="Netflix"
-            notes="-"
-            password="mypassword"
-            userName="example-developer@......"
-          />
-
-          <CardCredential
-            account="Todo Code"
-            notes="-"
-            password="mypassword"
-            userName="example-developer@......"
-          />
+          {listOfCredentials.map((c) => (
+            <CardCredential
+              key={c.id}
+              id={c.id}
+              account={c.title}
+              notes={c.note}
+              password={dataDesEncrypt(c.password)}
+              userName={c.account}
+            />
+          ))}
         </section>
       </div>
     </main>
