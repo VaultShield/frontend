@@ -1,16 +1,10 @@
-import { useContext, useState, useEffect } from 'react';
-import { btnDefault } from 'styles/tailwind.classes';
-import './CharacterGenerator.css';
-import { NotificationContext } from 'contexts/notificationContext';
-import Slider, {
-  SliderThumb,
-  SliderValueLabelProps
-} from '@mui/material/Slider';
-import { styled } from '@mui/material/styles';
-import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import AutorenewRoundedIcon from '@mui/icons-material/AutorenewRounded';
-import GppMaybeRoundedIcon from '@mui/icons-material/GppMaybeRounded';
-import GppGoodRoundedIcon from '@mui/icons-material/GppGoodRounded';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
+import './CharacterGenerator.css';
 const PrettoSlider = styled(Slider)({
   color: '#119FA4',
   height: 6,
@@ -52,7 +46,7 @@ const PrettoSlider = styled(Slider)({
   }
 });
 
-const Generator = () => {
+const GeneratorPage = () => {
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
@@ -92,13 +86,14 @@ const Generator = () => {
     if (includeSymbols) charset += '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
     let newPassword = '';
-    for (let i = 0, n = charset.length; i < length; ++i) {
+    for (let i = 0, n = charset.length;i < length;++i) {
       newPassword += charset.charAt(Math.floor(Math.random() * n));
     }
     setPassword(newPassword);
   };
   const copyToClipboard = () => {
     navigator.clipboard.writeText(password);
+    toast.success('Password copied to clipboard');
   };
 
   useEffect(() => {
@@ -112,12 +107,12 @@ const Generator = () => {
   ]);
 
   return (
-    <div className="w-full   text-black sm:py-6 sm:pr-6 ">
-      <div className="w-full flex justify-start my-6 text-3xl font-bold max-sm:px-6 sm:text-white text-black">
+    <div className="w-full text-black sm:py-6 sm:pr-6 ">
+      <div className="w-full flex justify-start my-6 text-3xl font-bold max-sm:px-6 text-white">
         Passwords Generator
       </div>
-      <div className="grid max-lg:grid-rows-auto lg:grid-cols-3  sm:gap-6">
-        <div className="  lg:col-span-2 grid grid-cols-5 bg-white rounded-xl sm:gap-6 gap-2 p-6">
+      <div className="grid max-lg:grid-rows-auto lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 grid grid-cols-5 bg-white rounded-xl sm:gap-6 gap-2 p-6">
           <div className="grid grid-cols-5 col-span-5  2xl:gap-6 gap-3">
             <div className="col-span-4 ">
               <div className="bg-primary bg-opacity-15 rounded-full w-full h-12 flex">
@@ -125,6 +120,7 @@ const Generator = () => {
                   value={password}
                   type="text"
                   className="h-12 bg-transparent outline-none w-full pl-3"
+                  readOnly
                 />
                 <button
                   onClick={() => generatePassword(sliderValue)}
@@ -144,10 +140,10 @@ const Generator = () => {
                 <div>Strong</div>
               </div>
               <div className="max-sm:hidden flex max-sm:flex-col items-center space-x-4 w-full  mt-5 text-grey">
-                <div className="font-semibold text-2xl text-start basis-1/4 dark:text-whitebg text-darkgray">
+                <div className="font-semibold text-xl text-start basis-1/4 text-darkgray">
                   Password Length
                 </div>
-                <div className="flex space-x-4 items-center basis-3/4 text-gray dark:text-whitegray w-full">
+                <div className="flex space-x-4 items-center basis-3/4 text-gray w-full">
                   <div>1</div>
 
                   <div className="w-full flex items-center">
@@ -187,7 +183,7 @@ const Generator = () => {
               </div>
             </div>
             <div className=" flex max-sm:flex-col items-center space-x-4 w-full  mt-8 text-grey">
-              <div className="flex space-x-4 items-center basis-3/4 text-gray dark:text-whitegray w-full">
+              <div className="flex space-x-4 items-center basis-3/4 text-gray w-full">
                 <div className="w-full flex items-center">
                   <PrettoSlider
                     valueLabelDisplay="auto"
@@ -270,11 +266,11 @@ const Generator = () => {
             <div className="max-lg:hidden text-gray-400 flex justify-start">
               <span className="text-primary"> ej.</span> #!@/~
             </div>
-          </div>{' '}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Generator;
+export default GeneratorPage;
