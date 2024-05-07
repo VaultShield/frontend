@@ -1,9 +1,9 @@
-import Welcome from 'components/Welcome';
+import DashboardPage from 'components/Dashboard/DashboardPage';
 
 const Dashboard = () => {
   return (
     <>
-      <Welcome />
+      <DashboardPage />
     </>
   );
 };

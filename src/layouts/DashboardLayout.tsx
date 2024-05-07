@@ -1,28 +1,23 @@
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import ButtonExit from 'components/ButtonExit';
+import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
 import { NavLinkDashboard } from 'components/NavLinkDashboard';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useUserStore } from 'store/userStore';
-import { dashboardMainCard } from 'styles/tailwind.classes';
 import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
-import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
-  const [showConfirmation, setShowConfirmation] = useState(false);
-  const [newCredential, setNewCredential] = useState(false);
-
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
@@ -45,7 +40,6 @@ const DashboardLayout = () => {
                 <NavLinkDashboard nameLink="Passwords" to="/">
                   <GridViewRoundedIcon />
                 </NavLinkDashboard>
-
                 <NavLinkDashboard nameLink="Pass Generator" to="/generator">
                   <PasswordRoundedIcon />
                 </NavLinkDashboard>
@@ -77,7 +71,6 @@ const DashboardLayout = () => {
                   </button>
                 </aside>
               ) : null}
-
               <div
                 onClick={() => setShowOptions(!showOptions)}
                 className={`w-full bg-opacity-25 h-14 flex items-center p-1 ${showOptions ? 'rounded-b-2xl ' : 'rounded-full bg-white '}  space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center group relative`}
@@ -164,5 +157,4 @@ const DashboardLayout = () => {
     </div>
   );
 };
-
 export default DashboardLayout;

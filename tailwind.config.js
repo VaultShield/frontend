@@ -6,9 +6,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary':'#119FA4',
-        'white':'#ECFEFF',
-        'black':'#1E2828',
+        primary: '#119FA4',
+        white: '#ECFEFF',
+        black: '#1E2828',
         cinder: {
           50: '#f2f3fb',
           100: '#e7e9f8',
@@ -34,9 +34,17 @@ export default {
           700: '#037962',
           800: '#05604f',
           900: '#064e42',
-          950: '#022c26',
+          950: '#022c26'
         },
-        bground:{
+        blueLigth: {
+          100: '#CEEFF1',
+          200: '#ECFEFF',
+          300: '#B6F2F6',
+          600: '#23BAC1',
+          700: '#119FA4',
+          900: '#7F9A9C'
+        },
+        bground: {
           white: '#ffffff',
           grey: '#fefefe',
           dark: '#0e0e11',

@@ -1,6 +1,7 @@
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import InputSettings from 'components/Settings/InputSettings';
 import { useRegister } from 'hooks/useRegister';
 
 interface RegisterProps {
@@ -42,8 +43,36 @@ const RegisterForm = ({
       onSubmit={registerNewUser}
     >
       <div className="text-4xl  mb-5">Lets Start!</div>
-      <div className="w-full max-w-[30rem] flex items-center">
-        <PersonRoundedIcon className="absolute ml-4 text-primary" />
+      <div className="w-full max-w-[30rem] flex flex-col items-center gap-4">
+        <InputSettings
+          value={username}
+          isEditing
+          handleChange={(e) => setUsername(e.target.value)}
+          error={errors.username ?? ''}
+          icon={<PersonRoundedIcon />}
+          name="username"
+          placeholder="Username"
+        />
+        <InputSettings
+          value={email}
+          isEditing
+          handleChange={(e) => setEmail(e.target.value)}
+          error={errors.email ?? ''}
+          icon={<EmailRoundedIcon />}
+          name="email"
+          placeholder="Email"
+        />
+        <InputSettings
+          value={password}
+          isEditing
+          handleChange={(e) => setPassword(e.target.value)}
+          error={errors.password ?? ''}
+          icon={<KeyRoundedIcon />}
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
+        {/* <PersonRoundedIcon className="absolute ml-4 text-primary" />
         <input
           type="text"
           className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
@@ -73,7 +102,7 @@ const RegisterForm = ({
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}
+        {errors.password && <p className="text-red-500">{errors.password}</p>}*/}
       </div>
       <button className="bg-primary w-full max-w-[30rem]  h-12 rounded-full text-white">
         Create Account

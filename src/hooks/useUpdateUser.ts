@@ -58,7 +58,6 @@ export const useUpdateUser = () => {
     if (!errorsForm.email && !errorsForm.username) {
       const res = await updateUserData(formData, token);
       if (res.error) {
-        console.log(res.message);
         toast.error(res.message, { duration: 2000 });
         return;
       }
