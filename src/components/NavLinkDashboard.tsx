@@ -18,16 +18,10 @@ export function NavLinkDashboard({
       }
       to={to}
     >
-
-      <div className='xl:bg-white xl:bg-opacity-25  aspect-square h-full flex items-center justify-center rounded-full '>
+      <div className="xl:bg-white xl:bg-opacity-25  aspect-square h-full flex items-center justify-center rounded-full ">
         {children}
-
-      </div> 
-      <div className='max-xl:hidden'>
-        {nameLink}
       </div>
-
-
+      <div className="max-xl:hidden">{nameLink}</div>
     </NavLink>
   );
 }
