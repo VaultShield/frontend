@@ -4,14 +4,16 @@ import { SectionNotesCredential } from './Credential/SectionNotesCredential';
 import { SectionOptionsCredential } from './Credential/SectionOptionsCredential';
 import { SectionPasswordCredential } from './Credential/SectionPassword';
 import { FormEditCredential } from './EditCredential/FormEditCredential';
-type CardCredentialProps = {
+interface CardCredentialProps {
+  id: string;
   account: string;
   userName: string;
   notes: string;
   password: string;
-};
+}
 
 export function CardCredential({
+  id,
   account,
   userName,
   notes,
@@ -26,7 +28,10 @@ export function CardCredential({
       </div>
       <div className="w-full xl:max-w-[430px] flex flex-col sm:flex-row justify-start sm:justify-between items-center">
         <SectionNotesCredential notes={notes} />
-        <SectionOptionsCredential setEditCredential={setEditCredential} />
+        <SectionOptionsCredential
+          id={id}
+          setEditCredential={setEditCredential}
+        />
       </div>
       <FormEditCredential
         isOpen={editCredential}
