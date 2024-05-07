@@ -6,7 +6,9 @@ import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRound
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import FormCredential from 'components/Dashboard/Credentials/FormCredential';
 import { NavLinkDashboard } from 'components/NavLinkDashboard';
+import { useButtonExit } from 'hooks/useButtonExit';
 import { useCredentials } from 'hooks/useCredentials';
 import { GENERATOR, HOME, SETTINGS } from 'lib/routes';
 import { useState } from 'react';
@@ -14,8 +16,6 @@ import { Link, Outlet } from 'react-router-dom';
 import { useUserStore } from 'store/userStore';
 import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
-import FormCredential from 'components/Dashboard/Credentials/FormCredential';
-import { useButtonExit } from 'hooks/useButtonExit';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
