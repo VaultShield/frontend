@@ -178,8 +178,8 @@ export const useCredentials = () => {
         if (response === 'updated credential') {
           toast.success(response);
           handleShowCredentials();
+          setOpenEditForm(false);
         } else toast.error('error in update credential');
-        setOpenForm(false);
       }
     } catch (err) {
       if (err instanceof Error) setErrors({ error: err.message });
