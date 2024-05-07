@@ -1,35 +1,57 @@
-import { CardInfo } from 'components/CardsInfo';
-import { Menu } from 'components/Menu';
-import { GithubIcon } from 'components/svg/GithubIcon';
+import Signup from 'components/Signup';
+import { Login } from 'components/login';
+import { useState } from 'react';
+import LogoVaultShield from '../../public/Logo_ValutShield.png';
 
-import { PadlockIcon, SecurityIcon } from 'components/svg/IconsCardsInfo';
 export function Home() {
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
-    <div className="text-white  w-full h-full">
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <header className="bg-cinder-750 h-14 w-full flex justify-between py-4 md:p-4 rounded-none md:rounded-b-xl">
-          <Menu />
-        </header>
-        <main className="h-[620px] lg:h-[700px] flex flex-col justify-center p-0 m-0 ">
-          <section className="flex flex-col gap-4 ">
-            <h1 className="text-cinder-100 text-7xl">VaultShield</h1>
-            <p className="text-cinder-700 text-2xl">Password manager</p>
-          </section>
-        </main>
-        <section className=" flex-col sm:flex-row flex items-center w-[300px] sm:w-full  py-10 h-32 px-6 md:px-6">
-          <CardInfo title="Store your passwords">
-            <PadlockIcon />
-          </CardInfo>
-          <CardInfo title="Export your passwords">
-            <SecurityIcon />
-          </CardInfo>
-        </section>
-        <footer className="flex justify-center pt-6 pb-2 border-b-2 border-cinder-750 w-full">
-          <a href="https://github.com/VaultShield">
-            <GithubIcon />
-          </a>
-        </footer>
+    <div className="md:grid md:grid-cols-2 w-screen h-screen degradado text-white flex flex-col gap-4 items-center align-middle justify-center p-4">
+      <div className="flex items-center justify-center">
+        <img src={LogoVaultShield} alt="Logo_ValutShield" />
       </div>
+      <div className="w-full">
+        <div className="flex flex-col justify-center items-center h-full  font-semibold text-lg space-y-3 ">
+          <div className="text-2xl md:text-3xl lg:text-4xl font-semibold text-whitebg mb-6 ">
+            Join Now!
+          </div>
+          <div className="flex items-center w-full md:px-10 lg:px-[15%] mb-4 ">
+            <button
+              onClick={() => setShowRegister(true)}
+              className="flex items-center justify-center w-full h-12 shadow-lg bg-primary hover:bg-opacity-80 text-white  rounded-full group "
+            >
+              Register
+            </button>
+          </div>
+
+          <div className="text-whitebg font-medium">
+            Alredy have an account?
+          </div>
+          <div className="flex items-center w-full md:px-10 lg:px-[15%] mb-4 ">
+            <button
+              onClick={() => setShowLogin(true)}
+              className="flex items-center justify-center w-full h-12 shadow-lg bg-white bg-opacity-25 hover:bg-opacity-30  text-whitebg  rounded-full group "
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {showRegister && (
+        <Signup
+          onClose={() => setShowRegister(false)}
+          handleLogin={() => setShowLogin(true)}
+        />
+      )}
+      {showLogin && (
+        <Login
+          onClose={() => setShowLogin(false)}
+          handleLogin={() => setShowLogin(!showLogin)}
+        />
+      )}
     </div>
   );
 }

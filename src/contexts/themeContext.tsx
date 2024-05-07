@@ -6,32 +6,57 @@ interface ThemeState {
 
 interface ThemeAction {
   type: 'UPDATE_THEME';
-  theme: string;
 }
 
 interface ThemeContextType {
   themeState: ThemeState;
   themeDispatch: Dispatch<ThemeAction>;
-  updateTheme: (payload: string) => Promise<void>;
 }
 
 const initialThemeState = {
   theme: ''
 };
 
+const valueThemeStorage = window.localStorage.getItem('theme');
+
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  if (valueThemeStorage === null) {
+    initialThemeState.theme = 'dark';
+    document.body.classList.add('dark');
+  }
+  if (valueThemeStorage === 'dark') {
+    initialThemeState.theme = 'dark';
+    document.body.classList.add('dark');
+  }
+  if (valueThemeStorage === '') initialThemeState.theme = '';
+}
+// modo claro
+else {
+  if (valueThemeStorage === null) initialThemeState.theme = '';
+  if (valueThemeStorage === '') initialThemeState.theme = '';
+  if (valueThemeStorage === 'dark') initialThemeState.theme = 'dark';
+}
+
 const themeReducer = (state: ThemeState, action: ThemeAction) => {
   switch (action.type) {
-    case 'UPDATE_THEME':
-      return { ...state, theme: action.theme };
+    case 'UPDATE_THEME': {
+      if (state.theme === 'dark') {
+        document.body.classList.remove('dark');
+        window.localStorage.setItem('theme', '');
+        return { theme: '' };
+      }
+      document.body.classList.add('dark');
+      window.localStorage.setItem('theme', 'dark');
+      return { theme: 'dark' };
+    }
     default:
-      return state;
+      return initialThemeState;
   }
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
   themeState: initialThemeState,
-  themeDispatch: () => {},
-  updateTheme: async () => {}
+  themeDispatch: () => Promise<void>
 });
 
 export const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = (
@@ -42,19 +67,9 @@ export const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = (
     initialThemeState
   );
 
-  const updateTheme = async (payload: string): Promise<void> => {
-    try {
-      themeDispatch({ type: 'UPDATE_THEME', theme: payload });
-    } catch (err) {
-      throw new Error('Error registering theme user');
-    }
-    return Promise.resolve();
-  };
-
   const contextValue: ThemeContextType = {
     themeState,
-    themeDispatch,
-    updateTheme
+    themeDispatch
   };
 
   return (

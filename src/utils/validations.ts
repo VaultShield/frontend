@@ -28,7 +28,7 @@ export const validatePassword = (
   minLength = 8
 ): string => {
   if (required && !password) {
-    return 'Please enter a password';
+    return `Please enter a password`;
   }
 
   if (password.length < minLength) {
@@ -38,10 +38,25 @@ export const validatePassword = (
   return '';
 };
 
-export const validateUsername = (username: string, required = true): string => {
-  if (required && !username) {
-    return 'Please enter a username';
+export const validateCredentialPassword = (
+  password: string,
+  required = true
+): string => {
+  if (required && !password) {
+    return 'Please enter a password';
   }
+  return '';
+};
+
+export const validateText = (
+  name: string,
+  text: string,
+  required = true
+): string => {
+  if (required && !text) {
+    return `Please enter a ${name}`;
+  }
+  return '';
 };
 
 export const validateForm = (fields: Field[]): Errors => {
@@ -57,9 +72,26 @@ export const validateForm = (fields: Field[]): Errors => {
     if (name === 'password') {
       errors.password = validatePassword(value, required, minLength);
     }
+    if (name === 'New Password') {
+      errors.newPassword = validatePassword(value, required, minLength);
+    }
+    if (name === 'Old Password') {
+      errors.oldPassword = validatePassword(value, required, minLength);
+    }
 
     if (name === 'username') {
-      errors.username = validateUsername(value, required);
+      errors.username = validateText(name, value, required);
+    }
+
+    if (name === 'title') {
+      errors.title = validateText(name, value, required);
+    }
+    if (name === 'account') {
+      errors.account = validateText(name, value, required);
+    }
+
+    if (name === 'credentialPassword') {
+      errors.credentialPassword = validateCredentialPassword(value, required);
     }
   }
 

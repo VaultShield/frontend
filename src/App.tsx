@@ -1,68 +1,48 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 //layouts
 import DashboardLayout from 'layouts/DashboardLayout';
 import HomeLayout from 'layouts/HomeLayout';
 //pages
-import Home from 'pages/Home';
 import Dashboard from 'pages/Dashboard';
+import Home from 'pages/Home';
+import Settings from 'pages/Settings';
 //components
-import { Login } from 'components/login';
-import Signup from 'components/Signup';
-import Notification from 'components/Notification';
-import Generator from 'components/Generator';
+import Generator from 'pages/Generator';
 //contexts
-import { ThemeContext } from 'contexts/themeContext';
-import { UserContext } from 'contexts/userContext';
+import { useUserStore } from 'store/userStore';
 //hooks
-import { useUser } from 'hooks/useUser';
+import { GENERATOR, HOME, SETTINGS } from 'lib/routes';
+//import ThemeContext from 'contexts/themeContext';
+
+import { useStorage } from 'hooks/useStorage';
+import { Toaster } from 'sonner';
 
 const App = () => {
-  const { updateTheme } = useContext(ThemeContext);
-  const { logged } = useContext(UserContext);
+  const isLogged = useUserStore((state) => state.isLogged);
   const navigate = useNavigate();
-  const { isLogged } = useUser();
   const [isLoading, setIsLoading] = useState(true);
-  const token = localStorage.getItem('token'); //check token in localStorage
+  const { recoverSesionStorage } = useStorage();
 
+  const lastVisitedPage = localStorage.getItem('lastVisitedPage') ?? '/';
   useEffect(() => {
-    if (isLogged !== undefined) {
-      setIsLoading(false);
-    }
-    if (isLogged) {
+    if (!isLogged && !recoverSesionStorage()) {
       navigate('/');
     }
-  }, [isLogged]);
-
-  /**
-   *Check the user's color theme preferences.
-   */
-  useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-
-    const asignTheme = async () => {
-      if (prefersDarkMode) {
-        document.body.classList.add('dark');
-        document.body.style.backgroundColor = '#18181b';
-        await updateTheme('dark');
-      } else {
-        document.body.classList.remove('dark');
-        document.body.style.backgroundColor = '#FFFFFF';
-        await updateTheme('');
-      }
-    };
-
-    asignTheme();
   }, []);
+  useEffect(() => {
+    setIsLoading(false);
+    const currentPath = window.location.pathname;
+    localStorage.setItem('lastVisitedPage', currentPath);
+  }, [navigate]);
 
   useEffect(() => {
-    if (token) {
-      logged();
+    if (!isLoading && isLogged) {
+      const lastVisitedPage = localStorage.getItem('lastVisitedPage');
+      if (lastVisitedPage) navigate(lastVisitedPage);
     }
-  }, []);
+  }, [isLogged, isLoading]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -72,9 +52,10 @@ const App = () => {
   if (isLogged) {
     routes = null;
     routes = (
-      <Route path="/" element={<DashboardLayout />}>
+      <Route path={HOME} element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="/generator" element={<Generator />} />
+        <Route path={GENERATOR} element={<Generator />} />
+        <Route path={SETTINGS} element={<Settings />} />
       </Route>
     );
   } else {
@@ -82,18 +63,18 @@ const App = () => {
     routes = (
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<Home />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
       </Route>
     );
   }
 
   return (
-    <>
-      <Notification />
-
-      <Routes>{routes}</Routes>
-    </>
+    <div className="bg-bground-white dark:bg-bground-dark h-screen">
+      <Toaster richColors />
+      <Routes>
+        {routes}
+        <Route path="*" element={<Navigate to={lastVisitedPage} replace />} />
+      </Routes>
+    </div>
   );
 };
 

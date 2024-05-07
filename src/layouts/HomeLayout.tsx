@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const HomeLayout = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-between h-full text-white">
       <Outlet />
     </div>
   );

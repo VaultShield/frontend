@@ -1,112 +1,61 @@
-import { useContext, useState, MouseEventHandler } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useSeedWords } from 'hooks/useSeedWords';
 
-import { validateForm } from 'utils/validations';
-import { card, insideCard, btnDefault } from 'styles/tailwind.classes';
-import InputBase from 'components/InputBase';
-import { UserContext } from 'contexts/userContext';
-import { NotificationContext } from 'contexts/notificationContext';
-
-interface ErrorsForm {
-  email?: string;
-  password?: string;
-  username?: string;
-  error?: string;
+import CopyToClipboard from './CopyToClipboard';
+import RegisterForm from './RegisterForm';
+interface RegisterProps {
+  onClose: () => void;
+  handleLogin: () => void;
 }
-
-const Signup = () => {
-  const navigate = useNavigate();
-  //context
-  const { addUser } = useContext(UserContext);
-  const { showNotification } = useContext(NotificationContext);
-  //user variables
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  //validation error;
-  const [errors, setErrors] = useState<ErrorsForm>({});
-
-  const handleRegister: MouseEventHandler<HTMLButtonElement> = async (
-    event
-  ) => {
-    try {
-      event.preventDefault();
-
-      const errorsForm: ErrorsForm = validateForm([
-        { name: 'email', value: email, required: true },
-        { name: 'password', value: password, required: true, minLength: 8 },
-        { name: 'username', value: username, required: true }
-      ]);
-
-      setErrors(errorsForm);
-
-      if (!errorsForm.email && !errorsForm.password && !errorsForm.username) {
-        const newUser = {
-          email,
-          password,
-          username
-        };
-        await addUser(newUser);
-        showNotification({
-          message: 'Registration successfuly!',
-          variant: 'success'
-        });
-        navigate('/');
-      }
-    } catch (err) {
-      if (err instanceof Error) setErrors({ error: err.message });
-      showNotification({
-        message: 'Error in registration!',
-        variant: 'danger'
-      });
-    }
-  };
-
+const Signup = ({ onClose, handleLogin }: RegisterProps) => {
+  const { seedWords, showWords, handleAddWords, handleSeedWords } =
+    useSeedWords();
   return (
-    <div className={card}>
-      <div className={insideCard}>
-        <div>
-          <h2 className="dark:text-gray-100 text-lg">
-            Create a VaultShield account
-          </h2>
-          <p className="dark:text-gray-100"> one account for everything!</p>
-        </div>
-        <InputBase
-          label="Username"
-          type="text"
-          placeholder="what do you want to call yourself?"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></InputBase>
-        {errors.username && <p className="text-red-500">{errors.username}</p>}{' '}
-        <InputBase
-          label="Email"
-          type="email"
-          placeholder="input your email..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p className="text-red-500">{errors.email}</p>}{' '}
-        <InputBase
-          label="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <p className="text-red-500">{errors.password}</p>}{' '}
-        <button className={btnDefault} onClick={handleRegister}>
-          Create Account
-        </button>
-        {errors.error && <p className="text-red-500">{errors.error}</p>}{' '}
-        <div>
-          <span>Already have an account?</span>
-          <Link
-            className="ml-2 hover:underline hover:text-cinder-600 text-cinder-400"
-            to="/Login"
+    <div className="absolute flex justify-center items-center right-0 top-0 h-screen w-screen text-white ">
+      <div
+        onClick={onClose}
+        className="absolute bg-[#000000] opacity-80 h-screen w-screen "
+      ></div>
+      <div className="relative flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  md:h-[85%] lg:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
+        <div className="absolute  text-white  w-full flex justify-end items-start top-0 pr-5 pt-5">
+          <button
+            onClick={showWords ? handleSeedWords : onClose}
+            className="md:h-12 md:w-12 w-10 h-10 rounded-lg border-2 border-primary  text-primary border-opacity-15 hover:bg-primary hover:text-white flex justify-center items-center cursor-pointer z-20"
           >
-            Login
-          </Link>
+            <CloseRoundedIcon />
+          </button>
         </div>
+
+        {showWords ? (
+          <div className=" w-full h-[90%] flex flex-col justify-center items-center gap-5">
+            <div className="font-bold text-2xl text-black">Seed words !</div>
+            <div className="text-gray-400 mx-10">
+              Please ensure to securely store the following words. You will need
+              them in the exact order to recover your password in case of loss.
+            </div>
+            <ul className="grid lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4 p-5 bg-primary bg-opacity-15 rounded-lg max-h-[70%] overflow-y-auto mx-10">
+              {seedWords.map((word, i) => (
+                <li
+                  key={i}
+                  className="flex items-center text-center rounded-lg sm:w-40 space-x-2 text-black"
+                >
+                  <span className="text-primary w-4">{i + 1}:</span>
+                  <span className="text-black">{word}</span>
+                </li>
+              ))}
+            </ul>
+            <CopyToClipboard words={seedWords} />
+          </div>
+        ) : (
+          <RegisterForm
+            onClose={onClose}
+            handleLogin={handleLogin}
+            handleAddWords={handleAddWords}
+            handleSeedWords={handleSeedWords}
+            seedWords={seedWords}
+            showWords={showWords}
+          />
+        )}
       </div>
     </div>
   );

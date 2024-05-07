@@ -1,8 +1,52 @@
-# React + Vite
+<h1 align="center" > VaultShield</h1>
+<h3 align="center"> Frontend</h3>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Installation 
 
-Currently, two official plugins are available:
+1.  Clone the repository.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+```
+git clone https://github.com/VaultShield/frontend.git
+```
+2. Navigate to the project directory:
+
+```
+cd frontend
+```
+
+3. Install the dependencies: (yarn or npm)
+```bash
+yarn install
+```
+or
+```bash
+npm install
+```
+
+### Environment Variables
+
+To connect with VaultShiel-API you must create in the root directory a ``.env.local`` file with the same information as in ``.env.example``
+
+### Running the Application
+To run the application in development mode, use the following command:
+```bash
+yarn run dev
+```
+or
+```bash
+npm run dev
+```
+
+The application will be available at [http://localhost:5173](http://localhost:5173)
+
+
+## Development technologies:
+
+- React + Vite
+- Typescript
+- CSS + Tailwind
+
+
+## API info
+- [VaultShiel backend repo](https://github.com/VaultShield/backend)
