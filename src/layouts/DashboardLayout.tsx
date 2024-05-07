@@ -6,7 +6,6 @@ import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRound
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import ButtonExit from 'components/ButtonExit';
 import { NavLinkDashboard } from 'components/NavLinkDashboard';
 import { useCredentials } from 'hooks/useCredentials';
 import { GENERATOR, HOME, SETTINGS } from 'lib/routes';
@@ -15,18 +14,36 @@ import { Link, Outlet } from 'react-router-dom';
 import { useUserStore } from 'store/userStore';
 import LogoVault from '../../public/Logo_ValutShield.png';
 import LogoVaultIcon from '../../public/shield_lock.png';
+import FormCredential from 'components/Dashboard/Credentials/FormCredential';
+import { useButtonExit } from 'hooks/useButtonExit';
 
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
-  const { handleOpenForm } = useCredentials();
+  const { handleButtonExitClick } = useButtonExit();
+  const {
+    errors,
+    handleSubmitAddCredential,
+    handleChange,
+    handleOpenForm,
+    openForm,
+    credential
+  } = useCredentials();
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
-      {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
-        <Menu />
-      </header> */}
       <div className="w-full h-full flex-col   rounded-md my-0 mx-0 shadow-xl">
         <div className="h-full flex  relative">
+          {openForm && (
+            <FormCredential
+              formTitle="New credential"
+              credential={credential}
+              errors={errors}
+              handleChange={handleChange}
+              handleSubmit={handleSubmitAddCredential}
+              handleClose={handleOpenForm}
+              buttonText="Add credential"
+            />
+          )}
           {/* SideBar */}
           <div className="max-sm:hidden h-full xl:w-1/5  w-24 min-w-24 flex flex-col justify-between   items-center xl:p-5 max-xl:px-5 py-5">
             <div className="w-full">
@@ -64,7 +81,7 @@ const DashboardLayout = () => {
                   </Link>
                   <button
                     className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
-                    onClick={() => console.log('setShowConfirmation(true)')}
+                    onClick={handleButtonExitClick}
                   >
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <LogoutRoundedIcon />
@@ -107,11 +124,8 @@ const DashboardLayout = () => {
               </NavLinkDashboard>
               <div
                 onClick={() => {
-                  console.log('abro');
                   handleOpenForm();
-                  handleOpenForm();
-                  console.log('fin');
-                }} // AQUI
+                }}
                 className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer"
               >
                 <AddRoundedIcon />
@@ -119,10 +133,11 @@ const DashboardLayout = () => {
               <NavLinkDashboard nameLink="Settings" to={SETTINGS}>
                 <PersonRoundedIcon />
               </NavLinkDashboard>
+
               <div className="aspect-square h-12 flex items-center justify-center  cursor-pointer">
                 <button
                   className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
-                  onClick={() => console.log('setShowConfirmation(true)')}
+                  onClick={handleButtonExitClick}
                 >
                   <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                     <LogoutRoundedIcon />
@@ -136,26 +151,6 @@ const DashboardLayout = () => {
           <div className="xl:w-4/5 w-full flex overflow-y-auto max-sm:mb-20">
             <Outlet />
           </div>
-          {false && (
-            <div className="absolute h-full w-screen  flex items-center justify-center z-20 top-0 right-0">
-              <div className="bg-white rounded-xl z-50 text-black w-96 py-6 space-y-3 mx-3">
-                <div className="text-xl font-semibold">Are your sure?</div>
-                <div className="grid min-[500px]:grid-cols-2  gap-3 font-medium w-full px-6 ">
-                  <ButtonExit />
-                  <button
-                    onClick={() => console.log('setShowConfirmation(false)')}
-                    className="h-12 bg-red-600 text-white  rounded-full border-2 border-red-600 w-full "
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              <div
-                onClick={() => console.log('setShowConfirmation(false)')}
-                className="absolute h-screen w-screen bg-[#000000] opacity-90 "
-              />
-            </div>
-          )}
         </div>
       </div>
     </div>

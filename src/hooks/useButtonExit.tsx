@@ -1,16 +1,14 @@
 import { useUserStore } from 'store/userStore';
 import { useNavigate } from 'react-router-dom';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 
-
-const ButtonExit = () => {
+export const useButtonExit = () => {
   const setUser = useUserStore((state) => state.setUser);
   const setTokenStore = useUserStore((state) => state.setToken);
   const setIsLogged = useUserStore((state) => state.setIsLogged);
   const setRefreshToken = useUserStore((state) => state.setRefreshToken);
   const navigate = useNavigate();
 
-  const handleButtonClick = async () => {
+  const handleButtonExitClick = () => {
     deletteGlobalStateUser();
   };
 
@@ -31,14 +29,7 @@ const ButtonExit = () => {
     navigate('/');
   };
 
-  return (
-    <button
-    onClick={handleButtonClick}
-    className="min-[500px]:order-2 h-12 text-white bg-primary rounded-full border-2 border-primary w-full  "
-  >
-    Confirm
-  </button>
-  );
+  return {
+    handleButtonExitClick
+  };
 };
-
-export default ButtonExit;
