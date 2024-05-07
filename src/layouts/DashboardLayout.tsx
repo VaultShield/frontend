@@ -7,8 +7,9 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PasswordRoundedIcon from '@mui/icons-material/PasswordRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import ButtonExit from 'components/ButtonExit';
-import { FormCreateCredential } from 'components/CreateCredential/FormCreateCredential';
 import { NavLinkDashboard } from 'components/NavLinkDashboard';
+import { useCredentials } from 'hooks/useCredentials';
+import { GENERATOR, HOME, SETTINGS } from 'lib/routes';
 import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useUserStore } from 'store/userStore';
@@ -18,6 +19,7 @@ import LogoVaultIcon from '../../public/shield_lock.png';
 const DashboardLayout = () => {
   const [showOptions, setShowOptions] = useState(false);
   const username = useUserStore((state) => state.user.username);
+  const { handleOpenForm } = useCredentials();
   return (
     <div className="flex degradado flex-col justify-start items-center h-full overflow-hidden text-white">
       {/* <header className="w-full max-h-[64px]  flex justify-between  rounded-none md:rounded-b-xl">
@@ -48,7 +50,7 @@ const DashboardLayout = () => {
             <div
               className={`w-full ${showOptions ? 'bg-white bg-opacity-25' : ''}  rounded-[1.73rem] flex-col flex justify-end text-lg font-semibold items-start overflow-hidden`}
             >
-              {showOptions ? (
+              {showOptions && (
                 <aside className="w-full">
                   <Link
                     onClick={() => setShowOptions(!showOptions)}
@@ -62,7 +64,7 @@ const DashboardLayout = () => {
                   </Link>
                   <button
                     className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
-                    onClick={() => setShowConfirmation(true)}
+                    onClick={() => console.log('setShowConfirmation(true)')}
                   >
                     <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                       <LogoutRoundedIcon />
@@ -70,7 +72,7 @@ const DashboardLayout = () => {
                     <div className="max-xl:hidden">Log Out</div>
                   </button>
                 </aside>
-              ) : null}
+              )}
               <div
                 onClick={() => setShowOptions(!showOptions)}
                 className={`w-full bg-opacity-25 h-14 flex items-center p-1 ${showOptions ? 'rounded-b-2xl ' : 'rounded-full bg-white '}  space-x-2 text-lg font-semibold cursor-pointer max-xl:flex  max-xl:justify-center group relative`}
@@ -96,26 +98,31 @@ const DashboardLayout = () => {
           {/* Bottombar */}
           <div className="sm:hidden absolute  w-screen bottom-0 right-0  flex items-end">
             <div className="w-full degradado  flex justify-between items-center py-3 max-[400px]:px-3 px-6 ">
-              <NavLinkDashboard nameLink="Passwords" to="/">
+              <NavLinkDashboard nameLink="Home" to={HOME}>
                 <GridViewRoundedIcon />
               </NavLinkDashboard>
 
-              <NavLinkDashboard nameLink="Passwords" to="/generator">
+              <NavLinkDashboard nameLink="Generador" to={GENERATOR}>
                 <PasswordRoundedIcon />
               </NavLinkDashboard>
               <div
-                onClick={() => setNewCredential(true)}
+                onClick={() => {
+                  console.log('abro');
+                  handleOpenForm();
+                  handleOpenForm();
+                  console.log('fin');
+                }} // AQUI
                 className="bg-white rounded-full w-12 aspect-square text-primary flex items-center justify-center hover:bg-[#ffffff] cursor-pointer"
               >
                 <AddRoundedIcon />
               </div>
-              <NavLinkDashboard nameLink="Passwords" to="/settings">
+              <NavLinkDashboard nameLink="Settings" to={SETTINGS}>
                 <PersonRoundedIcon />
               </NavLinkDashboard>
               <div className="aspect-square h-12 flex items-center justify-center  cursor-pointer">
                 <button
                   className="flex items-center h-14 cursor-pointer w-full sm:hover:bg-white sm:hover:bg-opacity-25 hover:text-red-600"
-                  onClick={() => setShowConfirmation(true)}
+                  onClick={() => console.log('setShowConfirmation(true)')}
                 >
                   <div className="  aspect-square h-full flex items-center justify-center rounded-full ">
                     <LogoutRoundedIcon />
@@ -125,21 +132,18 @@ const DashboardLayout = () => {
               </div>
             </div>
           </div>
-          <FormCreateCredential
-            isOpen={newCredential}
-            onClose={() => setNewCredential(false)}
-          />
+
           <div className="xl:w-4/5 w-full flex overflow-y-auto max-sm:mb-20">
             <Outlet />
           </div>
-          {showConfirmation && (
+          {false && (
             <div className="absolute h-full w-screen  flex items-center justify-center z-20 top-0 right-0">
               <div className="bg-white rounded-xl z-50 text-black w-96 py-6 space-y-3 mx-3">
                 <div className="text-xl font-semibold">Are your sure?</div>
                 <div className="grid min-[500px]:grid-cols-2  gap-3 font-medium w-full px-6 ">
                   <ButtonExit />
                   <button
-                    onClick={() => setShowConfirmation(false)}
+                    onClick={() => console.log('setShowConfirmation(false)')}
                     className="h-12 bg-red-600 text-white  rounded-full border-2 border-red-600 w-full "
                   >
                     Cancel
@@ -147,7 +151,7 @@ const DashboardLayout = () => {
                 </div>
               </div>
               <div
-                onClick={() => setShowConfirmation(false)}
+                onClick={() => console.log('setShowConfirmation(false)')}
                 className="absolute h-screen w-screen bg-[#000000] opacity-90 "
               />
             </div>
