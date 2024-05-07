@@ -55,14 +55,15 @@ const DashboardPage = () => {
           </div>
         </section>
         <section className=" w-full rounded-xl mx-1 flex flex-col gap-4 pt-2 sm:pt-6 pb-4  px-4 ">
-          {listOfCredentials.map((c) => (
-            <CardCredential
-              key={c.id}
-              credential={c}
-              handleDelete={() => handleDeleteCredential(c.credentialId)}
-              handleOpenEditForm={() => handleOpenEditForm(c.id)}
-            />
-          ))}
+          {listOfCredentials.length > 0 &&
+            listOfCredentials.map((c) => (
+              <CardCredential
+                key={c.id}
+                credential={c}
+                handleDelete={() => handleDeleteCredential(c.credentialId)}
+                handleOpenEditForm={() => handleOpenEditForm(c.id)}
+              />
+            ))}
         </section>
       </div>
     </main>

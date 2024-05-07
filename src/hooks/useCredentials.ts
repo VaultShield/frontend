@@ -85,6 +85,7 @@ export const useCredentials = () => {
   const handleShowCredentials = async () => {
     try {
       const response = await getAllCredentials(userId, token);
+      if (typeof response === 'string') return;
       const credentials: CredentialType[] = response.map(
         (c: CredentialResponse) => ({
           ...c.password,
