@@ -1,6 +1,7 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import InputSettings from 'components/Settings/InputSettings';
 import { useLogin } from 'hooks/useLogin';
 import { useState } from 'react';
 import { Recover } from './Recover';
@@ -22,7 +23,7 @@ export function Login({ onClose, handleLogin }: LoginProps) {
         className="absolute bg-[#000000] opacity-80 h-screen w-screen "
       ></div>
 
-      <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
+      <div className="flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  md:h-[85%] lg:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
         <div className="  text-white  w-full flex justify-end items-start  pr-5 pt-5">
           <button
             onClick={onClose}
@@ -34,34 +35,32 @@ export function Login({ onClose, handleLogin }: LoginProps) {
         <form className="w-full flex flex-col justify-center items-center space-y-4 px-5   h-full mt-[-2.84rem] text-black">
           <div className="text-4xl  mb-5">Welcome Back!</div>
           <div className="w-full max-w-[30rem]  flex items-center">
-            <PersonRoundedIcon className="absolute ml-4 text-primary" />
-            <input
-              type="username"
-              className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-              placeholder="Username"
+            <InputSettings
               value={infoUser.username}
-              onChange={(e) =>
+              type="username"
+              handleChange={(e) =>
                 setInfoUser({ ...infoUser, username: e.target.value })
               }
+              placeholder="Username"
+              isEditing
+              error={errors.password ?? ''}
+              icon={<PersonRoundedIcon />}
+              name="username"
             />
-            {errors.username && (
-              <p className="text-red-500">{errors.username}</p>
-            )}{' '}
           </div>
           <div className="w-full max-w-[30rem]  flex items-center">
-            <KeyRoundedIcon className="absolute ml-4 text-primary" />
-            <input
-              type="password"
-              className="bg-primary bg-opacity-15  rounded-full h-12 w-full pl-12 outline-none placeholder:text-gray "
-              placeholder="Password"
+            <InputSettings
               value={infoUser.password}
-              onChange={(e) =>
+              type="password"
+              handleChange={(e) =>
                 setInfoUser({ ...infoUser, password: e.target.value })
               }
+              placeholder="Password"
+              isEditing
+              error={errors.password ?? ''}
+              icon={<KeyRoundedIcon />}
+              name="password"
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password}</p>
-            )}{' '}
           </div>
           <button
             onClick={(e) => {

@@ -53,7 +53,6 @@ export const useChangePassword = () => {
       }
     ]);
     setErrors(errorsForm);
-    console.log({ errorsForm });
     if (
       !errorsForm.password &&
       !errorsForm.newPassword &&

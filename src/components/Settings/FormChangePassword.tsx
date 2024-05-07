@@ -1,6 +1,5 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-import KeyIcon from 'components/svg/KeyIcon';
 import { useChangePassword } from 'hooks/useChangePassword';
 import ButtonIcon from './ButtonIcon';
 import ButtonIconText from './ButtonIconText';
@@ -32,7 +31,7 @@ const FormChangePassword = () => {
               isEditing
               handleChange={handleChange}
               error={errors.oldPassword ?? ''}
-              icon={<KeyIcon />}
+              icon={<KeyRoundedIcon />}
               name="oldPassword"
               type="password"
               placeholder="Enter old password"
@@ -43,7 +42,7 @@ const FormChangePassword = () => {
                 isEditing
                 handleChange={handleChange}
                 error={errors.newPassword ?? ''}
-                icon={<KeyIcon />}
+                icon={<KeyRoundedIcon />}
                 name="newPassword"
                 type="password"
                 placeholder="Enter new password"
@@ -53,7 +52,7 @@ const FormChangePassword = () => {
                 isEditing
                 handleChange={handleChange}
                 error={errors.password ?? ''}
-                icon={<KeyIcon />}
+                icon={<KeyRoundedIcon />}
                 name="repeatNewPassword"
                 type="password"
                 placeholder="Confirm new password"

@@ -16,7 +16,7 @@ const Signup = ({ onClose, handleLogin }: RegisterProps) => {
         onClick={onClose}
         className="absolute bg-[#000000] opacity-80 h-screen w-screen "
       ></div>
-      <div className="relative flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  sm:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
+      <div className="relative flex flex-col justify-center items-center bg-white w-full max-w-[57rem]  md:h-[85%] lg:h-[75%] h-full rounded-lg z-10 text-whitebg  font-semibold">
         <div className="absolute  text-white  w-full flex justify-end items-start top-0 pr-5 pt-5">
           <button
             onClick={showWords ? handleSeedWords : onClose}

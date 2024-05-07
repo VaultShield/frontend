@@ -5,4 +5,13 @@ export interface ErrorsForm {
   error?: string;
   oldPassword?: string;
   newPassword?: string;
+  title?: string;
+  account?: string;
+  note?: string;
+}
+
+export enum CARD {
+  seed = 'seed',
+  password = 'password',
+  username = 'username'
 }
