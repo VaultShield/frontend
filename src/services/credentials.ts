@@ -38,8 +38,10 @@ export async function newCredential(
       },
       body: JSON.stringify(credential)
     });
-    console.log(response);
-    if (!response.ok) return new Error('error in submit credential');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
     return 'submit credential';
   } catch (err) {
     throw new Error((err as ErrorMessage).message);
@@ -55,7 +57,10 @@ export async function deleteCredential(token: string, credentialId: string) {
         Authorization: `Bearer ${token}`
       }
     });
-    if (!response.ok) return new Error('error in detele credential');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
     return 'detele credential';
   } catch (error) {
     throw new Error((error as ErrorMessage).message);
@@ -77,8 +82,11 @@ export async function updateCredential(
       },
       body: JSON.stringify(credential)
     });
-    console.log(response);
-    if (!response.ok) return new Error('error in update credential');
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
     return 'updated credential';
   } catch (err) {
     throw new Error((err as ErrorMessage).message);
