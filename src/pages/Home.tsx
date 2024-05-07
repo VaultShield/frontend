@@ -8,7 +8,6 @@ export function Home() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-
     <div className="md:grid md:grid-cols-2 w-screen h-screen degradado text-white flex flex-col gap-4 items-center align-middle justify-center p-4">
       <div className="flex items-center justify-center">
         <img src={LogoVaultShield} alt="Logo_ValutShield" />

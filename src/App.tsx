@@ -9,7 +9,6 @@ import Dashboard from 'pages/Dashboard';
 import Home from 'pages/Home';
 import Settings from 'pages/Settings';
 //components
-import Notification from 'components/Notification';
 import Generator from 'pages/Generator';
 //contexts
 import { useUserStore } from 'store/userStore';
@@ -70,7 +69,6 @@ const App = () => {
 
   return (
     <div className="bg-bground-white dark:bg-bground-dark h-screen">
-      <Notification />
       <Toaster richColors />
       <Routes>
         {routes}
